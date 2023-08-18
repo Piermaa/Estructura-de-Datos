@@ -18,50 +18,67 @@ public class Tateti : MonoBehaviour
     private TextMeshProUGUI[,] _texts = new TextMeshProUGUI[Rows, Columns];
 
     private bool _playerATurn = false;
-
+    
     private void Awake()
     {
         _playerATurn = Random.Range(0, 1) == 1 ? false : true;
 
         var buttons = GetComponentsInChildren<Button>();
 
-        for (int i = 0; i < buttons.Length; i++)
+        int counter = 0;
+        
+        for (int j = 0; j < Rows; j++)
         {
-            for (int j = 0; j < Rows; j++)
+            for (int k = 0; k < Columns; k++)
             {
-                for (int k = 0; k < Columns; k++)
-                {
-                    _texts[j, k] = buttons[i].GetComponentInChildren<TextMeshProUGUI>();
-                    _texts[j, k].text = "";
-                }
+                _texts[j, k] = buttons[counter].GetComponentInChildren<TextMeshProUGUI>();
+                _texts[j, k].text = "";
+                counter++;
             }
         }
+
     }
 
     public void Check()
     {
-        string last=String.Empty;
+        string lastI=String.Empty;
         for (int i = 0; i < Rows; i++)
         {
-            print($"I: {i}");
+            string lastJ=String.Empty;
             
             for (int j = 0; j < Columns; j++)
             {
-                print($"J: {j}");
-                
-                print(_texts[i, j].text);
+               // print(_texts[i, j].text);
                 if (j > 0)
                 {
-                    // last = _texts[i, j - 1].text;
-                    // if ( != last)
-                    // {
-                    //     print("Es distinto");
-                    //     break;
-                    // }
+                    lastJ = _texts[i, j - 1].text;
+                    if (_texts[i, j].text != lastJ)
+                    {
+                    //    print("Es distinto");
+                        break;
+                    }
+                    else if( _texts[i, j].text!="" && j==2)
+                    {
+                        print($"Player {_texts[i, j].text} Won");
+                        break;
+                    }
                 }
-              
+                
+                if (i > 0)
+                {
+                    lastI = _texts[i-1, j].text;
+                    if (_texts[i, j].text != lastI)
+                    {
+                        print("Es distinto");
+                        break;
+                    }
+                    else if( _texts[i, j].text!="" && i==2)
+                    {
+                        print($"Player {_texts[i, j].text} Won");
+                        break;
+                    }
+                }
             }
-        
         }
     }
 }
