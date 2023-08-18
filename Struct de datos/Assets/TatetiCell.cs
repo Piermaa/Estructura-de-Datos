@@ -19,8 +19,8 @@ public class TatetiCell : MonoBehaviour
     private void PressCell()
     {
         var text = GetComponentInChildren<TextMeshProUGUI>();
-        text.text = _tateti.PlayerATurn ? "X":"O";
-        _tateti.PlayerATurn = !_tateti.PlayerATurn;
+        text.text = _tateti.playerATurn ? "X":"O";
+        _tateti.playerATurn = !_tateti.playerATurn;
         _button.enabled = false;
     }
 }
