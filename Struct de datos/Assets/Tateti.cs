@@ -25,15 +25,13 @@ public class Tateti : MonoBehaviour
 
         var buttons = GetComponentsInChildren<Button>();
 
-        int counter = 0;
-        
+   
         for (int j = 0; j < Rows; j++)
         {
             for (int k = 0; k < Columns; k++)
             {
-                _texts[j, k] = buttons[counter].GetComponentInChildren<TextMeshProUGUI>();
-                _texts[j, k].text = "";
-                counter++;
+                _texts[j, k] = buttons[j*Rows+k].GetComponentInChildren<TextMeshProUGUI>();
+                _texts[j, k].text = $"{j},{k}";
             }
         }
 
