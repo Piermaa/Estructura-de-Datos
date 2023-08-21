@@ -34,49 +34,100 @@ public class Tateti : MonoBehaviour
                 _texts[j, k].text = $"{j},{k}";
             }
         }
-
+        
+   
     }
 
     public void Check()
     {
-        string lastI=String.Empty;
         for (int i = 0; i < Rows; i++)
         {
-            string lastJ=String.Empty;
+            string lastJ=_texts[i, 0].text;
+            int counterJ=0;
             
-            for (int j = 0; j < Columns; j++)
+            for (int j = 1; j < Columns; j++)
             {
-               // print(_texts[i, j].text);
-                if (j > 0)
+                if (_texts[i, j].text == lastJ && (lastJ != "" && _texts[i, j].text != ""))
                 {
-                    lastJ = _texts[i, j - 1].text;
-                    if (_texts[i, j].text != lastJ)
-                    {
-                    //    print("Es distinto");
-                        break;
-                    }
-                    else if( _texts[i, j].text!="" && j==2)
-                    {
-                        print($"Player {_texts[i, j].text} Won");
-                        break;
-                    }
+                    counterJ++;
                 }
-                
-                if (i > 0)
+                else
                 {
-                    lastI = _texts[i-1, j].text;
-                    if (_texts[i, j].text != lastI)
-                    {
-                        print("Es distinto");
-                        break;
-                    }
-                    else if( _texts[i, j].text!="" && i==2)
-                    {
-                        print($"Player {_texts[i, j].text} Won");
-                        break;
-                    }
+                    break;
                 }
             }
+
+            if (counterJ == 2)
+            {
+                print($"Won {lastJ}");
+                break;
+            }
         }
+        
+        for (int j = 0; j < Columns; j++)
+        {
+            string lastI = _texts[0, j].text;
+            int counterI = 0;
+
+            for (int i = 1; i < Rows; i++)
+            {
+                if (_texts[i, j].text == lastI && (lastI != "" && _texts[i, j].text != ""))
+                {
+                    counterI++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            if (counterI==2)
+            {
+                print($"Won {lastI}");
+                break;
+            }
+            
+        }
+
+        // for (int i = 1; i < Rows; i++)
+        // {
+        //     string last=_texts[0, 0].text;
+        //     int counterJ=0;
+        //
+        //     if (_texts[i, i].text == last && (last != "" && _texts[i, i].text != ""))
+        //     {
+        //         counterJ++;
+        //     }
+        //     else
+        //     {
+        //         break;
+        //     }
+        //      
+        //     if (counterJ == 2)
+        //     {
+        //         print($"Won {last}");
+        //         break;
+        //     }
+        // }
+        
+        // 0,0
+        // 0,columns
+        
+        
+        //
+        // string[] currentTexts = new string[Rows * Columns];
+        // for (int j = 0; j < Rows; j++)
+        // {
+        //     for (int k = 0; k < Columns; k++)
+        //     {
+        //         currentTexts[j*Rows+k] = _texts[j, k].text;
+        //     }
+        // }
+        //
+        // for (int i = 0; i < UPPER; i++)
+        // {
+        //     
+        // }
+
     }
 }
