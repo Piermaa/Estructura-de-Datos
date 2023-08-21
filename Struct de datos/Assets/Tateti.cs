@@ -88,46 +88,54 @@ public class Tateti : MonoBehaviour
             }
             
         }
+        
+        
+        string[] currentTexts = new string[Rows * Columns];
+        for (int j = 0; j < Rows; j++)
+        {
+            for (int k = 0; k < Columns; k++)
+            {
+                currentTexts[j*Rows+k] = _texts[j, k].text;
+            }
+        }
 
-        // for (int i = 1; i < Rows; i++)
-        // {
-        //     string last=_texts[0, 0].text;
-        //     int counterJ=0;
-        //
-        //     if (_texts[i, i].text == last && (last != "" && _texts[i, i].text != ""))
-        //     {
-        //         counterJ++;
-        //     }
-        //     else
-        //     {
-        //         break;
-        //     }
-        //      
-        //     if (counterJ == 2)
-        //     {
-        //         print($"Won {last}");
-        //         break;
-        //     }
-        // }
+        // 0 1 2
+        // 3 4 5
+        // 6 7 8
         
-        // 0,0
-        // 0,columns
+        string last = string.Empty;
         
-        
-        //
-        // string[] currentTexts = new string[Rows * Columns];
-        // for (int j = 0; j < Rows; j++)
-        // {
-        //     for (int k = 0; k < Columns; k++)
-        //     {
-        //         currentTexts[j*Rows+k] = _texts[j, k].text;
-        //     }
-        // }
-        //
-        // for (int i = 0; i < UPPER; i++)
-        // {
-        //     
-        // }
+        for (int i = 0; i < currentTexts.Length; i+=Rows+1)
+        {
+            last = currentTexts[0];
+            if (i>0)
+            {
+                if (currentTexts[i]!=last)
+                {
+                    break;
+                }
+                else if(i==currentTexts.Length-1)
+                {
+                    print("Won " + last);
+                } 
+            }
+        }
 
+        for (int i = Rows-1; i < currentTexts.Length; i+=Rows-1)
+        {
+            last = currentTexts[Rows-1];
+            if (i>Rows-1)
+            {
+                if (currentTexts[i]!=last)
+                {
+                    print("es distinto");
+                    break;
+                }
+                else if(i==currentTexts.Length-Rows)
+                {
+                    print("Won " + last);
+                } 
+            }
+        }
     }
 }
