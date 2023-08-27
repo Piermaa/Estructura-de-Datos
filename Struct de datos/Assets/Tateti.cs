@@ -39,42 +39,35 @@ public class Tateti : MonoBehaviour
 
     public void Check()
     {
-        string lastI=String.Empty;
+        print("check");
+        /*
         for (int i = 0; i < Rows; i++)
-        {
-            string lastJ=String.Empty;
-            
+        { 
             for (int j = 0; j < Columns; j++)
             {
-               // print(_texts[i, j].text);
-                if (j > 0)
+                if (_texts[i, 0].text == _texts[i, Mathf.Clamp(j + 1, 0, Columns - 1)].text 
+                    && _texts[i, 0].text == _texts[i, Mathf.Clamp(j + 2, 0, Columns - 1)].text)
                 {
-                    lastJ = _texts[i, j - 1].text;
-                    if (_texts[i, j].text != lastJ)
-                    {
-                    //    print("Es distinto");
-                        break;
-                    }
-                    else if( _texts[i, j].text!="" && j==2)
-                    {
-                        print($"Player {_texts[i, j].text} Won");
-                        break;
-                    }
+                    print("horizontal win");
+                    //terminar el juego
                 }
-                
-                if (i > 0)
+            }
+        }
+        */
+
+        //board esta al reves
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                int clampedNext = Mathf.Clamp(i + 1, 0, Columns - 1);
+
+                //Esquina Derecha
+                if (_texts[i, 0].text == _texts[clampedNext, clampedNext].text
+                    && _texts[i, 0].text == _texts[clampedNext+1, clampedNext+1].text)
                 {
-                    lastI = _texts[i-1, j].text;
-                    if (_texts[i, j].text != lastI)
-                    {
-                        print("Es distinto");
-                        break;
-                    }
-                    else if( _texts[i, j].text!="" && i==2)
-                    {
-                        print($"Player {_texts[i, j].text} Won");
-                        break;
-                    }
+                    print("diag right win");
+                    //EndGame(); terminar el juego
                 }
             }
         }
