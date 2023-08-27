@@ -11,7 +11,7 @@ public class Tower : MonoBehaviour
     {
         towerStack = new Stack<Disc>();
 
-        //Inicializar el stack de la torre donde los discos comienzan el juego y decirle a cada disco que torre es su dueño
+        //Inicializar el stack de la torre donde los discos comienzan el juego y decirle a cada disco que torre es su dueÃ±o
         if (isStarterTower)
         {
             for (int i = HanoiManager.Instance.GameDiscs.Length - 1; i >= 0; i--)
@@ -69,8 +69,10 @@ public class Tower : MonoBehaviour
         towerStack.Push(incomingDisc);
         previousTower.towerStack.Pop();
 
-        //Mover el disco a la pos de la nueva torre e informale que tiene nuevo dueño porque asi es la vida
-        incomingDisc.transform.position = this.transform.position;
+        //Mover el disco a la pos de la nueva torre e informale que tiene nuevo dueÃ±o porque asi es la vida
+        incomingDisc.transform.parent = transform.GetChild(0);
+        
+     //   incomingDisc.transform.position = this.transform.position;
         incomingDisc.TowerOwner = this;
     }
 }
