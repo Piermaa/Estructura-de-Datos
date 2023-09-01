@@ -1,21 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//NO PROBE NADA DE ESTO Y POR AHI NO LO USAMOS UN SALUDO
 public interface IElementoConPrioridad
 {
     int Priority { get; }
 }
-
-public class ColaPrioridadTF<T> : MonoBehaviour, IColaTDA<T> 
+//Que conio esta pasando aca
+//Como despues se requiere verificar el valor int de Priority pero tiene que ser generica la cola le meto ese constraint
+//El new es para poder instanciar un T 
+public class ColaPrioridadTF<T> : MonoBehaviour, IColaTDA<T> where T:IElementoConPrioridad, new()
 {
-    T[] elementos;
-    int[] prioridades; // arreglo en donde se guarda la informacion
-    int indice; // variable entera en donde se guarda la cantidad de elementos que se tienen guardados
+    private IElementoConPrioridad[] elementos;
+    private int[] prioridades; // arreglo en donde se guarda la informacion
+    private int indice; // variable entera en donde se guarda la cantidad de elementos que se tienen guardados
 
     public void InicializarCola()
     {
-        elementos = new T[100];
+        elementos = new IElementoConPrioridad[100];
         prioridades = new int[100];
         indice = 0;
     }
@@ -25,7 +27,7 @@ public class ColaPrioridadTF<T> : MonoBehaviour, IColaTDA<T>
         if (e is IElementoConPrioridad x)
         {
             int j;
-            int puntaje = x.Priority;
+            int puntaje = e.Priority;
         
             // al ingresar cada elemento se 
             for (j = indice; j > 0 && elementos[j - 1].Priority >= puntaje; j--)
@@ -39,7 +41,6 @@ public class ColaPrioridadTF<T> : MonoBehaviour, IColaTDA<T>
 
             indice++;
         }
-        
     }
 
     public void Desacolar()
@@ -56,9 +57,9 @@ public class ColaPrioridadTF<T> : MonoBehaviour, IColaTDA<T>
     {
         if (elementos[indice - 1] is IElementoConPrioridad)
         {
-            return elementos[indice - 1];
+            T e = (T)elementos[indice - 1];
+            return e;
         }
-
         return default;
     }
 
