@@ -1,17 +1,3 @@
-
-public interface IPilaTDA<T>
-{
-    void Init(int length);
-    // siempre que la pila est´e inicializada
-    void Add(T x);
-    // siempre que la pila est´e inicializada y no est´e vac´ıa
-    void Pop();
-    // siempre que la pila est´e inicializada
-    bool isEmpty();
-    // siempre que la pila est´e inicializada y no est´e vac´ıa
-    T Peek();
-}
-
 public class PilaTF<T> : IPilaTDA<T>
 {
     T[] _array; // arreglo en donde se guarda la informacion
@@ -29,9 +15,10 @@ public class PilaTF<T> : IPilaTDA<T>
         _array[_index] = x;
         _index++;
     }
-    public void Pop()
+    public T Pop()
     {
         _index--;
+        return _array[(_index)];
     }
 
     public bool isEmpty()
@@ -46,7 +33,7 @@ public class PilaTF<T> : IPilaTDA<T>
 
     public T Peek()
     {
-        return (T)_array[_index - 1];
+        return _array[_index - 1];
     }
 }
 
