@@ -1,8 +1,9 @@
+using System.Collections;
+
 public class PilaTF<T> : IPilaTDA<T>
 {
     T[] _array; // arreglo en donde se guarda la informacion
     int _index; // variable entera en donde se guarda la cantidad de elementos que se tienen guardados
-
     
     public void Init(int length)
     {
@@ -15,6 +16,7 @@ public class PilaTF<T> : IPilaTDA<T>
         _array[_index] = x;
         _index++;
     }
+    
     public T Pop()
     {
         _index--;

@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour, IWeapon
@@ -20,8 +16,7 @@ public class Weapon : MonoBehaviour, IWeapon
 
     private void Update()
     {
-        Debug.DrawRay(transform.position,Vector3.up,Color.yellow);
-
+        Debug.DrawRay(transform.position,transform.up*bulletTravelDistance,Color.yellow);
     }
 
     protected bool TraceBullet(Vector3 direction, out RaycastHit hit)
@@ -34,7 +29,7 @@ public class Weapon : MonoBehaviour, IWeapon
         if (remainingBullets > 0)
         {
             remainingBullets--;
-            if (TraceBullet(Vector3.up, out var hit))
+            if (TraceBullet(transform.up, out var hit))
             {
                 print(hit.collider.name);
                // hit.transform.GetComponent<Health>().TakeDamage(damage);

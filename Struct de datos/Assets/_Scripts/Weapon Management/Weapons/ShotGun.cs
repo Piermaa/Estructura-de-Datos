@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class ShotGun : Weapon
 {
-    
+    public override void Shoot()
+    {
+        
+    }
 }
