@@ -37,8 +37,9 @@ public class Enemy: Actor
     }
     #endregion
     
-    
     //Lógica de dijkstra
+    
+    
     //--------Management de enemigos--------
     //Deben depender de un factory
     //Deben generarse aleatoriamente
