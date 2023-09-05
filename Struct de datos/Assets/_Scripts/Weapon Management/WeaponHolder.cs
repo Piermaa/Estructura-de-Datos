@@ -13,6 +13,7 @@ public class WeaponHolder : MonoBehaviour
    
     private PilaTF<IWeapon> _pickedWeapons=new();
 
+    #region  MONOBEHAVIOUR_CALLBACKS
     private void Awake()
     {
         _pickedWeapons.Init(50);
@@ -25,6 +26,15 @@ public class WeaponHolder : MonoBehaviour
             ShootEquippedWeapon();
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(WEAPON_TAG))
+        {
+            PickupWeapon(other.GetComponent<IWeapon>());
+        }
+    }
+    #endregion
+ 
 
     private void ShootEquippedWeapon()
     {
@@ -33,7 +43,9 @@ public class WeaponHolder : MonoBehaviour
             _equippedWeapon.Shoot();
         }
     }
-
+/// <summary>
+/// /DEBUG/ Se saltea el arma actual y se equipa la siguiente
+/// </summary>
     private void EquipWeaponNextWeapon()
     {
         if (_equippedWeapon!=null)
@@ -52,7 +64,10 @@ public class WeaponHolder : MonoBehaviour
     {
         _equippedWeapon.WeaponTransform.gameObject.SetActive(false);
     }
-
+/// <summary>
+/// Se equipa el arma pasada como parámetro y la current se guarda en el stack.
+/// </summary>
+/// <param name="weaponToPickUp">Arma recogida del piso</param>
     private void PickupWeapon(IWeapon weaponToPickUp)
     {
         //EL ARMA ACTUAL SE METE EN EL STACK
@@ -71,11 +86,5 @@ public class WeaponHolder : MonoBehaviour
         weaponToPickUp.WeaponTransform.gameObject.SetActive(true);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag(WEAPON_TAG))
-        {
-            PickupWeapon(other.GetComponent<IWeapon>());
-        }
-    }
+
 }

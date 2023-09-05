@@ -12,6 +12,11 @@ public class AimToMouse : MonoBehaviour
 
 	private void Update ()
 	{
+		Aim();
+	}
+
+	private void Aim()
+	{
 		//Get the Screen positions of the object
 		Vector2 positionOnScreen = _main.WorldToViewportPoint (transform.position);
 		
@@ -27,8 +32,7 @@ public class AimToMouse : MonoBehaviour
 
 	private float AngleBetweenTwoPoints(Vector3 a, Vector3 b) 
 	{
-		return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
+		return Mathf.Atan2((a.y - b.y) * 9, (a.x - b.x) * 16) * Mathf.Rad2Deg;
 	}
-
 }
 
