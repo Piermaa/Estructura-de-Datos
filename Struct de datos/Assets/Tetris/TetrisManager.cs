@@ -9,7 +9,7 @@ public class TetrisManager : MonoBehaviour
     [SerializeField] private GameObject[] pieces;
     [SerializeField] private Transform panel;
     private Queue<GameObject> _piecesQueue = new Queue<GameObject>();
-    
+    private int _shapesAmount = 5;
     public void DequeueAndEnqueue()
     {
         if (QueueIsEmpty())
@@ -37,7 +37,7 @@ public class TetrisManager : MonoBehaviour
 
     public void GenerateQueue()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < _shapesAmount; i++)
         {
             EnqueuePiece();
         }
