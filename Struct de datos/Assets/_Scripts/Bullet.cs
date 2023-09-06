@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IPoolable
 {
     private bool hit = false;
     [SerializeField] private float _speed;
@@ -26,13 +26,13 @@ public class Bullet : MonoBehaviour
 
         if (hit || _lifeTimer <= 0)
         {
-            DestroyBullet();
+            OnPoolableObjectDisable();
         }
     }
 
     //No se destruye porque esto va pooleado. Despues habria que destruir el pool si el jugador/enemigo que tenga un pool de por ejemplo,
     //balas, asi no quedan pools vivitos por ahi que no pertenecen a nadie.
-    private void DestroyBullet()
+    public void OnPoolableObjectDisable()
     {
         _lifeTimer = _lifeTime;
         gameObject.SetActive(false);
