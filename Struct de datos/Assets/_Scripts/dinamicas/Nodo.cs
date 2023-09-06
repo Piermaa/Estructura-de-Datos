@@ -94,7 +94,7 @@ public class ListaEnlazada
     }
 }
 
-public class QuequeEnlazada: ListaEnlazada, 
+public class QuequeEnlazada: ListaEnlazada
 {
     public int DevolverPrimerDato()
     {

@@ -1,33 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Bullet : MonoBehaviour
 {
-    public BulletManager bulletManager
+    private bool hit = false;
+    [SerializeField] private float _speed;
+    [SerializeField] private float _lifeTime;
+    private float _lifeTimer = 0;
+
+    private void Start()
     {
-        set { _bulletManager = value; }
+        _lifeTimer = _lifeTime;
     }
 
-    private bool hit = false;
-    private BulletManager _bulletManager;
-    
-    [SerializeField] private float _speed;
-    void Update()
+    private void Update()
     {
         float x = Input.GetAxis("Horizontal");
-
         var t = transform;
-    
         t.position += t.up* Time.deltaTime * _speed;
 
         hit = t.position.y >= 100;
-        
-        if (hit)
+        _lifeTimer -= Time.deltaTime;
+
+        if (hit || _lifeTimer <= 0)
         {
-            _bulletManager.RemoveBullet(this);
-            Destroy(gameObject);
+            DestroyBullet();
         }
+    }
+
+    //No se destruye porque esto va pooleado. Despues habria que destruir el pool si el jugador/enemigo que tenga un pool de por ejemplo,
+    //balas, asi no quedan pools vivitos por ahi que no pertenecen a nadie.
+    private void DestroyBullet()
+    {
+        _lifeTimer = _lifeTime;
+        gameObject.SetActive(false);
     }
 }
