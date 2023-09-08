@@ -12,6 +12,7 @@ public class ShootingController : MonoBehaviour
     [SerializeField] private float fireRateTotalmenteArbitrario = 0.3f;
     [SerializeField] private int maxBulletsToPoolTotalmenteArbitrario = 10;
 
+    //-----UNITY FUNCTIONS--------
     private void Start()
     {
         _bulletPool = GetComponent<ObjectPooler>();
@@ -23,6 +24,8 @@ public class ShootingController : MonoBehaviour
         _shootTimer += Time.deltaTime;
         ListenForShootInput();
     }
+
+    //-----CLASS METHODS--------
 
     private void InitBulletPool()
     {
@@ -41,9 +44,9 @@ public class ShootingController : MonoBehaviour
     {
         //El que haga las armas/weapons, despues tiene que incluir un param de firerate en cada arma y aca en vez de pasar un valor arbitrario
         //iria currentEquippedWeapon.FireRate)
-        if (_shootTimer >= fireRateTotalmenteArbitrario)
+        if (_shootTimer >= fireRateTotalmenteArbitrario && _bulletPool.IsPoolInited)
         {
-            _bulletPool.GetPooledObject();
+            _bulletPool.TryGetPooledObject();
             _shootTimer = 0;
         }
     }

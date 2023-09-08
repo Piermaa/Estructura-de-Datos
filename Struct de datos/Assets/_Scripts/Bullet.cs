@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour, IPoolable
     [SerializeField] private float _lifeTime;
     private float _lifeTimer = 0;
 
+    //-----UNITY FUNCTIONS--------
     private void Start()
     {
         _lifeTimer = _lifeTime;
@@ -24,11 +25,14 @@ public class Bullet : MonoBehaviour, IPoolable
         hit = t.position.y >= 100;
         _lifeTimer -= Time.deltaTime;
 
+        //Bullet Destroy
         if (hit || _lifeTimer <= 0)
         {
             OnPoolableObjectDisable();
         }
     }
+
+    //-----IPOOLABLE--------
 
     //No se destruye porque esto va pooleado. Despues habria que destruir el pool si el jugador/enemigo que tenga un pool de por ejemplo,
     //balas, asi no quedan pools vivitos por ahi que no pertenecen a nadie.

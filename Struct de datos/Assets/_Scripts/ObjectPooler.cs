@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
 {
-    //--Esto se pone en cualquier objeto que cree un pool de un objeto pooleable -> Ej el arma del jugador que crea balas
-    //--Poner el objeto vacio que contenga los objetos pooleados dentro de la var poolFolder.
+    //--Esto se pone en cualquier objeto que cree un pool de objetos IPoolable -> Ej el arma del jugador que crea balas
+    //--Poner el objeto vacio que contenga los objetos pooleados dentro de la var poolFolder serializada en el inspector.
+
+    private bool isPoolInited = false;
 
     //Despues esto hay que portearlo a la cola que hicimos nosotros. Ahora no porque son las 4am y me da paja.
     //Cuando un objeto pooleado se muere que se desactive por su cuenta.
@@ -18,6 +20,14 @@ public class ObjectPooler : MonoBehaviour
     //La otra es crear el objeto/carpeta que las contenga en runtime pero paja
     [SerializeField] private Transform poolFolder;
 
+    //------PUBLIC PROPERTIES-------
+    public bool IsPoolInited
+    {
+        get { return isPoolInited; }
+    }
+
+
+    //-----UNITY FUNCTIONS--------
     private void Awake()
     {
         objectPool = new Queue<GameObject>();
@@ -28,13 +38,19 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
+    //-----CLASS METHODS---------
     public void InitPool(GameObject objectToPool, int poolMaxSize = 10)
     {
-        this.objectToPool = objectToPool;
-        this.poolSize = poolMaxSize;
+        if (objectToPool.TryGetComponent(out IPoolable poolableObj))
+        {
+            this.objectToPool = objectToPool;
+            this.poolSize = poolMaxSize;
+            isPoolInited = true;
+        }
+        else Debug.LogWarning("Alguien esta queriendo poolear un objeto no pooleable.");
     }
 
-    public GameObject GetPooledObject()
+    public GameObject TryGetPooledObject()
     {
         GameObject pooledObject = null;
 
