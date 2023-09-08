@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool : MonoBehaviour
+public class ObjectPooler : MonoBehaviour
 {
+    //--Esto se pone en cualquier objeto que cree un pool de un objeto pooleable -> Ej el arma del jugador que crea balas
+    //--Poner el objeto vacio que contenga los objetos pooleados dentro de la var poolFolder.
+
     //Despues esto hay que portearlo a la cola que hicimos nosotros. Ahora no porque son las 4am y me da paja.
     //Cuando un objeto pooleado se muere que se desactive por su cuenta.
 
@@ -12,6 +15,7 @@ public class ObjectPool : MonoBehaviour
     private int poolSize = 10;
 
     //Asi las cosas pooleadas no toman el transform de su parent y se mueven con el porque eso en las balas no es bueno, no señor.
+    //La otra es crear el objeto/carpeta que las contenga en runtime pero paja
     [SerializeField] private Transform poolFolder;
 
     private void Awake()

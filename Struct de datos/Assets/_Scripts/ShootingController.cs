@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ObjectPool))]
+[RequireComponent(typeof(ObjectPooler))]
 public class ShootingController : MonoBehaviour
 {
-    private ObjectPool _bulletPool;
+    private ObjectPooler _bulletPool;
     [SerializeField] private GameObject _bullet;
 
     private float _shootTimer = 0;
@@ -14,9 +14,8 @@ public class ShootingController : MonoBehaviour
 
     private void Start()
     {
-        _bulletPool = GetComponent<ObjectPool>();
+        _bulletPool = GetComponent<ObjectPooler>();
         InitBulletPool();
-
     }
 
     private void Update()
