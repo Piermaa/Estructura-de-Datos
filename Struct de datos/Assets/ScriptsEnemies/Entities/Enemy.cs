@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ScriptsEnemies.Entities;
+using UnityEngine;
 
 public class Enemy: Actor
 {

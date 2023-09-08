@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 331507713323510625}
   - component: {fileID: 331507713323510557}
   m_Layer: 0
-  m_Name: EnemyBasico
+  m_Name: EnemyDif3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,13 +110,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e16297966d77d414d9337362a8ddb28e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLife: 100
+  maxLife: 200
   currentLife: 0
-  movementSpeed: 10
-  damage: 5
-  attackCooldown: 5
+  movementSpeed: 20
+  damage: 15
+  attackCooldown: 3
   currentAttackCooldown: 0
   hitteableLayer:
     serializedVersion: 2
     m_Bits: 128
-  difficultyLevel: 1
+  difficultyLevel: 3

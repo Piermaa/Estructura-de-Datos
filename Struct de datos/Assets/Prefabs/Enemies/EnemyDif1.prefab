@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 331507713323510625}
   - component: {fileID: 331507713323510557}
   m_Layer: 0
-  m_Name: EnemyBasico
+  m_Name: EnemyDif1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e16297966d77d414d9337362a8ddb28e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLife: 100
+  maxLife: 50
   currentLife: 0
   movementSpeed: 10
   damage: 5
