@@ -6,7 +6,7 @@ public interface IElementoConPrioridad
 {
     int Priority { get; }
 }
-//Que conio esta pasando aca
+//Que conio esta pasando aca 
 //Como despues se requiere verificar el valor int de Priority pero tiene que ser generica la cola le meto ese constraint
 //El new es para poder instanciar un T 
 public class ColaPrioridadTF<T> : MonoBehaviour, IColaTDA<T> where T:IElementoConPrioridad, new()
