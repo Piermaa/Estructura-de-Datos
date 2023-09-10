@@ -9,6 +9,7 @@ public class Enemy: Actor
     [SerializeField] private float currentAttackCooldown;
     [SerializeField] private LayerMask hitteableLayer;
     [SerializeField] private int difficultyLevel;
+    //Muchas se podrían poner en un posible enemystats (o actorstats yqc)
     #endregion
 
     #region UNITY_METHODS
