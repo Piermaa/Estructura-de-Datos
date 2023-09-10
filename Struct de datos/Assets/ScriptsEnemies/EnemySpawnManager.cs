@@ -31,6 +31,7 @@ public class EnemySpawnManager : MonoBehaviour
     {
         if (_currentSpawnedAmount < maxSpawnedAmount)
         {
+            print("Genero enemigo");
             Instantiate(_enemyQueue.Dequeue(), spawns[GenerateNumber(spawns.Length-1)].position, Quaternion.identity);
             _currentSpawnedAmount++;
         }

@@ -313,7 +313,10 @@ MonoBehaviour:
   - {fileID: 331507713323510624, guid: 21189f9a9fd31e54284b469427728faf, type: 3}
   - {fileID: 331507713323510624, guid: 254c145fe6b602b4a8b815898ab1d4f3, type: 3}
   enemyAmount: 20
-  spawns: []
+  spawns:
+  - {fileID: 1997510621}
+  - {fileID: 479977594}
+  - {fileID: 967181849}
   maxSpawnedAmount: 3
 --- !u!4 &1125037729
 Transform:

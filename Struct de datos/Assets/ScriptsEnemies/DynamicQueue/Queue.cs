@@ -4,7 +4,7 @@ using UnityEngine.Timeline;
 
 namespace ScriptsEnemies.DynamicQueue
 {
-    public class Queue<T>
+    public class Queue<T> //Usar TDA
     {
         public int Size => size;
         private Node<T> front;
