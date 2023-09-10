@@ -30,11 +30,7 @@ public class PilaTF<T> : IPilaTDA<T>
     {
         return _index < 0;
     }
-
-    public bool IsEmpty()
-    {
-        return (_index == 0);
-    }
+    
 
     public T Peek()
     {
