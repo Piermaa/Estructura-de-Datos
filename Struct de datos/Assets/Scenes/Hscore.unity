@@ -606,7 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d92bd4d54515b4f90346f73fe1245d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playersCount: 9
+  _playersCount: 10
   scoreTextsParent: {fileID: 384006467}
   scoreTexts: []
 --- !u!114 &384006469
