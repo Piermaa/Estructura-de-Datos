@@ -16,18 +16,22 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float _speed;
     void Update()
     {
-        float x = Input.GetAxis("Horizontal");
+        //float x = Input.GetAxis("Horizontal");
 
-        var t = transform;
-    
-        t.position += t.up* Time.deltaTime * _speed;
+        //var t = transform;
 
-        hit = t.position.y >= 100;
-        
+        //t.position += t.up* Time.deltaTime * _speed;
+
+        //hit = t.position.y >= 100;
+
+        Travel();
+
         if (hit)
         {
             _bulletManager.RemoveBullet(this);
             Destroy(gameObject);
         }
     }
+
+    private void Travel() => transform.position += transform.forward * Time.deltaTime * _speed;
 }
