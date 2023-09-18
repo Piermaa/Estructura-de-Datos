@@ -305,20 +305,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1125037727}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 638746eebfe1e4147920bec5ee5796f3, type: 3}
+  m_Script: {fileID: 11500000, guid: b06791a9dc0054648b9307b561050a7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 331507713323510624, guid: 7066b1be2058e214d9e37d9bef076529, type: 3}
-  - {fileID: 331507713323510624, guid: 21189f9a9fd31e54284b469427728faf, type: 3}
-  - {fileID: 331507713323510624, guid: 254c145fe6b602b4a8b815898ab1d4f3, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   enemyAmount: 20
   spawns:
   - {fileID: 1997510621}
   - {fileID: 479977594}
   - {fileID: 967181849}
   maxSpawnedAmount: 3
-  _currentSpawnedAmount: 0
 --- !u!4 &1125037729
 Transform:
   m_ObjectHideFlags: 0
