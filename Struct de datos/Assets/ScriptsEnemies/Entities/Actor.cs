@@ -8,10 +8,6 @@ namespace ScriptsEnemies.Entities
         public int MaxLife => maxLife;
         public int CurrentLife => currentLife;
         #endregion
-
-        #region IMOVABLE_PROPERTIES
-        public float MovementSpeed => movementSpeed;
-        #endregion
     
         #region PRIVATE_PROPERTIES
         [SerializeField] private int maxLife;
@@ -45,9 +41,9 @@ namespace ScriptsEnemies.Entities
         #endregion
 
         #region IMOVABLE_METHODS
-        public void Move(Vector3 direction)
+        public void Move()
         {
-            transform.position += direction * (MovementSpeed * Time.deltaTime);
+            //transform.position += direction * (MovementSpeed * Time.deltaTime);
         }
         #endregion
     }
