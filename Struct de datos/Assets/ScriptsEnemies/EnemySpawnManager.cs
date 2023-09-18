@@ -26,6 +26,7 @@ public class EnemySpawnManager : MonoBehaviour
         _enemyQueue.InicializarCola();
 
         for (int i = 0; i < enemyAmount; i++) _enemyQueue.Acolar(GenerateEnemy(GenerateNumber(enemies.Length)));
+        //Usar Quicksort con los enemigos según su dificultad
     }
 
     void Update()
