@@ -318,6 +318,7 @@ MonoBehaviour:
   - {fileID: 479977594}
   - {fileID: 967181849}
   maxSpawnedAmount: 3
+  _currentSpawnedAmount: 0
 --- !u!4 &1125037729
 Transform:
   m_ObjectHideFlags: 0
