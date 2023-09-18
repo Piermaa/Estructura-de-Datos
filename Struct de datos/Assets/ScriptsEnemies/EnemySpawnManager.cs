@@ -14,7 +14,8 @@ public class EnemySpawnManager : MonoBehaviour
     }
     
     [SerializeField] private GameObject[] enemies;
-    private ScriptsEnemies.DynamicQueue.Queue<GameObject> _enemyQueue = new ScriptsEnemies.DynamicQueue.Queue<GameObject>();
+    private ColaDinamicaTF<GameObject> _enemyQueue = new ColaDinamicaTF<GameObject>();
+    // private ScriptsEnemies.DynamicQueue.Queue<GameObject> _enemyQueue = new ScriptsEnemies.DynamicQueue.Queue<GameObject>();
     [SerializeField] private int enemyAmount;
 
     [SerializeField] private Transform[] spawns;
@@ -22,9 +23,9 @@ public class EnemySpawnManager : MonoBehaviour
     private int _currentSpawnedAmount;
     void Start()
     {
-        _enemyQueue.InitializeQueue();
+        _enemyQueue.InicializarCola();
 
-        for (int i = 0; i < enemyAmount; i++) _enemyQueue.Enqueue(GenerateEnemy(GenerateNumber(enemies.Length)));
+        for (int i = 0; i < enemyAmount; i++) _enemyQueue.Acolar(GenerateEnemy(GenerateNumber(enemies.Length)));
     }
 
     void Update()
@@ -32,7 +33,8 @@ public class EnemySpawnManager : MonoBehaviour
         if (_currentSpawnedAmount < maxSpawnedAmount)
         {
             print("Genero enemigo");
-            Instantiate(_enemyQueue.Dequeue(), spawns[GenerateNumber(spawns.Length-1)].position, Quaternion.identity);
+            Instantiate(_enemyQueue.Primero(), spawns[GenerateNumber(spawns.Length-1)].position, Quaternion.identity);
+            _enemyQueue.Desacolar();
             _currentSpawnedAmount++;
         }
     }
