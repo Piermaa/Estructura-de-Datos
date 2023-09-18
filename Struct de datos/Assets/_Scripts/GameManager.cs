@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //private void Update()
+    //{
+    //    BUSCAR FORMA OPTIMIZADA DE HACER ESTO PARA NO PREGUNTARLO TODO EL TIEMPO EN EL UPDATE, UN OBSERVER O CON EVENTOS I GUESS
+    //    if (_stackDeEnemigos <= 0)
+    //    {
+    //        Win();
+    //    }
+    //}
 
-    // Update is called once per frame
-    void Update()
-    {
+    //public void Win()
+    //{
         
-    }
+    //}
 }
