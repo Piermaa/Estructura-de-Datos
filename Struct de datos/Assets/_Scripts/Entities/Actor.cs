@@ -17,7 +17,7 @@ namespace ScriptsEnemies.Entities
 
         #region UNITY_METHODS
 
-        protected void Start()
+        protected virtual void Start()
         {
             currentLife = MaxLife;
             print(currentLife);

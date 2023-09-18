@@ -13,7 +13,7 @@ public class Enemy: Actor
     #endregion
 
     #region UNITY_METHODS
-    private void Start()
+    protected override void Start()
     {
         base.Start();
         currentAttackCooldown = attackCooldown;
