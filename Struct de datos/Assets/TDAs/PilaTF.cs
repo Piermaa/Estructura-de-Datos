@@ -1,12 +1,11 @@
 using System.Collections;
-
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PilaTF<T> : IPilaTDA<T>
 {
-    T[] _array; // arreglo en donde se guarda la informacion
-    int _index; // variable entera en donde se guarda la cantidad de elementos que se tienen guardados
+    T[] _array; 
+    int _index; 
 
     public void Init(int length)
     {
@@ -19,19 +18,17 @@ public class PilaTF<T> : IPilaTDA<T>
         _array[_index] = x;
         _index++;
     }
-
-
+    
     public T Pop()
     {
         _index--;
-        return _array[_index];
+        return _array[(_index)];
     }
-    
     public bool isEmpty()
     {
         return _index < 0;
     }
-    
+
     public T Peek()
     {
         return _array[_index - 1];
