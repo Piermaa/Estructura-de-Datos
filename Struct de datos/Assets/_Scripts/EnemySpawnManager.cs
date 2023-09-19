@@ -7,15 +7,9 @@ using Random = UnityEngine.Random;
 
 public class EnemySpawnManager : MonoBehaviour
 {
-    public int CurrentSpawnedAmount
-    {
-        get => _currentSpawnedAmount;
-        set => _currentSpawnedAmount = value;
-    }
     
     [SerializeField] private GameObject[] enemies;
     private ColaDinamicaTF<GameObject> _enemyQueue = new ColaDinamicaTF<GameObject>();
-    // private ScriptsEnemies.DynamicQueue.Queue<GameObject> _enemyQueue = new ScriptsEnemies.DynamicQueue.Queue<GameObject>();
     [SerializeField] private int enemyAmount;
 
     [SerializeField] private Transform[] spawns;
@@ -27,17 +21,7 @@ public class EnemySpawnManager : MonoBehaviour
 
         for (int i = 0; i < enemyAmount; i++) _enemyQueue.Acolar(GenerateEnemy(GenerateNumber(enemies.Length)));
         //Usar Quicksort con los enemigos según su dificultad
-    }
-
-    void Update()
-    {
-        if (_currentSpawnedAmount < maxSpawnedAmount)
-        {
-            print("Genero enemigo");
-            Instantiate(_enemyQueue.Primero(), spawns[GenerateNumber(spawns.Length-1)].position, Quaternion.identity);
-            _enemyQueue.Desacolar();
-            _currentSpawnedAmount++;
-        }
+        SpawnEnemies();
     }
 
     int GenerateNumber(int max)
@@ -49,5 +33,24 @@ public class EnemySpawnManager : MonoBehaviour
     GameObject GenerateEnemy(int x)
     {
         return enemies[x];
+    }
+
+    public void SpawnEnemies()
+    {
+        for (int i = _currentSpawnedAmount; i <= maxSpawnedAmount; i++)
+        {
+            print("spawneo enemigo");
+            Instantiate(_enemyQueue.Primero(), spawns[GenerateNumber(spawns.Length-1)].position, Quaternion.identity);
+            _enemyQueue.Desacolar();
+            _currentSpawnedAmount++;
+        }
+    }
+    public void EnemyDied() //Esto tendría que dispachearse como evento cuando muera un enemy
+    {
+        _currentSpawnedAmount--;
+        if (!_enemyQueue.ColaVacia())
+        {
+            SpawnEnemies();
+        }
     }
 }
