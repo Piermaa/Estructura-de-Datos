@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour, IPoolable
 
     [SerializeField] private float _speed;
     [SerializeField] private float _lifeTime;
+    private Vector3 _shootDir;
     private float _lifeTimer = 0;
 
     //-----UNITY FUNCTIONS--------
@@ -19,10 +20,6 @@ public class Bullet : MonoBehaviour, IPoolable
 
     private void Update()
     {
-        float x = Input.GetAxis("Horizontal");
-        var t = transform;
-        t.position += t.forward * Time.deltaTime * _speed;
-
         _lifeTimer -= Time.deltaTime;
 
         //Bullet Destroy
@@ -30,6 +27,8 @@ public class Bullet : MonoBehaviour, IPoolable
         {
             OnPoolableObjectDisable();
         }
+
+        Travel();
     }
 
     //Por ahora colisiona con cualquier cosa
@@ -46,5 +45,15 @@ public class Bullet : MonoBehaviour, IPoolable
     {
         _lifeTimer = _lifeTime;
         gameObject.SetActive(false);
+    }
+
+    public void InitBullet(Vector3 shootDir)
+    {
+        _shootDir = shootDir;
+    }
+    //despues implementar ibullet
+    public void Travel()
+    {
+        transform.position += _shootDir * Time.deltaTime * _speed;
     }
 }

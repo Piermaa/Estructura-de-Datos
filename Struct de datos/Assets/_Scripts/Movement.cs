@@ -10,7 +10,15 @@ public class Movement : MonoBehaviour, IMovable
 
     #region PRIVATE_VARIABLES
     [SerializeField] private float _moveSpeed;
+
+    //Despues pasar el componente a actor y que lo herede de ahi despues
+    private Rigidbody actorRB;
     #endregion
+
+    private void Start()
+    {
+        actorRB = GetComponentInChildren<Rigidbody>();
+    }
 
     private void FixedUpdate()
     {
@@ -21,11 +29,9 @@ public class Movement : MonoBehaviour, IMovable
     {
         // Calculate inputs
         float xMovement = Input.GetAxis("Horizontal");
-        float yMovement = Input.GetAxis("Vertical");
+        float zMovement = Input.GetAxis("Vertical");
 
-        // Calculate movement
-        transform.Translate(Time.deltaTime * xMovement * _moveSpeed * Vector3.right);
+        actorRB.velocity = new Vector3(xMovement, 0, zMovement) * Time.deltaTime * _moveSpeed;
 
-        transform.Translate(Time.deltaTime * yMovement * _moveSpeed * new Vector3(0, 0, 1));
     }
 }

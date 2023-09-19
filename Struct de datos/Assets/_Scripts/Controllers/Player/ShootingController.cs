@@ -47,9 +47,9 @@ public class ShootingController : MonoBehaviour
         //iria currentEquippedWeapon.FireRate)
         if (_shootTimer >= fireRateTotalmenteArbitrario && _bulletPool.IsPoolInited)
         {
-            _bulletPool.TryGetPooledObject();
+            Bullet bullet = (Bullet)_bulletPool.TryGetPooledObject();
+            bullet.InitBullet(transform.forward);
             _shootTimer = 0;
-            print("q");
         }
     }
 }
