@@ -49,6 +49,7 @@ public class ShootingController : MonoBehaviour
         {
             _bulletPool.TryGetPooledObject();
             _shootTimer = 0;
+            print("q");
         }
     }
 }
