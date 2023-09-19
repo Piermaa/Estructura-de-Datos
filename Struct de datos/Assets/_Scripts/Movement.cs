@@ -12,20 +12,21 @@ public class Movement : MonoBehaviour, IMovable
     [SerializeField] private float _moveSpeed;
     #endregion
 
-    private void Update()
-    {
-        Move();
-    }
+    //private void Update()
+    //{
+    //    Move();
+    //}
 
     public void Move()
     {
-        // Calculate inputs
-        float xMovement = Input.GetAxis("Horizontal");
-        float yMovement = Input.GetAxis("Vertical");
+        //    // Calculate inputs
+        //    float xMovement = Input.GetAxis("Horizontal");
+        //    float yMovement = Input.GetAxis("Vertical");
 
-        // Calculate movement
-        transform.Translate(Time.deltaTime * xMovement * _moveSpeed * Vector3.right);
+        //    // Calculate movement
+        //    transform.Translate(Time.deltaTime * xMovement * _moveSpeed * Vector3.right);
 
-        transform.Translate(Time.deltaTime * yMovement * _moveSpeed * new Vector3(0, 0, 1));
+        //    transform.Translate(Time.deltaTime * yMovement * _moveSpeed * new Vector3(0, 0, 1));
+        
     }
 }

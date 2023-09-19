@@ -34,4 +34,12 @@ public class Bullet : MonoBehaviour
     }
 
     private void Travel() => transform.position += transform.forward * Time.deltaTime * _speed;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(ActorConstants.LEVEL_ID))
+        {
+            hit = true;
+        }
+    }
 }

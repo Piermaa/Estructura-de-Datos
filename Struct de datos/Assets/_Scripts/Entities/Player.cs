@@ -1,8 +1,9 @@
+using ScriptsEnemies.Entities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IShootable
+public class Player : Actor, IShootable
 {
     private Camera _camera;
     [SerializeField] private BulletManager _bulletManager;
@@ -14,8 +15,10 @@ public class Player : MonoBehaviour, IShootable
         _camera = Camera.main;
     }
 
-    void Update()
+    public override void Update()
     {
+        base.Update();
+
         Aim();
 
         if (Input.GetMouseButtonDown(0))
