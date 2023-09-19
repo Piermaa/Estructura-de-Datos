@@ -2782,7 +2782,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1948749133}
   serializedVersion: 2
-  m_Mass: 2
+  m_Mass: 4
   m_Drag: 5
   m_AngularDrag: 0.05
   m_UseGravity: 0
@@ -2799,6 +2799,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2001517339}
+  - component: {fileID: 2001517340}
   - component: {fileID: 2001517338}
   - component: {fileID: 2001517337}
   m_Layer: 0
@@ -2826,7 +2827,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2867,13 +2868,28 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2001517336}
   m_LocalRotation: {x: -0.71325046, y: -0.00000007715627, z: 0.00000007742639, w: -0.70090926}
-  m_LocalPosition: {x: 0, y: 9.44, z: 0}
+  m_LocalPosition: {x: 0, y: 9.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &2001517340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001517336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74295eede9d9bb54fba443dab55beba9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camFollowTarget: {fileID: 1948749134}
+  camMoveSpeed: 3
+  camZoom: 9.5
 --- !u!1 &2071360236
 GameObject:
   m_ObjectHideFlags: 0

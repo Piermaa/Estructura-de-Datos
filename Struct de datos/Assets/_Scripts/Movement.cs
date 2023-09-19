@@ -12,7 +12,7 @@ public class Movement : MonoBehaviour, IMovable
     [SerializeField] private float _moveSpeed;
     #endregion
 
-    private void Update()
+    private void FixedUpdate()
     {
         Move();
     }
