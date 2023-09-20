@@ -2,54 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ObjectPool))]
+//---COMO FUNCA: CADA WEAPON HEREDA DE IWEAPON (QUE ES UN IPICKUPABLE). EN SU ONTRIGGER ENTER LLAMA A SU PICKUP, QUE ESTA SIENDO ESCUCHADO
+//---POR EL WEAPON HOLDER. AHI SE AGREGA EN LA PILA, Y DE PASO INICIALIZA EL POOL DE BALAS PARA LA ARMA LEVANTADA. EL SHOOTINGCONTROLLER
+//---SE FIJA EN EL WEAPONHOLDER A VER QUE ARMA HAY, Y CUANDO EL JUGADOR DA LA ORDEN PARA DISPARAR, LLAMA AL SHOOT DEL ARMA QUE ESTA AHI DENTRO
+//---EL ARMA PROPIA MANEJA SU PROPIA LOGICA DE DISPARO Y MANEJA COMO LA BALA SE OBTIENE DEL POOL QUE ESTA EN EL WEAPONHOLDER QUE LA CONTIENE (AL ARMA).
+//---EL WEAPONHOLDER ESTA ESCUCHANDO AL MOMENTO DE QUE ACABEN LAS BALAS, AHI FLETA EL ARMA: SE DESEQUIPA, SE SALE DE LA PILA, DESTRUYE EL
+//---EL POOL Y SE DESUSCRIBE DE ESA ARMA.
+
+
+[RequireComponent(typeof(WeaponHolder))]
 public class ShootingController : MonoBehaviour
 {
-    private ObjectPool _bulletPool;
-    [SerializeField] private GameObject _bullet;
+    private WeaponHolder weaponHolder;
+    private float shootCooldownTimer = 0;
 
-    private float _shootTimer = 0;
-    [SerializeField] private float fireRateTotalmenteArbitrario = 0.3f;
-    [SerializeField] private int maxBulletsToPoolTotalmenteArbitrario = 10;
-
-    //-----UNITY FUNCTIONS--------
+    //################ #################
+    //----------UNITY EV FUNC-----------
+    //################ #################
     private void Start()
     {
-        _bulletPool = GetComponent<ObjectPool>();
-        InitBulletPool();
+        weaponHolder = GetComponent<WeaponHolder>();
     }
 
     private void Update()
     {
-        _shootTimer += Time.deltaTime;
+        shootCooldownTimer += Time.deltaTime;
         ListenForShootInput();
     }
 
-    //-----CLASS METHODS--------
-
-    private void InitBulletPool()
-    {
-        //Esto se cambia segun la bala / max bullets que permita el arma quien sea se encargue de eso
-        IPoolable objectToPool = _bullet.GetComponent<IPoolable>();
-        _bulletPool.CreatePool(objectToPool, maxBulletsToPoolTotalmenteArbitrario);
-    }
+    //################ #################
+    //----------CLASS METHODS-----------
+    //################ #################
 
     private void ListenForShootInput()
     {
         if (Input.GetButton("Fire1"))
         {
-            Shoot();
+            if (weaponHolder.EquippedWeapon != null)
+                CallWeaponShoot();
+            else
+                print("No tenes un arma equipado wacho.");
         }
     }
-    private void Shoot()
+
+    private void CallWeaponShoot()
     {
-        //El que haga las armas/weapons, despues tiene que incluir un param de firerate en cada arma y aca en vez de pasar un valor arbitrario
-        //iria currentEquippedWeapon.FireRate)
-        if (_shootTimer >= fireRateTotalmenteArbitrario && _bulletPool.IsPoolInited)
+        if (shootCooldownTimer >= weaponHolder.EquippedWeapon.WeaponStats.FireRate 
+            && weaponHolder.EquippedWeaponBulletPool.IsPoolInited)
         {
-            Bullet bullet = (Bullet)_bulletPool.TryGetPooledObject();
-            bullet.InitBullet(transform.forward);
-            _shootTimer = 0;
+            weaponHolder.EquippedWeapon.Shoot(weaponHolder);
+            shootCooldownTimer = 0;
         }
     }
 }

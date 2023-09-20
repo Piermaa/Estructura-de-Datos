@@ -42,6 +42,15 @@ public class ObjectPool : MonoBehaviour
     //----------CLASS METHODS-----------
     //################ #################
 
+    public void EmptyPool()
+    {
+        foreach (IPoolable p_obj in objectPool)
+        {
+            Destroy(p_obj.GameObject);
+        }
+        objectPool.Clear();
+    }
+
     public void CreatePool(IPoolable objectToPool, int poolMaxSize = 10)
     {
         if (objectPool != null)

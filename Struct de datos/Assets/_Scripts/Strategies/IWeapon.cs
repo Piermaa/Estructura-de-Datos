@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public interface IWeapon
+public interface IWeapon : IPickupable
 {
-    Transform WeaponTransform { get; }
+    GameObject GameObject { get; }
+    WeaponStats WeaponStats { get; }
     int RemainingBullets { get; }
-    int Damage { get; }
-    float BulletTravelDistance { get; }
-    void Shoot();
-    //por ahi on OnPickup, o sonido y particula y listo
+    void Reload();
+    void Shoot(WeaponHolder weaponHolder);
+    void OnWeaponMagazineEmpty();
 }

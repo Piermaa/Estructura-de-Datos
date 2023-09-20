@@ -7,7 +7,7 @@ public interface IPilaTDA<T>
     // siempre que la pila est´e inicializada y no est´e vac´ıa
     T Pop();
     // siempre que la pila est´e inicializada
-    bool isEmpty();
+    bool IsEmpty();
     // siempre que la pila est´e inicializada y no est´e vac´ıa
     T Peek();
 }

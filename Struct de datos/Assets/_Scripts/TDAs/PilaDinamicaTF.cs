@@ -41,7 +41,7 @@ public class PilaDinamicaTF<T> : IPilaTDA<T>
         return aux.datos;
     }
 
-    public bool isEmpty()
+    public bool IsEmpty()
     {
         return primero == null;
     }

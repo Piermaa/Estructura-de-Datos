@@ -48,8 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02066b53b6b9bd4419a57d4ccde74434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
-  _lifeTime: 2
+  bulletStats: {fileID: 11400000, guid: e3e5587d051f8684da1a4ee6583d82bd, type: 2}
 --- !u!33 &6497198162884743873
 MeshFilter:
   m_ObjectHideFlags: 0

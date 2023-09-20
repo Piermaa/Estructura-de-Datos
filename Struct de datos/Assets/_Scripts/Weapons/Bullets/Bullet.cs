@@ -3,27 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Bullet : MonoBehaviour, IPoolable
+public class Bullet : MonoBehaviour, IBullet
 {
+    //------PUBLIC PROPERTIES-------
     public GameObject GameObject => this.gameObject;
+    public BulletStats BulletStats => bulletStats;
 
-    [SerializeField] private float _speed;
-    [SerializeField] private float _lifeTime;
-    private Vector3 _shootDir;
-    private float _lifeTimer = 0;
+    //------PRIVATE PROPERTIES-------
+    [SerializeField] private BulletStats bulletStats;
+    private Vector3 shootDir;
+    private float lifeTimer = 0;
 
-    //-----UNITY FUNCTIONS--------
-    private void Start()
-    {
-        _lifeTimer = _lifeTime;
-    }
+
+    //################ #################
+    //----------UNITY EV FUNC-----------
+    //################ #################
 
     private void Update()
     {
-        _lifeTimer -= Time.deltaTime;
+        lifeTimer -= Time.deltaTime;
 
         //Bullet Destroy
-        if (_lifeTimer <= 0)
+        if (lifeTimer <= 0)
         {
             OnPoolableObjectDisable();
         }
@@ -32,9 +33,24 @@ public class Bullet : MonoBehaviour, IPoolable
     }
 
     //Por ahora colisiona con cualquier cosa
-    private void OnCollisionEnter(Collision collision)
+    public void OnCollisionEnter(Collision collision)
     {
         OnPoolableObjectDisable();
+    }
+
+    //################ #################
+    //----------CLASS METHODS-----------
+    //################ #################
+
+    //-----IBULLET--------
+    public void InitBullet(Vector3 shootDir)
+    {
+        lifeTimer = bulletStats.MaxLifetime;
+        this.shootDir = shootDir;
+    }
+    public void Travel()
+    {
+        transform.position += shootDir * Time.deltaTime * bulletStats.TravelSpeed;
     }
 
     //-----IPOOLABLE--------
@@ -43,17 +59,7 @@ public class Bullet : MonoBehaviour, IPoolable
     //balas, asi no quedan pools vivitos por ahi que no pertenecen a nadie.
     public void OnPoolableObjectDisable()
     {
-        _lifeTimer = _lifeTime;
+        lifeTimer = bulletStats.MaxLifetime;
         gameObject.SetActive(false);
-    }
-
-    public void InitBullet(Vector3 shootDir)
-    {
-        _shootDir = shootDir;
-    }
-    //despues implementar ibullet
-    public void Travel()
-    {
-        transform.position += _shootDir * Time.deltaTime * _speed;
     }
 }

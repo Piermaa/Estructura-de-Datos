@@ -2,25 +2,29 @@ using UnityEngine;
 
 namespace ScriptsEnemies.Entities
 {
-    public class Actor : MonoBehaviour, IDamageable, IMovable
+    [RequireComponent(typeof(Rigidbody))]
+    public class Actor : MonoBehaviour, IDamageable
     {
         #region IDAMAGEABLE_PROPERTIES
         public int MaxLife => maxLife;
         public int CurrentLife => currentLife;
         #endregion
-    
+
+        #region PROTECTED_PROPERTIES
+        protected Rigidbody actorRB;
+        #endregion
+
         #region PRIVATE_PROPERTIES
         [SerializeField] private int maxLife;
         [SerializeField] private int currentLife;
-        [SerializeField] private float movementSpeed;
         #endregion
 
         #region UNITY_METHODS
 
         protected virtual void Start()
         {
+            actorRB = GetComponent<Rigidbody>();
             currentLife = MaxLife;
-            print(currentLife);
         }
         #endregion
     
@@ -37,13 +41,6 @@ namespace ScriptsEnemies.Entities
         public void Die()
         {
             Destroy(gameObject);
-        }
-        #endregion
-
-        #region IMOVABLE_METHODS
-        public void Move()
-        {
-            //transform.position += direction * (MovementSpeed * Time.deltaTime);
         }
         #endregion
     }
