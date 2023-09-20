@@ -2,38 +2,32 @@ using UnityEngine;
 
 namespace ScriptsEnemies.Entities
 {
-    public class Actor : MonoBehaviour, IDamageable, IMovable
+    [RequireComponent(typeof(Rigidbody))]
+    public class Actor : MonoBehaviour, IDamageable
     {
         #region IDAMAGEABLE_PROPERTIES
         public int MaxLife => maxLife;
         public int CurrentLife => currentLife;
-        public float MovementSpeed => movementSpeed;
         #endregion
 
-        #region PRIVATE_VARIABLES
-        
+        #region PROTECTED_PROPERTIES
+        protected Rigidbody actorRB;
         #endregion
 
         #region PRIVATE_PROPERTIES
         [SerializeField] private int maxLife;
         [SerializeField] private int currentLife;
-        [SerializeField] private float movementSpeed;
         #endregion
 
         #region UNITY_METHODS
 
         protected virtual void Start()
         {
+            actorRB = GetComponent<Rigidbody>();
             currentLife = MaxLife;
-            print(currentLife);
-        }
-
-        public virtual void Update()
-        {
-            Move();
         }
         #endregion
-
+    
         #region IDAMAGEABLE_METHODS
         public void TakeDamage(int damage)
         {
@@ -47,20 +41,6 @@ namespace ScriptsEnemies.Entities
         public void Die()
         {
             Destroy(gameObject);
-        }
-        #endregion
-
-        #region IMOVABLE_METHODS
-        public void Move()
-        {
-            // Calculate inputs
-            float xMovement = Input.GetAxis("Horizontal");
-            float yMovement = Input.GetAxis("Vertical");
-
-            // Calculate movement
-            transform.Translate(Time.deltaTime * xMovement * movementSpeed * Vector3.right, Space.World);
-
-            transform.Translate(Time.deltaTime * yMovement * movementSpeed * new Vector3(0, 0, 1), Space.World);
         }
         #endregion
     }

@@ -1,50 +1,64 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 public class Weapon : MonoBehaviour, IWeapon
 {
-    public Transform WeaponTransform => transform;
+    //----PUBLIC PROPERTIES--------
+    public GameObject GameObject => this.gameObject;
+    public WeaponStats WeaponStats => weaponStats;
     public int RemainingBullets => remainingBullets;
-    public int Damage => damage;
-    public float BulletTravelDistance => bulletTravelDistance;
-    
-    [SerializeField]private int damage;
-    [SerializeField]private float bulletTravelDistance;
-    [SerializeField]private LayerMask enemyLayer;
-    [SerializeField]private Transform origin;
-    
-    private int remainingBullets=10;
 
-    private void Update()
+    //----PROTECTED VARS---------
+    protected int remainingBullets;
+
+    //----PRIVATE VARS---------
+    [SerializeField] private WeaponStats weaponStats;
+
+    //################ #################
+    //----------UNITY EV FUNC-----------
+    //################ #################
+    private void Start()
     {
-        Debug.DrawRay(transform.position,transform.up*bulletTravelDistance,Color.yellow);
+        Reload();
     }
-/// <summary>
-/// Check collision using raycast
-/// </summary>
-/// <param name="direction">Direction given by parameter, made for shotguns or low precision weapons</param>
-/// <param name="hit">Hitted collider</param>
-/// <returns>True if raycast hits</returns>
-    protected bool TraceBullet(Vector3 direction, out RaycastHit hit)
+
+    public void OnTriggerEnter(Collider other)
     {
-        return (Physics.Raycast(origin.position, direction, out hit, bulletTravelDistance, enemyLayer));
+        if (other.CompareTag("Player"))
+        {
+            Pickup(this);
+        }
     }
-/// <summary>
-/// Checks by raycast if an enemy must be hit. Deals damage using weapon data
-/// </summary>
-    public virtual void Shoot()
+
+    //################ #################
+    //----------CLASS METHODS-----------
+    //################ #################
+
+    //-------IPICKUPABLE--------
+    public static event Action<IWeapon> OnWeaponPickup; //-------> WEAPONHOLDER SE SUSCRIBE PARA VER QUE ARMA SE METE AHI
+    public void Pickup(IPickupable weaponBeingPickedUp)
     {
-        if (remainingBullets > 0)
-        {
-            remainingBullets--;
-            if (TraceBullet(transform.up, out var hit))
-            {
-                print(hit.collider.name);
-               // hit.transform.GetComponent<Health>().TakeDamage(damage);
-            }
-        }
-        else
-        {
-            //TODO: Avisar de alguna forma que ya no hay mas balas y desequipar este arma
-        }
+        if (weaponBeingPickedUp is IWeapon)
+            OnWeaponPickup?.Invoke(this);
+    }
+
+    //--------IWEAPON-----------
+
+    //COMO SE DESCARTAN LAS ARMAS EL RELOAD ES SOLO PARA INICIALIZAR EL TAMAÑO DEL POOL
+    public void Reload()
+    {
+        remainingBullets = weaponStats.MagSize;
+    }
+    public virtual void Shoot(WeaponHolder weaponHolder)
+    {
+        //esto se va a overridear por cada arma
+    }
+    public static event Action OnWeaponOutOfBullets; //-------> WEAPONHOLDER SE SUSCRIBE PARA VER CUANDO DESCARTAR EL ARMA
+    public void OnWeaponMagazineEmpty()
+    {
+        OnWeaponOutOfBullets?.Invoke();
     }
 }

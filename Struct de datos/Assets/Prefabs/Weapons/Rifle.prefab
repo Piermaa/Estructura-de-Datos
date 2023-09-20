@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4544507569318577605}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.242, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -42,7 +42,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4544507569318577605}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -59,12 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83dc9ef7d02ebe54993bcdbf55d72763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 3
-  bulletTravelDistance: 200
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  origin: {fileID: 6949476279559811283}
+  weaponStats: {fileID: 11400000, guid: a0e3650272e174e429097f1f7e1c85ff, type: 2}
 --- !u!1 &5829806038825729900
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +88,7 @@ Transform:
   m_GameObject: {fileID: 5829806038825729900}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.652, z: 0}
-  m_LocalScale: {x: 0.12496, y: 0.12496, z: 0.12496}
+  m_LocalScale: {x: 0.12496, y: 0.12496, z: 0.34}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2302128369832666946}
@@ -127,7 +122,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7b4ed8bc4bc9c354d9254518346aa024, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

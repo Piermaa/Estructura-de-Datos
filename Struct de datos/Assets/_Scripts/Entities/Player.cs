@@ -3,51 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Actor, IShootable
+public class Player : Actor, IMovable
 {
-    private Camera _camera;
-    [SerializeField] private BulletManager _bulletManager;
-    [SerializeField] private GameObject _bullet;
-    [SerializeField] private Transform _bulletSpawnTransform;
+    #region PUBLIC_VARIABLES
+    public float MoveSpeed => _moveSpeed;
+    #endregion
 
-    private void Awake()
+    #region PRIVATE_VARIABLES
+    [SerializeField] private float _moveSpeed;
+    #endregion
+
+    private void FixedUpdate()
     {
-        _camera = Camera.main;
+        Move();
     }
 
-    public override void Update()
+    #region IMOVABLE_METHODS
+    public void Move()
     {
-        base.Update();
+        // Calculate inputs
+        float xMovement = Input.GetAxis("Horizontal");
+        float zMovement = Input.GetAxis("Vertical");
 
-        Aim();
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Shoot();
-        }
+        actorRB.velocity = new Vector3(xMovement, 0, zMovement) * Time.deltaTime * _moveSpeed;
     }
-
-    public void Shoot()
-    {
-        var b = Instantiate(_bullet, transform.position, Quaternion.identity).GetComponent<Bullet>();
-        b.bulletManager = _bulletManager;
-        _bulletManager.AddBullet(b);
-        b.transform.SetPositionAndRotation(_bulletSpawnTransform.position, _bulletSpawnTransform.rotation);
-    }
-
-    public void Aim()
-    {
-        Vector3 positionOnScreen = _camera.WorldToViewportPoint(transform.position);
-
-        Vector3 mouseOnScreen = _camera.ScreenToViewportPoint(Input.mousePosition);
-
-        float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
-
-        transform.rotation = Quaternion.Euler(new Vector3(0f, -angle, 0f));
-    }
-
-    float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
-    {
-        return Mathf.Atan2((a.y - b.y) * 9, (a.x - b.x) * 16) * Mathf.Rad2Deg;
-    }
+    #endregion
 }

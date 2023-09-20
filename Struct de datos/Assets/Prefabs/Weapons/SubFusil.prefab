@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6431419662363024359}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.242, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -42,7 +42,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6431419662363024359}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -59,12 +59,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa1f97db23547b3428f8c9afcda81d07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
-  bulletTravelDistance: 50
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  origin: {fileID: 8357969505823804059}
 --- !u!1 &9135726621379299118
 GameObject:
   m_ObjectHideFlags: 0
