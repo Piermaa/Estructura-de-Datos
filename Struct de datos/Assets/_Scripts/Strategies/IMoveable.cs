@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IShootable
+public interface IMoveable
 {
-    void Shoot();
-    void Aim();
+    void Move();
 }

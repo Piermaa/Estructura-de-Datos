@@ -35,7 +35,7 @@ public class PilaTF<T> : IPilaTDA<T>
         }
         catch
         {
-            Debug.Log("Stack Empty. Que se yo aguante el try catch. No se me ocurre una mejor manera a las 6 AM");
+            Debug.Log("Stack Empty. Que se yo try catch. No se me ocurre una mejor manera a las 6 AM");
             return default;
         }
 
