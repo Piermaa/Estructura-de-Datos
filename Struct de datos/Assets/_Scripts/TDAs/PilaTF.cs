@@ -16,6 +16,7 @@ public class PilaTF<T> : IPilaTDA<T>
 
     public void Add(T x)
     {
+        Debug.Log(_index);
         _array[_index] = x;
         _index++;
     }

@@ -14,14 +14,15 @@ public class SubFusil : Weapon
     {
         if (remainingBullets > 0)
         {
-            print("nada implementado aun");
-            //remainingBullets--;
-            //print(this.gameObject.name + " disparo pew pew me quedan " + remainingBullets + " balas");
+            remainingBullets--;
+            Bullet bullet = (Bullet)weaponHolder.EquippedWeaponBulletPool.TryGetPooledObject();
+            bullet.InitBullet(transform.forward);
+            print(this.gameObject.name + " disparo pew pew me quedan " + remainingBullets + " balas");
         }
         else
         {
-            //print(this.gameObject.name + " se me acabaron las balas entonces descarto el arma porque ya no sirve mas");
-            //OnWeaponMagazineEmpty();
+            print(this.gameObject.name + " se me acabaron las balas entonces descarto el arma porque ya no sirve mas");
+            OnWeaponMagazineEmpty();
         }
     }
 }

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89fd86644a5214d45bee8b7deaa9f8ac, type: 3}
-  m_Name: Pistol Stats
+  m_Name: Machine Gun Stats
   m_EditorClassIdentifier: 
-  <BulletPrefab>k__BackingField: {fileID: 5401869196287111402, guid: 82bc878738bda5741b43d57407ecbe90, type: 3}
-  <FireRate>k__BackingField: 0.5
-  <MagSize>k__BackingField: 10
-  <Damage>k__BackingField: 2
+  <BulletPrefab>k__BackingField: {fileID: 5401869196287111402, guid: a38037726fc01ad48b97a9a19b3cbae8, type: 3}
+  <FireRate>k__BackingField: 0.1
+  <MagSize>k__BackingField: 40
+  <Damage>k__BackingField: 1

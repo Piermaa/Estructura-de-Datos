@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2694731026934253986}
-  - component: {fileID: 2868037236798285014}
   - component: {fileID: 6108259728537540671}
+  - component: {fileID: 2868037236798285014}
   m_Layer: 0
   m_Name: SubFusil
   m_TagString: Weapon
@@ -34,6 +34,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6108259728537540671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6431419662363024359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa1f97db23547b3428f8c9afcda81d07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponStats: {fileID: 11400000, guid: 7e12c4e661a28d047b1a737243e54cd3, type: 2}
 --- !u!65 &2868037236798285014
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -47,18 +60,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6108259728537540671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6431419662363024359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa1f97db23547b3428f8c9afcda81d07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &9135726621379299118
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,7 +88,7 @@ Transform:
   m_GameObject: {fileID: 9135726621379299118}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.652, z: 0}
-  m_LocalScale: {x: 0.12496, y: 0.12496, z: 0.12496}
+  m_LocalScale: {x: 0.12496, y: 0.01, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2694731026934253986}
@@ -100,7 +101,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9135726621379299118}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &2914658542055230727
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -121,7 +122,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e8d489fe1ed374d4b8ab7fb72fcc9030, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

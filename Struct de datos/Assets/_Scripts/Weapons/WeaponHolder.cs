@@ -66,16 +66,17 @@ public class WeaponHolder : MonoBehaviour
             _equippedWeapon.GameObject.SetActive(true);
         }
         else _equippedWeapon = null;
-    }
+    } 
 
     //SUSCRIPTO A WEAPON -> PICKUP
     private void PickupWeapon(IWeapon weaponToPickUp)
     {
-        //EL ARMA ACTUAL SE METE EN EL STACK
+        //SI HABIA UN ARMA EQUIPADA DE ANTES, SE GUARDA DEVUELTA EN EL STACK Y SE BORRA SU POOL TEMPORALMENTE ASI EL ARMA NUEVA NO SE LO USA
         if (_equippedWeapon!=null)
         {
             _equippedWeapon.GameObject.SetActive(false);
             _pickedWeapons.Add(_equippedWeapon);
+            bulletPool.EmptyPool();
         }
         //SE CAMBIA EL ARMA ACTUAL
         _equippedWeapon = weaponToPickUp;
@@ -92,6 +93,6 @@ public class WeaponHolder : MonoBehaviour
     private void InitBulletPool(IWeapon currentEquippedWeapon)
     {
         IPoolable objectToPool = currentEquippedWeapon.WeaponStats.BulletPrefab.GetComponent<IPoolable>();
-        bulletPool.CreatePool(objectToPool, currentEquippedWeapon.WeaponStats.MagSize);
+        bulletPool.CreatePool(objectToPool, objectToPool.GameObject.GetComponent<Bullet>().BulletStats.MaxPoolableBullets);
     }
 }
