@@ -6,9 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(ObjectPool))]
 public class WeaponHolder : MonoBehaviour
 {
-    //----TODO: BUG: SI TENES POR EJEMPLO UNA PISTOL Y DISPARAS 3 VECES, LUEGO AGARRAS UN RIFLE Y DISPARAS 2 VECES, QUEDAN ESAS 3 BALAS
-    //----DE LA PISTOL EN EL POOL DE 5 DEL RIFLE (SIENDO LAS 2 RESTANTES LA BALA DEL RIFLE). DESPUES ARREGLO, SON LAS 7AM, ME VOY A DORMIR.
-
     //----PUBLIC PROPERTIES--------
     public ObjectPool EquippedWeaponBulletPool => bulletPool;
     public IWeapon EquippedWeapon => _equippedWeapon;
@@ -44,7 +41,6 @@ public class WeaponHolder : MonoBehaviour
     }
     #endregion
 
-
     //################ #################
     //----------CLASS METHODS-----------
     //################ #################
@@ -52,11 +48,13 @@ public class WeaponHolder : MonoBehaviour
     //SUSCRIPTO A WEAPON -> ONMAGAZINEEMPTY
     private void UnequipWeaponAndTryEquipNextWeapon()
     {
-        //PRIMERO FLETAR EL ARMA QUE YA NO SIRVE Y BORRAR SU POOL DE BALAS
+        //PRIMERO FLETAR EL ARMA QUE YA NO SIRVE Y BORRAR SU POOL DE BALAS.
         bulletPool.EmptyPool();
         Destroy(_equippedWeapon.GameObject);
+        //ASUIMR QUE EL JUGADOR YA NO TIENE ARMAS.
+        _equippedWeapon = null;
 
-        //LUEGO EQUIPAR EL SIGUIENTE EN EL STACK
+        //PARA LUEGO INTENTAR EQUIPAR EL SIGUIENTE EN EL STACK
         _equippedWeapon = _pickedWeapons.Pop();
 
         //SI ES QUE HAY SI NO EQUIPPED WEAPON QUEDA VACIO
@@ -65,17 +63,17 @@ public class WeaponHolder : MonoBehaviour
             InitBulletPool(_equippedWeapon);
             _equippedWeapon.GameObject.SetActive(true);
         }
-        else _equippedWeapon = null;
     } 
 
     //SUSCRIPTO A WEAPON -> PICKUP
     private void PickupWeapon(IWeapon weaponToPickUp)
     {
+        _pickedWeapons.Add(weaponToPickUp);
+
         //SI HABIA UN ARMA EQUIPADA DE ANTES, SE GUARDA DEVUELTA EN EL STACK Y SE BORRA SU POOL TEMPORALMENTE ASI EL ARMA NUEVA NO SE LO USA
-        if (_equippedWeapon!=null)
+        if (_equippedWeapon != null)
         {
             _equippedWeapon.GameObject.SetActive(false);
-            _pickedWeapons.Add(_equippedWeapon);
             bulletPool.EmptyPool();
         }
         //SE CAMBIA EL ARMA ACTUAL

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea5f8548157b3f048b4d2a3fda942915, type: 3}
   m_Name: RifleBullet
   m_EditorClassIdentifier: 
-  <TravelSpeed>k__BackingField: 18
+  <TravelSpeed>k__BackingField: 20
   <MaxLifetime>k__BackingField: 2
-  <MaxPoolableBullets>k__BackingField: 5
+  <MaxPoolableBullets>k__BackingField: 4

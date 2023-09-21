@@ -11,14 +11,13 @@ public class PilaTF<T> : IPilaTDA<T>
     public void Init(int length)
     {
         _array = new T[length];
-        _index = 0;
+        _index = -1;
     }
 
     public void Add(T x)
     {
-        Debug.Log(_index);
-        _array[_index] = x;
         _index++;
+        _array[_index] = x;
     }
     
     public T Pop()
@@ -39,7 +38,6 @@ public class PilaTF<T> : IPilaTDA<T>
             Debug.Log("Stack Empty. Que se yo try catch. No se me ocurre una mejor manera a las 6 AM");
             return default;
         }
-
     }
     public bool IsEmpty()
     {
@@ -48,10 +46,6 @@ public class PilaTF<T> : IPilaTDA<T>
     public T Peek()
     {
         return _array[_index - 1];
-    }
-    public void ResetIndex()
-    {
-        _index = 0;
     }
 }
 

@@ -62,37 +62,37 @@ public class ObjectPool : MonoBehaviour
         else Debug.LogWarning("Object is not a poolable object.");
     }
 
-    public IPoolable TryGetPooledObject()
+    public IPoolable TryGetPooledObject(Vector3 position, Quaternion rotation)
     {
         IPoolable pooledObject = null;
 
         if (objectPool.Count < poolSize)
         {
-            pooledObject = NewObject();
+            pooledObject = NewObject(position, rotation);
         }
         else
         {
-            pooledObject = ReuseObject();
+            pooledObject = ReuseObject(position, rotation);
         }
 
         objectPool.Enqueue(pooledObject);
         return pooledObject;
     }
 
-    private IPoolable NewObject()
+    private IPoolable NewObject(Vector3 position, Quaternion rotation)
     {
-        GameObject newObject = Instantiate(objectToPool.GameObject, transform.position, transform.rotation);
+        GameObject newObject = Instantiate(objectToPool.GameObject, position, rotation);
         IPoolable pooledObject = newObject.GetComponent<IPoolable>();
         pooledObject.GameObject.name = transform.root.name + "_" + objectToPool.GameObject.name + "_" + objectPool.Count;
         pooledObject.GameObject.transform.SetParent(poolFolder);
 
         return pooledObject;
     }
-    private IPoolable ReuseObject()
+    private IPoolable ReuseObject(Vector3 position, Quaternion rotation)
     {
         IPoolable pooledObject = objectPool.Dequeue();
-        pooledObject.GameObject.transform.position = transform.position;
-        pooledObject.GameObject.transform.rotation = transform.rotation;
+        pooledObject.GameObject.transform.position = position;
+        pooledObject.GameObject.transform.rotation = rotation;
         pooledObject.GameObject.SetActive(true);
 
         return pooledObject;
