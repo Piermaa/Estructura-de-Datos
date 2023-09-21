@@ -15,10 +15,13 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] private Transform[] spawns;
     [SerializeField] private int maxSpawnedAmount;
     private int _currentSpawnedAmount;
+    
     void Start()
     {
+        ActionsManager.RegisterAction(ActionKeys.ENEMY_DEATH_KEY);
+        ActionsManager.SubscribeToAction(ActionKeys.ENEMY_DEATH_KEY,EnemyDied);
         _enemyQueue.InicializarCola();
-
+        
         for (int i = 0; i < enemyAmount; i++) _enemyQueue.Acolar(GenerateEnemy(GenerateNumber(enemies.Length)));
         //Usar Quicksort con los enemigos según su dificultad
         SpawnEnemies();
@@ -45,12 +48,18 @@ public class EnemySpawnManager : MonoBehaviour
             _currentSpawnedAmount++;
         }
     }
-    public void EnemyDied() //Esto tendría que dispachearse como evento cuando muera un enemy
+    public void EnemyDied() //Esto tendría que dispachearse como evento cuando muera un enemy                    ok
     {
+        Debug.Log("Enemy died");
         _currentSpawnedAmount--;
+
         if (!_enemyQueue.ColaVacia())
-        {
+        {            
             SpawnEnemies();
+        }
+        else if (_currentSpawnedAmount<=0)
+        {
+            GameManager.Instance.Win();
         }
     }
 }

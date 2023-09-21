@@ -35,6 +35,11 @@ public class Bullet : MonoBehaviour, IBullet
     //Por ahora colisiona con cualquier cosa
     public void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(1);
+        }
+
         OnPoolableObjectDisable();
     }
 

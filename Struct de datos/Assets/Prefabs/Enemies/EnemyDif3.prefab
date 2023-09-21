@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8291662111070939878}
   m_Layer: 0
   m_Name: EnemyDif3
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,7 +100,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLife: 200
   currentLife: 0
-  movementSpeed: 20
   damage: 15
   attackCooldown: 3
   currentAttackCooldown: 0
