@@ -8,9 +8,11 @@ public class Bullet : MonoBehaviour, IBullet
     //------PUBLIC PROPERTIES-------
     public GameObject GameObject => this.gameObject;
     public BulletStats BulletStats => bulletStats;
+    public IWeapon Owner => owner;
 
     //------PRIVATE PROPERTIES-------
     [SerializeField] private BulletStats bulletStats;
+    private IWeapon owner;
     private Vector3 shootDir;
     private float lifeTimer = 0;
 
@@ -37,7 +39,7 @@ public class Bullet : MonoBehaviour, IBullet
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<Enemy>().TakeDamage(1);
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(owner.WeaponStats.Damage);
         }
 
         OnPoolableObjectDisable();
@@ -48,8 +50,9 @@ public class Bullet : MonoBehaviour, IBullet
     //################ #################
 
     //-----IBULLET--------
-    public void InitBullet(Vector3 shootDir)
+    public void InitBullet(IWeapon owner, Vector3 shootDir)
     {
+        this.owner = owner;
         lifeTimer = bulletStats.MaxLifetime;
         this.shootDir = shootDir;
     }

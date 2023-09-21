@@ -51,10 +51,8 @@ public class WeaponHolder : MonoBehaviour
         //PRIMERO FLETAR EL ARMA QUE YA NO SIRVE Y BORRAR SU POOL DE BALAS.
         bulletPool.EmptyPool();
         Destroy(_equippedWeapon.GameObject);
-        //ASUIMR QUE EL JUGADOR YA NO TIENE ARMAS.
-        _equippedWeapon = null;
 
-        //PARA LUEGO INTENTAR EQUIPAR EL SIGUIENTE EN EL STACK
+        //LUEGO INTENTAR EQUIPAR EL SIGUIENTE EN EL STACK
         _equippedWeapon = _pickedWeapons.Pop();
 
         //SI ES QUE HAY SI NO EQUIPPED WEAPON QUEDA VACIO

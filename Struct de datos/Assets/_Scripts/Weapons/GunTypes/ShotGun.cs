@@ -27,7 +27,7 @@ public class ShotGun : Weapon
                 Vector3 randomShellPosition = new Vector3(transform.position.x + spread.x, transform.position.y, 
                     transform.position.z + spread.z);
                 Bullet bullet = (Bullet)weaponHolder.EquippedWeaponBulletPool.TryGetPooledObject(randomShellPosition, Quaternion.identity);
-                bullet.InitBullet(transform.forward);
+                bullet.InitBullet(this, transform.forward);
             }
             print(this.gameObject.name + " disparo pew pew me quedan " + remainingBullets + " balas");
         }

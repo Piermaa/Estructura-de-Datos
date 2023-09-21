@@ -16,7 +16,7 @@ public class Pistol : Weapon
         {
             remainingBullets--;
             Bullet bullet = (Bullet)weaponHolder.EquippedWeaponBulletPool.TryGetPooledObject(transform.position, transform.rotation);
-            bullet.InitBullet(transform.forward);
+            bullet.InitBullet(this, transform.forward);
             print(this.gameObject.name +  " disparo pew pew me quedan " + remainingBullets + " balas");
         }
         else

@@ -5,7 +5,8 @@ using UnityEngine;
 public interface IBullet : IPoolable
 {
     BulletStats BulletStats { get; }
-    void InitBullet(Vector3 shootDir);
+    IWeapon Owner { get; }
+    void InitBullet(IWeapon owner, Vector3 shootDir);
     void OnCollisionEnter(Collision col);
     void Travel();
 }
