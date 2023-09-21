@@ -1,4 +1,3 @@
-using ScriptsEnemies.Entities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,4 +27,10 @@ public class Player : Actor, IMoveable
         actorRB.velocity = new Vector3(xMovement, 0, zMovement) * Time.deltaTime * _moveSpeed;
     }
     #endregion
+    [ContextMenu("/Kill")]
+    public override void Die()
+    {
+        ActionsManager.InvokeAction(ActionKeys.PLAYER_DEATH_KEY);
+        base.Die();
+    }
 }

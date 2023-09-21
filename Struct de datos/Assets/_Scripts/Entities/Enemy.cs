@@ -1,4 +1,4 @@
-﻿using ScriptsEnemies.Entities;
+﻿using System.Diagnostics.Tracing;
 using UnityEngine;
 
 public class Enemy: Actor
@@ -38,7 +38,12 @@ public class Enemy: Actor
         }
     }
     #endregion
-    
+
+    public override void Die()
+    {
+        ActionsManager.InvokeAction(ActionKeys.ENEMY_DEATH_KEY);
+        base.Die();
+    }
     //Lógica de dijkstra
     
     
