@@ -24,7 +24,7 @@ public class EnemySpawnManager : MonoBehaviour
         
         for (int i = 0; i < enemyAmount; i++) _enemyQueue.Acolar(GenerateEnemy(GenerateNumber(enemies.Length)));
         //Usar Quicksort con los enemigos según su dificultad
-        SpawnEnemies();
+        InvokeRepeating("SpawnEnemies", 1, 1);
     }
 
     int GenerateNumber(int max)
@@ -40,7 +40,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     public void SpawnEnemies()
     {
-        for (int i = _currentSpawnedAmount; i <= maxSpawnedAmount; i++)
+        if (_currentSpawnedAmount < maxSpawnedAmount && !_enemyQueue.ColaVacia())
         {
             print("spawneo enemigo");
             Instantiate(_enemyQueue.Primero(), spawns[GenerateNumber(spawns.Length-1)].position, Quaternion.identity);
@@ -53,11 +53,7 @@ public class EnemySpawnManager : MonoBehaviour
         Debug.Log("Enemy died");
         _currentSpawnedAmount--;
 
-        if (!_enemyQueue.ColaVacia())
-        {            
-            SpawnEnemies();
-        }
-        else if (_currentSpawnedAmount<=0)
+        if (_currentSpawnedAmount<=0 && _enemyQueue.ColaVacia())
         {
             GameManager.Instance.Win();
         }

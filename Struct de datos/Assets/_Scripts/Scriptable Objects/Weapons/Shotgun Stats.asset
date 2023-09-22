@@ -16,4 +16,4 @@ MonoBehaviour:
   <FireRate>k__BackingField: 2
   <BulletsPerShot>k__BackingField: 3
   <MagSize>k__BackingField: 4
-  <Damage>k__BackingField: 2
+  <Damage>k__BackingField: 25
