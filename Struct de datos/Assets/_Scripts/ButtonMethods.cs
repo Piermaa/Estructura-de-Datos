@@ -5,10 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class ButtonMethods : MonoBehaviour
 {
-    public void Play()
+    public void LevelOne()
     {
-        //SceneManager.LoadScene("Nivel1");
-        print("Esto mandaría a nivel 1, pero no existe aún");
+        SceneManager.LoadScene("LevelOneScene");
+    }
+
+    public void LevelTwo()
+    {
+        //SceneManager.LoadScene("LevelTwoScene");
+        //Esta escena todavía no existe
     }
 
     public void Menu()
