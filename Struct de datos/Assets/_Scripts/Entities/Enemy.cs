@@ -1,15 +1,19 @@
 ﻿using System.Diagnostics.Tracing;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy: Actor
 {
     #region PRIVATE_PROPERTIES
-    [SerializeField] private int damage;
+    [SerializeField] protected EnemyStats _stats;
+    private int damage => _stats.Damage;
+    private int difficultyLevel => _stats.DifficultyLevel;
+    [SerializeField] private Transform _playerTransform;
     [SerializeField] private float attackCooldown;
     [SerializeField] private float currentAttackCooldown;
     [SerializeField] private LayerMask hitteableLayer;
-    [SerializeField] private int difficultyLevel;
     private WeaponDropper _weaponDropper;
+    private NavMeshAgent _navMeshAgent;
     //Muchas se podrían poner en un posible enemystats (o actorstats yqc)
     #endregion
     
@@ -17,6 +21,7 @@ public class Enemy: Actor
     protected override void Start()
     {
         base.Start();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
         currentAttackCooldown = attackCooldown;
         _weaponDropper = GetComponentInChildren<WeaponDropper>();
     }
@@ -27,6 +32,8 @@ public class Enemy: Actor
         {
             currentAttackCooldown = -1;
         }
+
+        ChaseTarget();
     }
 
     private void OnCollisionEnter(Collision other)
@@ -47,13 +54,20 @@ public class Enemy: Actor
         if(_weaponDropper != null) _weaponDropper.DropRandomWeapon();
         base.Die();
     }
-    //Lógica de dijkstra
-    
-    
-    //--------Management de enemigos--------
-    //Deben depender de un factory
-    //Deben generarse aleatoriamente
-    //Deben almacenarse en una cola
-    //Dicha cola deberá ordenarse por nivel de dificultad
-    //Deberán generarse a medida que el jugador los elimina en algunos puntos concretos del mapa
-}
+
+    public void ChaseTarget()
+    {
+        if (_playerTransform == null)
+            return;
+
+        _navMeshAgent.SetDestination(_playerTransform.position);
+    }
+
+        //Lógica de dijkstra
+        //--------Management de enemigos--------
+        //Deben depender de un factory
+        //Deben generarse aleatoriamente
+        //Deben almacenarse en una cola
+        //Dicha cola deberá ordenarse por nivel de dificultad
+        //Deberán generarse a medida que el jugador los elimina en algunos puntos concretos del mapa
+    }
