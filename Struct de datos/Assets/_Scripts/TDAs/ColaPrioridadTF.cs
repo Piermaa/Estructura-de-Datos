@@ -15,6 +15,8 @@ public class ColaPrioridadTF<T> : MonoBehaviour, IColaTDA<T> where T:IElementoCo
     private int[] prioridades; // arreglo en donde se guarda la informacion
     private int indice; // variable entera en donde se guarda la cantidad de elementos que se tienen guardados
 
+    public int Count => throw new System.NotImplementedException();
+
     public void InicializarCola()
     {
         elementos = new IElementoConPrioridad[100];
@@ -66,5 +68,10 @@ public class ColaPrioridadTF<T> : MonoBehaviour, IColaTDA<T> where T:IElementoCo
     public int Prioridad()
     {
         return prioridades[indice - 1];
+    }
+
+    public void Clear()
+    {
+        throw new System.NotImplementedException();
     }
 }

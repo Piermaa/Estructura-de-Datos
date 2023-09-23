@@ -6,9 +6,7 @@ public class ObjectPool : MonoBehaviour
 {
     //--Esto se pone en cualquier objeto que cree un pool de objetos IPoolable -> Ej el arma del jugador que crea balas
     //--Poner el objeto vacio que contenga los objetos pooleados dentro de la var poolFolder serializada en el inspector.
-
-    //Despues esto hay que portearlo a la cola que hicimos nosotros. Ahora no porque son las 4am y me da paja.
-    //Cuando un objeto pooleado se muere que se desactive por su cuenta.
+    //--TODO: Despues mas facil hago que se cree el padre que las almacena cuando se inicializa asi menos paja
 
     //------PUBLIC PROPERTIES-------
     public bool IsPoolInited
@@ -19,7 +17,7 @@ public class ObjectPool : MonoBehaviour
     //------PRIVATE PROPERTIES-------
     private bool isPoolInited = false;
 
-    private Queue<IPoolable> objectPool;
+    private ColaTF<IPoolable> objectPool;
     private IPoolable objectToPool;
     private int poolSize = 10;
 
@@ -30,7 +28,7 @@ public class ObjectPool : MonoBehaviour
     //################ #################
     private void Awake()
     {
-        objectPool = new Queue<IPoolable>();
+        objectPool = new ColaTF<IPoolable>();
 
         if (poolFolder == null)
         {
@@ -42,24 +40,28 @@ public class ObjectPool : MonoBehaviour
     //----------CLASS METHODS-----------
     //################ #################
 
-    public void EmptyPool()
-    {
-        foreach (IPoolable p_obj in objectPool)
-        {
-            Destroy(p_obj.GameObject);
-        }
-        objectPool.Clear();
-    }
-
     public void CreatePool(IPoolable objectToPool, int poolMaxSize = 10)
     {
         if (objectPool != null)
         {
             this.objectToPool = objectToPool;
             this.poolSize = poolMaxSize;
+            objectPool.InicializarCola(poolMaxSize);
             isPoolInited = true;
         }
         else Debug.LogWarning("Object is not a poolable object.");
+    }
+
+    public void EmptyPool()
+    {
+        foreach (IPoolable p_obj in objectPool)
+        {
+            if (p_obj != null)
+            {
+                Destroy(p_obj.GameObject);
+            }
+        }
+        objectPool.Clear();
     }
 
     public IPoolable TryGetPooledObject(Vector3 position, Quaternion rotation)
@@ -75,7 +77,7 @@ public class ObjectPool : MonoBehaviour
             pooledObject = ReuseObject(position, rotation);
         }
 
-        objectPool.Enqueue(pooledObject);
+        objectPool.Acolar(pooledObject);
         return pooledObject;
     }
 
@@ -90,7 +92,8 @@ public class ObjectPool : MonoBehaviour
     }
     private IPoolable ReuseObject(Vector3 position, Quaternion rotation)
     {
-        IPoolable pooledObject = objectPool.Dequeue();
+        IPoolable pooledObject = objectPool.Primero();
+        objectPool.Desacolar();
         pooledObject.GameObject.transform.position = position;
         pooledObject.GameObject.transform.rotation = rotation;
         pooledObject.GameObject.SetActive(true);

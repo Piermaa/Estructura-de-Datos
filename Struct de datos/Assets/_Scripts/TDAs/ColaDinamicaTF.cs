@@ -16,6 +16,8 @@ public class ColaDinamicaTF<T> : IColaTDA<T>
     // ultimo elemento agregado
     Nodo<T> ultimo;
 
+    public int Count => throw new System.NotImplementedException();
+
     public void InicializarCola()
     {
         primero = null;
@@ -68,6 +70,11 @@ public class ColaDinamicaTF<T> : IColaTDA<T>
     {
         //devuelvo los datos del primer valor
         return primero.datos;
+    }
+
+    public void Clear()
+    {
+        throw new System.NotImplementedException();
     }
 }
 
