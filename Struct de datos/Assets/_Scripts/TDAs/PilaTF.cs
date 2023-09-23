@@ -23,22 +23,9 @@ public class PilaTF<T> : IPilaTDA<T>
     public T Pop()
     {
         _index--;
-
-        try
-        {
-            if (IsEmpty())
-                throw new Exception("Stack Empty");
-            else
-            {
-                return _array[_index];
-            }
-        }
-        catch
-        {
-            Debug.Log("Stack Empty. Que se yo try catch. No se me ocurre una mejor manera a las 6 AM");
-            return default;
-        }
+        return _array[_index];
     }
+
     public bool IsEmpty()
     {
         return _index < 0;

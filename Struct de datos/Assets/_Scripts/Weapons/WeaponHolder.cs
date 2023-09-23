@@ -17,6 +17,7 @@ public class WeaponHolder : MonoBehaviour
     private const int MAX_STACK_SIZE = 50;
     private PilaTF<IWeapon> _pickedWeapons=new();
 
+    [SerializeField] private Weapon defaultWeapon;
 
     //################ #################
     //----------UNITY EV FUNC-----------
@@ -37,13 +38,21 @@ public class WeaponHolder : MonoBehaviour
     private void Awake()
     {
         _pickedWeapons.Init(MAX_STACK_SIZE);
+
         bulletPool = GetComponent<ObjectPool>();
+        EquipDefaultWeapon();
     }
     #endregion
 
     //################ #################
     //----------CLASS METHODS-----------
     //################ #################
+
+    private void EquipDefaultWeapon()
+    {
+        Weapon defaultWeapon = Instantiate(this.defaultWeapon, this.transform);
+        PickupWeapon(defaultWeapon.GetComponent<IWeapon>());
+    }
 
     //SUSCRIPTO A WEAPON -> ONMAGAZINEEMPTY
     private void UnequipWeaponAndTryEquipNextWeapon()
