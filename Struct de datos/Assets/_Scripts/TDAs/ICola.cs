@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IColaTDA<T>
 {
+    int Count { get; }
     void InicializarCola();
     // siempre que la cola este inicializada
     void Acolar(T x);
@@ -13,4 +14,5 @@ public interface IColaTDA<T>
     bool ColaVacia();
     // siempre que la cola este inicializada y no este vacıa
     T Primero();
+    void Clear();
 }
