@@ -12,8 +12,7 @@ public class ButtonMethods : MonoBehaviour
 
     public void LevelTwo()
     {
-        //SceneManager.LoadScene("LevelTwoScene");
-        //Esta escena todavía no existe
+        SceneManager.LoadScene("LevelTwoScene");
     }
 
     public void Menu()

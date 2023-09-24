@@ -21,6 +21,7 @@ public class Enemy: Actor
     protected override void Start()
     {
         base.Start();
+        _playerTransform = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Transform>(); //Para que los prefabs puedan conseguir el player
         _navMeshAgent = GetComponent<NavMeshAgent>();
         currentAttackCooldown = attackCooldown;
         _weaponDropper = GetComponentInChildren<WeaponDropper>();
