@@ -47,7 +47,7 @@ public class Weapon : MonoBehaviour, IWeapon
 
     //--------IWEAPON-----------
 
-    //COMO SE DESCARTAN LAS ARMAS EL RELOAD ES SOLO PARA INICIALIZAR EL TAMAÑO DEL POOL
+    //COMO SE DESCARTAN LAS ARMAS EL RELOAD ES SOLO PARA INICIALIZAR EL TAMAÃ‘O DEL POOL
     public void Reload()
     {
         remainingBullets = weaponStats.MagSize;

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class AimToMouse : MonoBehaviour
 {
-	// Update is called once per frame
 	private Camera _camera;
 
 	private void Awake()

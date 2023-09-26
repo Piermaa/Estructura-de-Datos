@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Actor, IMoveable
+public class Player : Actor, IMovable
 {
     #region PUBLIC_VARIABLES
     public float MoveSpeed => _moveSpeed;

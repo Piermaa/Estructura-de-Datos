@@ -62,9 +62,9 @@ public class Bullet : MonoBehaviour, IBullet
     }
 
     //-----IPOOLABLE--------
-
     //No se destruye porque esto va pooleado. Despues habria que destruir el pool si el jugador/enemigo que tenga un pool de por ejemplo,
-    //balas, asi no quedan pools vivitos por ahi que no pertenecen a nadie.
+    //balas, asi no quedan pools vivos por ahi que no pertenecen a nadie.
+    
     public void OnPoolableObjectDisable()
     {
         lifeTimer = bulletStats.MaxLifetime;

@@ -10,20 +10,20 @@ public class Enemy: Actor
     private int damage => _stats.Damage;
     private int difficultyLevel => _stats.DifficultyLevel;
     private float Speed => _stats.Speed;
+    
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private float attackCooldown;
     [SerializeField] private float currentAttackCooldown;
     [SerializeField] private LayerMask hitteableLayer;
     private WeaponDropper _weaponDropper;
     private NavMeshAgent _navMeshAgent;
-    //Muchas se podrían poner en un posible enemystats (o actorstats yqc)
     #endregion
     
     #region UNITY_METHODS
     protected override void Start()
     {
         base.Start();
-        _playerTransform = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Transform>(); //Para que los prefabs puedan conseguir el player
+        _playerTransform = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Transform>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.speed = Speed;
         currentAttackCooldown = attackCooldown;
@@ -67,12 +67,4 @@ public class Enemy: Actor
 
         _navMeshAgent.SetDestination(_playerTransform.position);
     }
-
-        //Lógica de dijkstra
-        //--------Management de enemigos--------
-        //Deben depender de un factory
-        //Deben generarse aleatoriamente
-        //Deben almacenarse en una cola
-        //Dicha cola deberá ordenarse por nivel de dificultad
-        //Deberán generarse a medida que el jugador los elimina en algunos puntos concretos del mapa
-    }
+}
