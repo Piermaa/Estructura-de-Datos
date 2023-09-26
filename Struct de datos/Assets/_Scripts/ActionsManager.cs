@@ -31,7 +31,7 @@ public static class ActionsManager
             return;
         }
 
-        actions.Add(name,() => { }); //preguntenle a ed sheeran no me molesten
+        actions.Add(name,() => { });
     }
 
     public static void SubscribeToAction(string name, Action action)
@@ -75,7 +75,7 @@ public static class ActionsManager
         }
     }
 /// <summary>
-/// Entre niveles se van a mantener las acciones y no quiero asi q lo reseteo en el awake del game manager
+/// Entre niveles se van a mantener las acciones y no queremos asi q lo reseteo en el awake del game manager
 /// </summary>
     public static void ResetManager()
     {

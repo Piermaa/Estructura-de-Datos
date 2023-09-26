@@ -48,7 +48,7 @@ public class EnemySpawnManager : MonoBehaviour
             _currentSpawnedAmount++;
         }
     }
-    public void EnemyDied() //Esto tendría que dispachearse como evento cuando muera un enemy                    ok
+    public void EnemyDied() 
     {
         Debug.Log("Enemy died");
         _currentSpawnedAmount--;

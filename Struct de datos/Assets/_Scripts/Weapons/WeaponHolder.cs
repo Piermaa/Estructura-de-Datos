@@ -64,7 +64,7 @@ public class WeaponHolder : MonoBehaviour
         //LUEGO INTENTAR EQUIPAR EL SIGUIENTE EN EL STACK
         _equippedWeapon = _pickedWeapons.Pop();
 
-        //SI ES QUE HAY SI NO EQUIPPED WEAPON QUEDA VACIO
+        //SI ES QUE HAY SI NO EQUIPPED WEAPON QUEDA VACIO. Esto ya no pasa porque tiene arma por defecto
         if (_equippedWeapon != null)
         {
             InitBulletPool(_equippedWeapon);
