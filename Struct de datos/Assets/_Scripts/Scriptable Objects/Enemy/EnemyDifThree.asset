@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: EnemyDifThree
   m_EditorClassIdentifier: 
   _stats:
-    MaxLife: 200
-    Damage: 30
+    Damage: 20
     DifficultyLevel: 3
+    Speed: 3
