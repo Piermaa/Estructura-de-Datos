@@ -6,6 +6,7 @@ public class Enemy: Actor
 {
     #region PRIVATE_PROPERTIES
     [SerializeField] protected EnemyStats _stats;
+    
     private int damage => _stats.Damage;
     private int difficultyLevel => _stats.DifficultyLevel;
     private float Speed => _stats.Speed;
