@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: EnemyDifOne
   m_EditorClassIdentifier: 
   _stats:
-    MaxLife: 100
     Damage: 10
     DifficultyLevel: 1
+    Speed: 2
