@@ -8,6 +8,7 @@ public class Enemy: Actor
     [SerializeField] protected EnemyStats _stats;
     private int damage => _stats.Damage;
     private int difficultyLevel => _stats.DifficultyLevel;
+    private float Speed => _stats.Speed;
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private float attackCooldown;
     [SerializeField] private float currentAttackCooldown;
@@ -23,9 +24,11 @@ public class Enemy: Actor
         base.Start();
         _playerTransform = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Transform>(); //Para que los prefabs puedan conseguir el player
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _navMeshAgent.speed = Speed;
         currentAttackCooldown = attackCooldown;
         _weaponDropper = GetComponentInChildren<WeaponDropper>();
     }
+
     private void Update()
     {
         currentAttackCooldown -= Time.deltaTime;
