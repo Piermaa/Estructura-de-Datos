@@ -6,7 +6,6 @@ public class ObjectPool : MonoBehaviour
 {
     //--Esto se pone en cualquier objeto que cree un pool de objetos IPoolable -> Ej el arma del jugador que crea balas
     //--Poner el objeto vacio que contenga los objetos pooleados dentro de la var poolFolder serializada en el inspector.
-    //--TODO: Despues mas facil hago que se cree el padre que las almacena cuando se inicializa asi menos paja
 
     //------PUBLIC PROPERTIES-------
     public bool IsPoolInited
