@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//NO PROBE NADA DE ESTO Y POR AHI NO LO USAMOS UN SALUDO
 public interface IElementoConPrioridad
 {
     int Priority { get; }
 }
-//Que conio esta pasando aca
 //Como despues se requiere verificar el valor int de Priority pero tiene que ser generica la cola le meto ese constraint
 //El new es para poder instanciar un T 
 public class ColaPrioridadTF<T> : MonoBehaviour, IColaTDA<T> where T:IElementoConPrioridad, new()
