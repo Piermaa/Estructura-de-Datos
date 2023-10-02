@@ -34,14 +34,14 @@ public class EnemySpawnManager : MonoBehaviour
         }
         quickSort.Sort(_enemyArray, 0, _enemyArray.Length -1);
       
-       // _enemyQueue.InicializarCola();
+        _enemyQueue.InicializarCola();
         
-        // for (int i = 0; i < _enemyArray.Length; i++)
-        // {
-        //     _enemyQueue.Acolar(_enemyArray[i]);
-        // }
-        //
-        // InvokeRepeating("SpawnEnemies", 1, 1);
+         for (int i = 0; i < _enemyArray.Length; i++)
+         {
+             _enemyQueue.Acolar(_enemyArray[i]);
+         }
+        
+         InvokeRepeating("SpawnEnemies", 1, 1);
     }
 
     int GenerateNumber(int max)

@@ -44,7 +44,7 @@ public class QuickSort<T> where T : IElementoConPrioridad
     public void Sort(T[] arr, int left, int right)
     {
         int pivot;
-        if (left < right)
+        if (left <= right)
         {
             pivot = Partition(arr, left, right);
 
