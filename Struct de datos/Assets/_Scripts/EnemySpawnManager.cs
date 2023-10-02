@@ -23,11 +23,10 @@ public class EnemySpawnManager : MonoBehaviour
         ActionsManager.SubscribeToAction(ActionKeys.ENEMY_DEATH_KEY,EnemyDied);
         _enemyQueue.InicializarCola();
         _enemyArray = new Enemy[enemyAmount];
-
-        QuickSort<Enemy> quickSort = new();
-        //for (int i = 0; i < enemyAmount; i++) _enemyQueue.Acolar(GenerateEnemy(GenerateNumber(enemies.Length)));
+        
         for (int i = 0; i < enemyAmount; i++) _enemyArray[i] = GenerateEnemy(GenerateNumber(enemies.Length));
-        quickSort.quickSort(_enemyArray, 0, _enemyArray.Length -1);
+        QuickSort<Enemy>.QuickSortMethod(_enemyArray, 0, _enemyArray.Length -1);
+        
         for (int i = 0; i < _enemyArray.Length; i++)
         {
             _enemyQueue.Acolar(_enemyArray[i]);
