@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 public class Enemy: Actor, IElementoConPrioridad
 {
-    public int Priority => DifficultyLevel;
+    public int Priority => _stats.DifficultyLevel;
     
     #region PRIVATE_PROPERTIES
     [SerializeField] protected EnemyStats _stats;

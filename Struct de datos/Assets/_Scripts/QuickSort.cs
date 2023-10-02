@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class QuickSort<T> where T : IElementoConPrioridad, new()
+public class QuickSort<T> where T : IElementoConPrioridad
 {
     public int Partition(T[] arr, int left, int right)
     {
@@ -41,7 +41,7 @@ public class QuickSort<T> where T : IElementoConPrioridad, new()
         }
     }
 
-    public void quickSort(T[] arr, int left, int right)
+    public void Sort(T[] arr, int left, int right)
     {
         int pivot;
         if (left < right)
@@ -51,13 +51,13 @@ public class QuickSort<T> where T : IElementoConPrioridad, new()
             if (pivot > 1)
             {
                 // mitad del lado izquierdo del vector
-                quickSort(arr, left, pivot - 1);
+                Sort(arr, left, pivot - 1);
             }
 
             if (pivot + 1 < right)
             {
                 // mitad del lado derecho del vector
-                quickSort(arr, pivot + 1, right);
+                Sort(arr, pivot + 1, right);
             }
         }
     }

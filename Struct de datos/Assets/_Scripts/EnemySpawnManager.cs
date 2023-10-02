@@ -21,19 +21,27 @@ public class EnemySpawnManager : MonoBehaviour
     {
         ActionsManager.RegisterAction(ActionKeys.ENEMY_DEATH_KEY);
         ActionsManager.SubscribeToAction(ActionKeys.ENEMY_DEATH_KEY,EnemyDied);
-        _enemyQueue.InicializarCola();
+   
         _enemyArray = new Enemy[enemyAmount];
 
-        QuickSort<Enemy> quickSort = new();
+        QuickSort<Enemy> quickSort = new QuickSort<Enemy>();
         //for (int i = 0; i < enemyAmount; i++) _enemyQueue.Acolar(GenerateEnemy(GenerateNumber(enemies.Length)));
-        for (int i = 0; i < enemyAmount; i++) _enemyArray[i] = GenerateEnemy(GenerateNumber(enemies.Length));
-        quickSort.quickSort(_enemyArray, 0, _enemyArray.Length -1);
-        for (int i = 0; i < _enemyArray.Length; i++)
+    
+        for (int i = 0; i < _enemyArray.Length; i++) 
         {
-            _enemyQueue.Acolar(_enemyArray[i]);
+            _enemyArray[i] = GenerateEnemy(GenerateNumber(enemies.Length));
+            Debug.Log($"Enemy priority: {_enemyArray[i].Priority}");
         }
+        quickSort.Sort(_enemyArray, 0, _enemyArray.Length -1);
+      
+       // _enemyQueue.InicializarCola();
         
-        InvokeRepeating("SpawnEnemies", 1, 1);
+        // for (int i = 0; i < _enemyArray.Length; i++)
+        // {
+        //     _enemyQueue.Acolar(_enemyArray[i]);
+        // }
+        //
+        // InvokeRepeating("SpawnEnemies", 1, 1);
     }
 
     int GenerateNumber(int max)
