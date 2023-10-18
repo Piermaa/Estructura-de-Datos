@@ -1,7 +1,8 @@
 using UnityEngine;
     using System;
+using System.Collections.Generic;
 
-    public interface ConjuntoTDA
+public interface ConjuntoTDA
 
     {
 
@@ -318,8 +319,8 @@ public class GrafoMA : GrafoTDA
 
     public void AgregarArista(int v1, int v2, int peso)
     {
-        int o = Vert2Indice(v1-1);
-        int d = Vert2Indice(v2-1);
+        int o = Vert2Indice(v1);
+        int d = Vert2Indice(v2);
         MAdy[o, d] = peso;
     }
 
@@ -342,6 +343,25 @@ public class GrafoMA : GrafoTDA
         int o = Vert2Indice(v1);
         int d = Vert2Indice(v2);
         return MAdy[o, d];
+    }
+
+    public int PesoCamino(List<Nodo> nodos)
+    {
+        int pesoTotal=0;
+        for (int i = 0; i < nodos.Count-1; i++)
+        {
+            if (ExisteArista(nodos[i].info,nodos[i+1].info))
+            {
+                pesoTotal += PesoArista(nodos[i].info, nodos[i+1].info);
+            }
+            else
+            {
+                Debug.LogWarning($"No existe arista entre: {nodos[i].info} y {nodos[i+1].info}");
+                return pesoTotal;
+            }
+        }
+
+        return pesoTotal;
     }
 }
  
