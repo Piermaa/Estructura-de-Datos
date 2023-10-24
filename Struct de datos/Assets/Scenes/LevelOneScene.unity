@@ -4134,9 +4134,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 1735639225876884326, guid: d9e2e21c506d1634caeff1512daee836, type: 3}
-  - {fileID: 1735639225876884326, guid: 2389bdfd3f57158439468e82f3cf5251, type: 3}
-  - {fileID: 1735639225876884326, guid: 204d87bafe8b37d458aa0abd471cd07f, type: 3}
+  - {fileID: 1735639225876884320, guid: d9e2e21c506d1634caeff1512daee836, type: 3}
+  - {fileID: 1735639225876884320, guid: 2389bdfd3f57158439468e82f3cf5251, type: 3}
+  - {fileID: 1735639225876884320, guid: 204d87bafe8b37d458aa0abd471cd07f, type: 3}
+  _enemyArray: []
   enemyAmount: 20
   spawns:
   - {fileID: 697459866}

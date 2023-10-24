@@ -8,8 +8,9 @@ using Random = UnityEngine.Random;
 public class EnemySpawnManager : MonoBehaviour
 {
     
-    [SerializeField] private GameObject[] enemies;
-    private ColaDinamicaTF<GameObject> _enemyQueue = new ColaDinamicaTF<GameObject>();
+    [SerializeField] private Enemy[] enemies;
+    [SerializeField] private Enemy[] _enemyArray;
+    private ColaDinamicaTF<Enemy> _enemyQueue = new ColaDinamicaTF<Enemy>();
     [SerializeField] private int enemyAmount;
 
     [SerializeField] private Transform[] spawns;
@@ -21,9 +22,16 @@ public class EnemySpawnManager : MonoBehaviour
         ActionsManager.RegisterAction(ActionKeys.ENEMY_DEATH_KEY);
         ActionsManager.SubscribeToAction(ActionKeys.ENEMY_DEATH_KEY,EnemyDied);
         _enemyQueue.InicializarCola();
+        _enemyArray = new Enemy[enemyAmount];
         
-        for (int i = 0; i < enemyAmount; i++) _enemyQueue.Acolar(GenerateEnemy(GenerateNumber(enemies.Length)));
-        //Usar Quicksort con los enemigos según su dificultad
+        for (int i = 0; i < enemyAmount; i++) _enemyArray[i] = GenerateEnemy(GenerateNumber(enemies.Length));
+        QuickSort<Enemy>.QuickSortMethod(_enemyArray, 0, _enemyArray.Length -1);
+        
+        for (int i = 0; i < _enemyArray.Length; i++)
+        {
+            _enemyQueue.Acolar(_enemyArray[i]);
+        }
+        
         InvokeRepeating("SpawnEnemies", 1, 1);
     }
 
@@ -33,7 +41,7 @@ public class EnemySpawnManager : MonoBehaviour
         return randomInt;
     }
     
-    GameObject GenerateEnemy(int x)
+    Enemy GenerateEnemy(int x)
     {
         return enemies[x];
     }

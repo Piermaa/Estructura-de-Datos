@@ -2,13 +2,15 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy: Actor
+public class Enemy: Actor, IElementoConPrioridad
 {
+    public int Priority => DifficultyLevel;
+    
     #region PRIVATE_PROPERTIES
     [SerializeField] protected EnemyStats _stats;
     
-    private int damage => _stats.Damage;
-    private int difficultyLevel => _stats.DifficultyLevel;
+    private int Damage => _stats.Damage;
+    private int DifficultyLevel => _stats.DifficultyLevel;
     private float Speed => _stats.Speed;
     
     [SerializeField] private Transform _playerTransform;
@@ -47,7 +49,7 @@ public class Enemy: Actor
         {
             if (((1 << other.gameObject.layer) & hitteableLayer) != 0)
             {
-                other.gameObject.GetComponent<Actor>()?.TakeDamage(damage);
+                other.gameObject.GetComponent<Actor>()?.TakeDamage(Damage);
             }
         }
     }
@@ -67,4 +69,5 @@ public class Enemy: Actor
 
         _navMeshAgent.SetDestination(_playerTransform.position);
     }
+
 }
