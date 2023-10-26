@@ -39,7 +39,7 @@ public class Enemy: Actor, IElementoConPrioridad
         {
             currentAttackCooldown = -1;
         }
-        FaceTarget();
+
         ChaseTarget();
     }
 
@@ -69,14 +69,4 @@ public class Enemy: Actor, IElementoConPrioridad
 
         _navMeshAgent.SetDestination(_playerTransform.position);
     }
-
-    void FaceTarget()
-    {
-        var turnTowardNavSteeringTarget = _navMeshAgent.steeringTarget;
-
-        Vector3 direction = (turnTowardNavSteeringTarget - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5);
-    }
-
 }
