@@ -4134,9 +4134,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 5385978450162798889, guid: 5903bb5bc1aa9614fb674cac0c496c66, type: 3}
   - {fileID: 7035911164127235411, guid: 14d64127d449ac343b44dbe37a169bd6, type: 3}
   - {fileID: 8966721827921708705, guid: 93a8f1141ef2ce54283a0f689229c672, type: 3}
+  - {fileID: 5385978450162798889, guid: 5903bb5bc1aa9614fb674cac0c496c66, type: 3}
   _enemyArray: []
   enemyAmount: 20
   spawns:

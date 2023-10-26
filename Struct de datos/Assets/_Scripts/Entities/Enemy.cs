@@ -19,6 +19,7 @@ public class Enemy: Actor, IElementoConPrioridad
     [SerializeField] private LayerMask hitteableLayer;
     private WeaponDropper _weaponDropper;
     private NavMeshAgent _navMeshAgent;
+    private Animator _animator;
     #endregion
     
     #region UNITY_METHODS
@@ -27,6 +28,7 @@ public class Enemy: Actor, IElementoConPrioridad
         base.Start();
         _playerTransform = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Transform>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _animator = GetComponent<Animator>();
         _navMeshAgent.speed = Speed;
         currentAttackCooldown = attackCooldown;
         _weaponDropper = GetComponentInChildren<WeaponDropper>();
@@ -49,7 +51,9 @@ public class Enemy: Actor, IElementoConPrioridad
         {
             if (((1 << other.gameObject.layer) & hitteableLayer) != 0)
             {
+                _animator.SetTrigger("AttackTrigger");
                 other.gameObject.GetComponent<Actor>()?.TakeDamage(Damage);
+                currentAttackCooldown = attackCooldown;
             }
         }
     }
