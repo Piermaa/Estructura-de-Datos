@@ -1,106 +1,103 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class ABB : ABBTDA
-{
-    public NodoABB _raiz;
-
-    public int Raiz()
+    public class ABB : ABBTDA
     {
-        return _raiz.info;
-    }
+        public NodoABB raiz;
 
-    public bool ArbolVacio()
-    {
-        return (_raiz == null);
-    }
-
-    public void InicializarArbol()
-    {
-        _raiz = null;
-    }
-
-    public NodoABB HijoDer()
-    {
-        return _raiz.hijoDer;
-    }
-
-    public NodoABB HijoIzq()
-    {
-        return _raiz.hijoIzq;
-    }
-
-    public void AgregarElem(NodoABB raiz, int x)
-    {
-        // NO NOS ANDA SI LO AGREGAMOS CON ESTA FORMA!
-        // tambien nos tiraba error si usabamos el ref!
-        //tpyeof
-        if (_raiz == null)
+        public int Raiz()
         {
-            raiz = new NodoABB();
-            raiz.info = x;
+            return raiz.info;
         }
-        else if (raiz.info > x)
-        {
-            AgregarElem(raiz.hijoIzq, x);
-        }
-        else if (raiz.info < x)
-        {
-            AgregarElem(raiz.hijoDer, x);
-        }
-    }
 
-    public void EliminarElem( NodoABB raiz, int x)
-    {
-        if (raiz != null)
+        public bool ArbolVacio()
         {
-            if (raiz.info == x && (raiz.hijoIzq == null) && (raiz.hijoDer == null))
+            return (raiz == null);
+        }
+
+        public void InicializarArbol()
+        {
+            raiz = null;
+        }
+
+        public NodoABB HijoDer()
+        {
+            return raiz.hijoDer;
+        }
+
+        public NodoABB HijoIzq()
+        {
+            return raiz.hijoIzq;
+        }
+
+        public void AgregarElem(ref NodoABB raiz, NodoABB nodo)
+        {
+            if(raiz == null)
             {
-                raiz = null;
+                raiz = nodo;
             }
-            else if (raiz.info == x && raiz.hijoIzq != null)
+            else if (raiz.info > nodo.info)
             {
-                raiz.info = this.mayor(raiz.hijoIzq);
-                EliminarElem( raiz.hijoIzq, raiz.info);
+                AgregarElem(ref raiz.hijoIzq, nodo);
             }
-            else if (raiz.info == x && raiz.hijoIzq == null)
+            else if (raiz.info < nodo.info)
             {
-                raiz.info = this.menor(raiz.hijoDer);
-                EliminarElem( raiz.hijoDer, raiz.info);
+                AgregarElem(ref raiz.hijoDer, nodo);
             }
-            else if (raiz.info < x)
+        }
+
+        public void EliminarElem(ref NodoABB raiz, int x)
+        {
+            if (raiz != null)
             {
-                EliminarElem( raiz.hijoDer, x);
+                if (raiz.info == x && (raiz.hijoIzq == null) && (raiz.hijoDer == null))
+                {
+                    raiz = null;
+                }
+                else if (raiz.info == x && raiz.hijoIzq != null)
+                {
+                    raiz.info = this.mayor(raiz.hijoIzq);
+                    EliminarElem(ref raiz.hijoIzq, raiz.info);
+                }
+                else if (raiz.info == x && raiz.hijoIzq == null)
+                {
+                    raiz.info = this.menor(raiz.hijoDer);
+                    EliminarElem(ref raiz.hijoDer, raiz.info);
+                }
+                else if(raiz.info < x)
+                {
+                    EliminarElem(ref raiz.hijoDer, x);
+                }
+                else
+                {
+                    EliminarElem(ref raiz.hijoIzq, x);
+                }
+            }
+        }
+
+        public int mayor(NodoABB a)
+        {
+            if (a.hijoDer == null)
+            {
+                return a.info;
             }
             else
             {
-                EliminarElem( raiz.hijoIzq, x);
+                return mayor(a.hijoDer);
             }
         }
+
+        public int menor(NodoABB a)
+        {
+            if (a.hijoIzq == null)
+            {
+                return a.info;
+            }
+            else
+            {
+                return menor(a.hijoIzq);
+            }
+        }
+
     }
 
-    public int mayor(NodoABB a)
-    {
-        if (a.hijoDer == null)
-        {
-            return a.info;
-        }
-        else
-        {
-            return mayor(a.hijoDer);
-        }
-    }
-
-    public int menor(NodoABB a)
-    {
-        if (a.hijoIzq == null)
-        {
-            return a.info;
-        }
-        else
-        {
-            return menor(a.hijoIzq);
-        }
-    }
-}

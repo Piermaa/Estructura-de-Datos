@@ -50,15 +50,14 @@ public class Enemy: Actor, IElementoConPrioridad
 
         _canAttackAbbCheck.SetBlackBoard(ref _blackBoard);
         
-        _abb._raiz = _canAttackAbbCheck;
-        //_abb.AgregarElem( _canAttackAbbCheck,1);
+       // _abb._raiz = _canAttackAbbCheck;
+       _abb.AgregarElem(ref _abb.raiz, _canAttackAbbCheck);
         
          var chaseAbbTask = new ChaseABBTask(GameObject.FindGameObjectWithTag("Player")?.transform,
             GetComponent<NavMeshAgent>(), Speed,ref _blackBoard);
 
-         _abb._raiz.hijoDer = chaseAbbTask;
-         
-    //    _abb.AgregarElem(chaseAbbTask,2);
+      //  _abb._raiz.hijoDer = chaseAbbTask;
+        _abb.AgregarElem(ref _abb.raiz,chaseAbbTask);
     }
 
     private void Update()
@@ -70,7 +69,7 @@ public class Enemy: Actor, IElementoConPrioridad
         }
         
      //   print("soy la info de la raiz: " + _abb._raiz.hijoDer?.info);
-        ABBOrders.preOrder(_abb._raiz);
+        ABBOrders.preOrder(_abb.raiz);
     }
 
     private void OnCollisionEnter(Collision other)
@@ -127,9 +126,14 @@ public class CanAttackABBCheck : NodoABB
 
 public class ChaseABBTask : NodoABB
 {
+    #region Class Properties
+
     private Transform _playerTransform;
     private NavMeshAgent _navMeshAgent;
     private Dictionary<string, bool> _blackBoard;
+
+    #endregion
+
     public ChaseABBTask(Transform playerTransform, NavMeshAgent nmAgent, float speed, ref Dictionary<string,bool> blackBoard)
     {
         _playerTransform = playerTransform;
@@ -140,12 +144,15 @@ public class ChaseABBTask : NodoABB
         key = "CanAttack";
     }
 
+    #region NodoABB Methods
+
     public override void Process()
     {
         if (!_blackBoard[key])
         {
             _navMeshAgent.SetDestination(_playerTransform.position);
         }
-
     }
+
+    #endregion
 }

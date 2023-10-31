@@ -19,6 +19,7 @@ public class GrafoTest : MonoBehaviour
     private int vertices=12;
 
     [SerializeField] private List<Nodo> _nodosConectados = new();
+    [SerializeField] private List<NodoGrafo> _nodosConectadosNodoGrafos = new();
 
     private void Awake()
     {
@@ -35,6 +36,7 @@ public class GrafoTest : MonoBehaviour
             grafo.AgregarArista(arista.origen,arista.destino, arista.peso);
         }
         
-        print($"peso total {grafo.PesoCamino(_nodosConectados)}");
+           print($"peso total {grafo.PesoCamino(_nodosConectados)}");
+      //  print($"peso total {grafo.PesoCamino(_nodosConectadosNodoGrafos)}");
     }
 }
