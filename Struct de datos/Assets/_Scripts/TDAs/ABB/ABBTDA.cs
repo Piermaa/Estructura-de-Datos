@@ -5,6 +5,6 @@
      NodoABB HijoDer();
      bool ArbolVacio();
      void InicializarArbol();
-     void AgregarElem(ref NodoABB n, int x);
-     void EliminarElem(ref NodoABB n, int x);
+     void AgregarElem(NodoABB n, int x);
+     void EliminarElem(NodoABB n, int x);
  }

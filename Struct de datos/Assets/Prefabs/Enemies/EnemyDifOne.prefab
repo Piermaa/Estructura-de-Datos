@@ -160,6 +160,14 @@ MonoBehaviour:
   hitteableLayer:
     serializedVersion: 2
     m_Bits: 128
+  _canAttackAbbCheck:
+    info: 1
+    key: CanAttack
+    _playerCheckOrigin: {fileID: 1735639225876884322}
+    _whatIsPlayer:
+      serializedVersion: 2
+      m_Bits: 128
+    _radius: 2
 --- !u!1001 &5049836341068111397
 PrefabInstance:
   m_ObjectHideFlags: 0

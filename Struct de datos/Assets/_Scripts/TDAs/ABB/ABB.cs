@@ -4,51 +4,54 @@ using UnityEngine;
 
 public class ABB : ABBTDA
 {
-    public NodoABB raiz;
+    public NodoABB _raiz;
 
     public int Raiz()
     {
-        return raiz.info;
+        return _raiz.info;
     }
 
     public bool ArbolVacio()
     {
-        return (raiz == null);
+        return (_raiz == null);
     }
 
     public void InicializarArbol()
     {
-        raiz = null;
+        _raiz = null;
     }
 
     public NodoABB HijoDer()
     {
-        return raiz.hijoDer;
+        return _raiz.hijoDer;
     }
 
     public NodoABB HijoIzq()
     {
-        return raiz.hijoIzq;
+        return _raiz.hijoIzq;
     }
 
-    public void AgregarElem(ref NodoABB raiz, int x)
+    public void AgregarElem(NodoABB raiz, int x)
     {
-        if (raiz == null)
+        // NO NOS ANDA SI LO AGREGAMOS CON ESTA FORMA!
+        // tambien nos tiraba error si usabamos el ref!
+        //tpyeof
+        if (_raiz == null)
         {
             raiz = new NodoABB();
             raiz.info = x;
         }
         else if (raiz.info > x)
         {
-            AgregarElem(ref raiz.hijoIzq, x);
+            AgregarElem(raiz.hijoIzq, x);
         }
         else if (raiz.info < x)
         {
-            AgregarElem(ref raiz.hijoDer, x);
+            AgregarElem(raiz.hijoDer, x);
         }
     }
 
-    public void EliminarElem(ref NodoABB raiz, int x)
+    public void EliminarElem( NodoABB raiz, int x)
     {
         if (raiz != null)
         {
@@ -59,20 +62,20 @@ public class ABB : ABBTDA
             else if (raiz.info == x && raiz.hijoIzq != null)
             {
                 raiz.info = this.mayor(raiz.hijoIzq);
-                EliminarElem(ref raiz.hijoIzq, raiz.info);
+                EliminarElem( raiz.hijoIzq, raiz.info);
             }
             else if (raiz.info == x && raiz.hijoIzq == null)
             {
                 raiz.info = this.menor(raiz.hijoDer);
-                EliminarElem(ref raiz.hijoDer, raiz.info);
+                EliminarElem( raiz.hijoDer, raiz.info);
             }
             else if (raiz.info < x)
             {
-                EliminarElem(ref raiz.hijoDer, x);
+                EliminarElem( raiz.hijoDer, x);
             }
             else
             {
-                EliminarElem(ref raiz.hijoIzq, x);
+                EliminarElem( raiz.hijoIzq, x);
             }
         }
     }
