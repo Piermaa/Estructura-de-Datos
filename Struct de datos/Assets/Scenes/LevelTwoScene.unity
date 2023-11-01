@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2434,6 +2434,7 @@ MonoBehaviour:
   - {fileID: 1735639225876884326, guid: d9e2e21c506d1634caeff1512daee836, type: 3}
   - {fileID: 1735639225876884326, guid: 2389bdfd3f57158439468e82f3cf5251, type: 3}
   - {fileID: 1735639225876884326, guid: 204d87bafe8b37d458aa0abd471cd07f, type: 3}
+  _enemyArray: []
   enemyAmount: 20
   spawns:
   - {fileID: 697459866}
@@ -2705,7 +2706,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a456b7f923d251b48b83f48bf027e81b, type: 2}
+  - {fileID: 2100000, guid: 6154f8261debc1f4fa88a03c632d4648, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
