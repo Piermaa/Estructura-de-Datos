@@ -10,52 +10,64 @@ public class Nodo
 
 public class GrafoMA : IGrafoTDA
 {
+    public int[,] MAdy
+    {
+        get
+        {
+            int[,] ma = _MAdy;
+            return ma;
+        }
+     
+    }
+    public int cantNodos=> _cantNodos;
+    public int[] Etiqs => _etiqs;
+    
     static int n = 100;
-    int[,] MAdy;
-    int[] Etiqs;
-    int cantNodos;
+    int[,] _MAdy;
+    int[] _etiqs;
+    int _cantNodos;
 
     public void InicializarGrafo()
     {
-        MAdy = new int[n, n];
-        Etiqs = new int[n];
-        cantNodos = 0;
+        _MAdy = new int[n, n];
+        _etiqs = new int[n];
+        _cantNodos = 0;
     }
 
     public void AgregarVertice(int v)
     {
-        Etiqs[cantNodos] = v;
-        for (int i = 0; i <= cantNodos; i++)
+        _etiqs[_cantNodos] = v;
+        for (int i = 0; i <= _cantNodos; i++)
         {
-            MAdy[cantNodos, i] = 0;
-            MAdy[i, cantNodos] = 0;
+            _MAdy[_cantNodos, i] = 0;
+            _MAdy[i, _cantNodos] = 0;
         }
 
-        cantNodos++;
+        _cantNodos++;
     }
 
     public void EliminarVertice(int v)
     {
         int ind = Vert2Indice(v);
 
-        for (int k = 0; k < cantNodos; k++)
+        for (int k = 0; k < _cantNodos; k++)
         {
-            MAdy[k, ind] = MAdy[k, cantNodos - 1];
+            _MAdy[k, ind] = _MAdy[k, _cantNodos - 1];
         }
 
-        for (int k = 0; k < cantNodos; k++)
+        for (int k = 0; k < _cantNodos; k++)
         {
-            MAdy[ind, k] = MAdy[cantNodos - 1, k];
+            _MAdy[ind, k] = _MAdy[_cantNodos - 1, k];
         }
 
-        Etiqs[ind] = Etiqs[cantNodos - 1];
-        cantNodos--;
+        _etiqs[ind] = _etiqs[_cantNodos - 1];
+        _cantNodos--;
     }
 
-    private int Vert2Indice(int v)
+    public int Vert2Indice(int v)
     {
-        int i = cantNodos - 1;
-        while (i >= 0 && Etiqs[i] != v)
+        int i = _cantNodos - 1;
+        while (i >= 0 && _etiqs[i] != v)
         {
             i--;
         }
@@ -67,9 +79,9 @@ public class GrafoMA : IGrafoTDA
     {
         IConjuntoTDA Vert = new ConjuntoLD();
         Vert.InicializarConjunto();
-        for (int i = 0; i < cantNodos; i++)
+        for (int i = 0; i < _cantNodos; i++)
         {
-            Vert.Agregar(Etiqs[i]);
+            Vert.Agregar(_etiqs[i]);
         }
 
         return Vert;
@@ -79,28 +91,28 @@ public class GrafoMA : IGrafoTDA
     {
         int o = Vert2Indice(v1);
         int d = Vert2Indice(v2);
-        MAdy[o, d] = peso;
+        _MAdy[o, d] = peso;
     }
 
     public void EliminarArista(int v1, int v2)
     {
         int o = Vert2Indice(v1);
         int d = Vert2Indice(v2);
-        MAdy[o, d] = 0;
+        _MAdy[o, d] = 0;
     }
 
     public bool ExisteArista(int v1, int v2)
     {
         int o = Vert2Indice(v1);
         int d = Vert2Indice(v2);
-        return MAdy[o, d] != 0;
+        return _MAdy[o, d] != 0;
     }
 
     public int PesoArista(int v1, int v2)
     {
         int o = Vert2Indice(v1);
         int d = Vert2Indice(v2);
-        return MAdy[o, d];
+        return _MAdy[o, d];
     }
 
     public int PesoCamino(List<Nodo> nodos)

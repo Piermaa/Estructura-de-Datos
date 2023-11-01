@@ -37,6 +37,32 @@ public class GrafoTest : MonoBehaviour
         }
         
            print($"peso total {grafo.PesoCamino(_nodosConectados)}");
+           
+        AlgDijkstra.Dijkstra(grafo,1);
+       // MuestroResultadosAlg(AlgDijkstra.distance, grafo.cantNodos, grafo.Etiqs, AlgDijkstra.nodos);
+        
+        print(AlgDijkstra.EncontrarCaminoEntre(grafo,1,10));
       //  print($"peso total {grafo.PesoCamino(_nodosConectadosNodoGrafos)}");
+    }
+    
+    
+    public static void MuestroResultadosAlg(int[] distance, int verticesCount, int[] Etiqs, string[] caminos)
+    {
+        string distancia = "";
+
+        print("Vertice    Distancia desde origen    Nodos");
+
+        for (int i = 0; i < verticesCount; ++i)
+        {
+            if (distance[i] == int.MaxValue)
+            {
+                distancia = "---";
+            }
+            else
+            {
+                distancia = distance[i].ToString();
+            }
+            print( Etiqs[i] +"                      "+ distancia +"                                   "+  caminos[i]);
+        }
     }
 }
