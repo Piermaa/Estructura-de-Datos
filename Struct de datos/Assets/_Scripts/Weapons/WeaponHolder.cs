@@ -7,7 +7,6 @@ using UnityEngine;
 public class WeaponHolder : MonoBehaviour
 {
     //----PUBLIC PROPERTIES--------
-    public PilaTF<IWeapon> PickedWeapons => _pickedWeapons;
     public ObjectPool EquippedWeaponBulletPool => bulletPool;
     public IWeapon EquippedWeapon => _equippedWeapon;
 
@@ -20,6 +19,8 @@ public class WeaponHolder : MonoBehaviour
 
     [SerializeField] private Weapon defaultWeapon;
 
+    [SerializeField] private WeaponsUI weaponsUI;
+    
     //################ #################
     //----------UNITY EV FUNC-----------
     //################ #################
@@ -41,6 +42,10 @@ public class WeaponHolder : MonoBehaviour
         _pickedWeapons.Init(MAX_STACK_SIZE);
 
         bulletPool = GetComponent<ObjectPool>();
+        
+        //Inicializo la UI para asegurar que exista
+        weaponsUI.InitializeUI(MAX_STACK_SIZE);
+        
         EquipDefaultWeapon();
     }
     #endregion
@@ -60,6 +65,10 @@ public class WeaponHolder : MonoBehaviour
     {
         //PRIMERO FLETAR EL ARMA QUE YA NO SIRVE Y BORRAR SU POOL DE BALAS.
         bulletPool.EmptyPool();
+        
+        //Borro el arma de la UI
+        weaponsUI.DeleteWeaponFromUI();
+        
         Destroy(_equippedWeapon.GameObject);
 
         //LUEGO INTENTAR EQUIPAR EL SIGUIENTE EN EL STACK
@@ -78,6 +87,9 @@ public class WeaponHolder : MonoBehaviour
     {
         _pickedWeapons.Add(weaponToPickUp);
 
+        //Agrego el arma a la UI
+        weaponsUI.AddWeaponToUI(weaponToPickUp.GameObject);
+        
         //SI HABIA UN ARMA EQUIPADA DE ANTES, SE GUARDA DEVUELTA EN EL STACK Y SE BORRA SU POOL TEMPORALMENTE ASI EL ARMA NUEVA NO SE LO USA
         if (_equippedWeapon != null)
         {
