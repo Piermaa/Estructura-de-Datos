@@ -7,6 +7,7 @@ using UnityEngine;
 public class WeaponHolder : MonoBehaviour
 {
     //----PUBLIC PROPERTIES--------
+    public PilaTF<IWeapon> PickedWeapons => _pickedWeapons;
     public ObjectPool EquippedWeaponBulletPool => bulletPool;
     public IWeapon EquippedWeapon => _equippedWeapon;
 
