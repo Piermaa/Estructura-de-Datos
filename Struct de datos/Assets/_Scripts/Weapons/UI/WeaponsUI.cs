@@ -4,10 +4,10 @@ using UnityEngine.UI;
 
 public class WeaponsUI : MonoBehaviour
 {
+    [SerializeField] private Image imagePlaceHolder;
     private Image _lastPickedUp;
     
     private PilaTF<Image> _pilaImagenesPlaceHolder;
-    [SerializeField] private Image imagePlaceHolder;
     
     public void InitializeUI(int pileLength)
     {
@@ -15,7 +15,7 @@ public class WeaponsUI : MonoBehaviour
         _pilaImagenesPlaceHolder.Init(pileLength);
     }
 
-    public void AddWeaponToUI(GameObject addedWeapon)
+    public void AddWeaponToUI(Sprite addedWeaponSprite)
     {
         if (_lastPickedUp!=null)
         {
@@ -23,8 +23,8 @@ public class WeaponsUI : MonoBehaviour
         }
         
         _lastPickedUp = Instantiate(imagePlaceHolder, transform);
-        
-        _lastPickedUp.name = addedWeapon.GameObject().name;
+        _lastPickedUp.sprite = addedWeaponSprite;
+        // _lastPickedUp.name = addedWeapon.GameObject().name;
     }
 
     public void DeleteWeaponFromUI()
