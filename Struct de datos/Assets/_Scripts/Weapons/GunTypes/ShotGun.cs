@@ -29,11 +29,11 @@ public class ShotGun : Weapon
                 Bullet bullet = (Bullet)weaponHolder.EquippedWeaponBulletPool.TryGetPooledObject(randomShellPosition, Quaternion.identity);
                 bullet.InitBullet(this, transform.forward);
             }
-            print(this.gameObject.name + " disparo pew pew me quedan " + remainingBullets + " balas");
+     //       print(this.gameObject.name + " disparo pew pew me quedan " + remainingBullets + " balas");
         }
         else
         {
-            print(this.gameObject.name + " se me acabaron las balas entonces descarto el arma porque ya no sirve mas");
+       //     print(this.gameObject.name + " se me acabaron las balas entonces descarto el arma porque ya no sirve mas");
             OnWeaponMagazineEmpty();
         }
     }

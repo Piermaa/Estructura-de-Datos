@@ -14,6 +14,6 @@ public class DefaultPistol : Weapon
     {
         Bullet bullet = (Bullet)weaponHolder.EquippedWeaponBulletPool.TryGetPooledObject(transform.position, transform.rotation);
         bullet.InitBullet(this, transform.forward);
-        print(this.gameObject.name + " disparo pew pew nunca se me acaban las balas porque eso me dijeron que haga");
+//        print(this.gameObject.name + " disparo pew pew nunca se me acaban las balas porque eso me dijeron que haga");
     }
 }

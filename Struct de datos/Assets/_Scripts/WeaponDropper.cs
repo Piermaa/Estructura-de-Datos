@@ -12,18 +12,18 @@ public class WeaponDropper : MonoBehaviour
     {
         var chance = Random.Range(0, 4);
 
-        print("a ver si dropeo");
+       // print("a ver si dropeo");
         if (chance == 0)
         {
             var selectedWeapon = Random.Range(0, weapons.Length);
 
-            print("dropeo");
+         //   print("dropeo");
             
             Instantiate(weapons[selectedWeapon], gameObject.transform.position, Quaternion.identity);
         }
         else
         {
-            print("No dropeo");
+           // print("No dropeo");
         }
     }
 }
