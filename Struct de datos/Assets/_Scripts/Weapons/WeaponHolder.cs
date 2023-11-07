@@ -65,10 +65,9 @@ public class WeaponHolder : MonoBehaviour
     {
         //PRIMERO FLETAR EL ARMA QUE YA NO SIRVE Y BORRAR SU POOL DE BALAS.
         bulletPool.EmptyPool();
-        
+        _equippedWeapon.GameObject.transform.parent = null;
         _equippedWeapon.Throw();
-        _equippedWeapon = null;
-        
+  
         //Borro el arma de la UI
         weaponsUI.DeleteWeaponFromUI();
 

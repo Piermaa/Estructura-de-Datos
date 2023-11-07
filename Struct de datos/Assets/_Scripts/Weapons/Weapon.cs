@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Collider))]
 public class Weapon : MonoBehaviour, IWeapon
@@ -44,7 +45,9 @@ public class Weapon : MonoBehaviour, IWeapon
 
         if (_throwed && other.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponentInParent<Enemy>().TakeDamage(1);
+            print("found enemt");
+            other.GetComponentInParent<Enemy>().TakeDamage(1);
+            gameObject.SetActive(false);
         }
     }
 
@@ -79,7 +82,8 @@ public class Weapon : MonoBehaviour, IWeapon
 
     public void Throw()
     {
-        transform.parent = null;
+        print("Throwed");
+        transform.parent=null;
         _throwed = true;
     }
     
