@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <BulletPrefab>k__BackingField: {fileID: 5401869196287111402, guid: 16f8528e9358edb47a209fe1edd95845, type: 3}
   <WeaponSprite>k__BackingField: {fileID: 21300000, guid: 3e3373443344c6d48a9259a4d9d3b680, type: 3}
-  <FireRate>k__BackingField: 1
+  <FireRate>k__BackingField: 0.8
   <BulletsPerShot>k__BackingField: 1
   <MagSize>k__BackingField: 5
   <Damage>k__BackingField: 50

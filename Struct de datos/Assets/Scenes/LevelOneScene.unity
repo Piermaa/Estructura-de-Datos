@@ -4515,7 +4515,7 @@ MonoBehaviour:
   - {fileID: 8966721827921708705, guid: 93a8f1141ef2ce54283a0f689229c672, type: 3}
   - {fileID: 5385978450162798889, guid: 5903bb5bc1aa9614fb674cac0c496c66, type: 3}
   _enemyArray: []
-  enemyAmount: 20
+  enemyAmount: 50
   spawns:
   - {fileID: 697459866}
   - {fileID: 2074131266}
@@ -4523,7 +4523,7 @@ MonoBehaviour:
   - {fileID: 1388111524}
   - {fileID: 2123959511}
   - {fileID: 1744817927}
-  maxSpawnedAmount: 5
+  maxSpawnedAmount: 10
 --- !u!4 &1843002051
 Transform:
   m_ObjectHideFlags: 0
