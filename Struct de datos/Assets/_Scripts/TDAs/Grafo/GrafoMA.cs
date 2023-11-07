@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Nodo
+public class Nodo : MonoBehaviour
 {
     public int info;
     public Nodo sig;

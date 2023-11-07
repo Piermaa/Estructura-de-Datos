@@ -21,28 +21,28 @@ public class GrafoTest : MonoBehaviour
     [SerializeField] private List<Nodo> _nodosConectados = new();
     [SerializeField] private List<NodoGrafo> _nodosConectadosNodoGrafos = new();
 
+
+    [SerializeField] private List<NodoLab> _nodosLaberinto;
     private void Awake()
     {
         grafo = new();
         grafo.InicializarGrafo();
         
-        for (int i = 1; i < 13; i++)
+        for (int i = 0; i < _nodosLaberinto.Count; i++)
         {
+            _nodosLaberinto[i].info = i;
             grafo.AgregarVertice(i);
         }
 
-        foreach (var arista in aristas)
+        for (int i = 0; i <  _nodosLaberinto.Count; i++)
         {
-            grafo.AgregarArista(arista.origen,arista.destino, arista.peso);
+            foreach (var arista in _nodosLaberinto[i]._aristas)
+            {
+                grafo.AgregarArista(_nodosLaberinto[i].info,arista.destino.info, 1);
+            }
         }
         
-           print($"peso total {grafo.PesoCamino(_nodosConectados)}");
-           
-        AlgDijkstra.Dijkstra(grafo,1);
-       // MuestroResultadosAlg(AlgDijkstra.distance, grafo.cantNodos, grafo.Etiqs, AlgDijkstra.nodos);
-        
-        print(AlgDijkstra.EncontrarCaminoEntre(grafo,1,10));
-      //  print($"peso total {grafo.PesoCamino(_nodosConectadosNodoGrafos)}");
+        print(AlgDijkstra.EncontrarCaminoEntre(grafo,0,34));
     }
     
     
