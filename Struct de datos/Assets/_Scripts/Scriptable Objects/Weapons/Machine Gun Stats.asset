@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Machine Gun Stats
   m_EditorClassIdentifier: 
   <BulletPrefab>k__BackingField: {fileID: 5401869196287111402, guid: a38037726fc01ad48b97a9a19b3cbae8, type: 3}
-  <WeaponSprite>k__BackingField: {fileID: 21300000, guid: 6e162a30c9e768049999e580f8718f58, type: 3}
+  <WeaponSprite>k__BackingField: {fileID: 21300000, guid: 5400888c43aeaf7478e2bab1f7bc23dc, type: 3}
   <FireRate>k__BackingField: 0.1
   <BulletsPerShot>k__BackingField: 1
   <MagSize>k__BackingField: 40
