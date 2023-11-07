@@ -13,9 +13,10 @@ using UnityEngine;
 [RequireComponent(typeof(WeaponHolder))]
 public class ShootingController : MonoBehaviour
 {
+    [SerializeField] private WeaponsUI _weaponsUI;
     private WeaponHolder weaponHolder;
     private float shootCooldownTimer = 0;
-
+    
     //################ #################
     //----------UNITY EV FUNC-----------
     //################ #################
@@ -51,6 +52,7 @@ public class ShootingController : MonoBehaviour
             && weaponHolder.EquippedWeaponBulletPool.IsPoolInited)
         {
             weaponHolder.EquippedWeapon.Shoot(weaponHolder);
+            _weaponsUI.UpdateBulletsText(weaponHolder.EquippedWeapon.RemainingBullets);
             shootCooldownTimer = 0;
         }
     }

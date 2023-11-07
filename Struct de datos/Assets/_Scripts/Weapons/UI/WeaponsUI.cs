@@ -1,9 +1,11 @@
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WeaponsUI : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI _bulletsText;
     [SerializeField] private Image imagePlaceHolder;
     private Image _equippedWeapon;
     
@@ -13,6 +15,11 @@ public class WeaponsUI : MonoBehaviour
     {
         _pilaImagenesPlaceHolder = new PilaTF<Image>();
         _pilaImagenesPlaceHolder.Init(pileLength);
+    }
+
+    public void UpdateBulletsText(int currentBullets)
+    {
+        _bulletsText.text = currentBullets.ToString();
     }
 
     public void AddWeaponToUI(Sprite addedWeaponSprite)

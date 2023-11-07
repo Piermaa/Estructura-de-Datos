@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rifle Stats
   m_EditorClassIdentifier: 
   <BulletPrefab>k__BackingField: {fileID: 5401869196287111402, guid: 16f8528e9358edb47a209fe1edd95845, type: 3}
-  <WeaponSprite>k__BackingField: {fileID: 21300000, guid: 51196a70afcd4e447a9aff65f4b9f21f, type: 3}
+  <WeaponSprite>k__BackingField: {fileID: 21300000, guid: 98907727e18790c49ba8b32089349fe7, type: 3}
   <FireRate>k__BackingField: 1
   <BulletsPerShot>k__BackingField: 1
   <MagSize>k__BackingField: 5
