@@ -89,7 +89,7 @@ public class WeaponHolder : MonoBehaviour
 
         //Agrego el arma a la UI
         weaponsUI.AddWeaponToUI(weaponToPickUp.WeaponStats.WeaponSprite);
-
+        weaponsUI.UpdateBulletsText(weaponToPickUp.WeaponStats.MagSize);
         
         //SI HABIA UN ARMA EQUIPADA DE ANTES, SE GUARDA DEVUELTA EN EL STACK Y SE BORRA SU POOL TEMPORALMENTE ASI EL ARMA NUEVA NO SE LO USA
         if (_equippedWeapon != null)
