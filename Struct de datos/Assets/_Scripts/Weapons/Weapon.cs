@@ -7,6 +7,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour, IWeapon
 {
     //----PUBLIC PROPERTIES--------
+    public bool Throwed => _throwed;
     public GameObject GameObject => this.gameObject;
     public WeaponStats WeaponStats => weaponStats;
     public int RemainingBullets => remainingBullets;
@@ -14,6 +15,7 @@ public class Weapon : MonoBehaviour, IWeapon
     //----PROTECTED VARS---------
     protected int remainingBullets;
 
+    protected bool _throwed;
     //----PRIVATE VARS---------
     [SerializeField] private WeaponStats weaponStats;
 
@@ -25,11 +27,24 @@ public class Weapon : MonoBehaviour, IWeapon
         Reload();
     }
 
+    private void Update()
+    {
+        if (_throwed)
+        {
+            Travel();
+        }
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             Pickup(this);
+        }
+
+        if (_throwed && other.CompareTag("Enemy"))
+        {
+            other.gameObject.GetComponentInParent<Enemy>().TakeDamage(1);
         }
     }
 
@@ -60,5 +75,16 @@ public class Weapon : MonoBehaviour, IWeapon
     public void OnWeaponMagazineEmpty()
     {
         OnWeaponOutOfBullets?.Invoke();
+    }
+
+    public void Throw()
+    {
+        transform.parent = null;
+        _throwed = true;
+    }
+    
+    public void Travel()
+    {
+        transform.position += transform.forward * Time.deltaTime * 10;
     }
 }
