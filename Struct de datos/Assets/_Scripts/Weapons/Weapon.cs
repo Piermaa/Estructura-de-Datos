@@ -8,15 +8,16 @@ using UnityEngine.SceneManagement;
 public class Weapon : MonoBehaviour, IWeapon
 {
     //----PUBLIC PROPERTIES--------
-    public bool Throwed => _throwed;
+    public bool Thrown => _thrown;
+    public float TravelSpeed => weaponStats.TravelSpeed;
     public GameObject GameObject => this.gameObject;
     public WeaponStats WeaponStats => weaponStats;
     public int RemainingBullets => remainingBullets;
 
     //----PROTECTED VARS---------
+    protected AudioSource _audioSource;
     protected int remainingBullets;
-
-    protected bool _throwed;
+    protected bool _thrown;
     //----PRIVATE VARS---------
     [SerializeField] private WeaponStats weaponStats;
 
@@ -25,28 +26,30 @@ public class Weapon : MonoBehaviour, IWeapon
     //################ #################
     private void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         Reload();
     }
 
     private void Update()
     {
-        if (_throwed)
+        if (_thrown)
         {
             Travel();
+            transform.GetChild(0).Rotate(Vector3.right, TravelSpeed/2);
         }
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!_thrown && other.CompareTag("Player"))
         {
             Pickup(this);
+            transform.GetChild(0).localRotation = Quaternion.Euler(new Vector3(0,180,33));
         }
 
-        if (_throwed && other.CompareTag("Enemy"))
+        if (_thrown && other.CompareTag("Enemy"))
         {
-            print("found enemt");
-            other.GetComponentInParent<Enemy>().TakeDamage(1);
+            other.GetComponentInParent<Enemy>().TakeDamage(25);
             gameObject.SetActive(false);
         }
     }
@@ -82,13 +85,13 @@ public class Weapon : MonoBehaviour, IWeapon
 
     public void Throw()
     {
-        print("Throwed");
-        transform.parent=null;
-        _throwed = true;
+        _thrown = true;
+        transform.parent = null;
+        transform.GetChild(0).localRotation = Quaternion.Euler(new Vector3(0,45,90));
     }
-    
+
     public void Travel()
     {
-        transform.position += transform.forward * Time.deltaTime * 10;
+        transform.position +=  Time.deltaTime * TravelSpeed * transform.forward;
     }
 }

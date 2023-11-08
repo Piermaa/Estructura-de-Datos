@@ -2,7 +2,8 @@ using UnityEngine;
 
 public interface IWeapon : IPickupable
 {
-    bool Throwed { get; }
+    public float TravelSpeed { get; }
+    bool Thrown { get; }
     GameObject GameObject { get; }
     WeaponStats WeaponStats { get; }
     int RemainingBullets { get; }
