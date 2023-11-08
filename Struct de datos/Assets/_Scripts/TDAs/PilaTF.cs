@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PilaTF<T> : IPilaTDA<T>
 {
+    public int Count => _index;
+    
     T[] _array; 
     int _index; 
 
@@ -22,6 +24,7 @@ public class PilaTF<T> : IPilaTDA<T>
     
     public T Pop()
     {
+       // var aux= 
         _index--;
         return _array[_index];
     }

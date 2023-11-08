@@ -17,11 +17,11 @@ public class SubFusil : Weapon
             remainingBullets--;
             Bullet bullet = (Bullet)weaponHolder.EquippedWeaponBulletPool.TryGetPooledObject(transform.position, transform.rotation);
             bullet.InitBullet(this, transform.forward);
-            print(this.gameObject.name + " disparo pew pew me quedan " + remainingBullets + " balas");
+//            print(this.gameObject.name + " disparo pew pew me quedan " + remainingBullets + " balas");
         }
         else
         {
-            print(this.gameObject.name + " se me acabaron las balas entonces descarto el arma porque ya no sirve mas");
+  //          print(this.gameObject.name + " se me acabaron las balas entonces descarto el arma porque ya no sirve mas");
             OnWeaponMagazineEmpty();
         }
     }

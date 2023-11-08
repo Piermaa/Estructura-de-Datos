@@ -50,7 +50,7 @@ public class EnemySpawnManager : MonoBehaviour
     {
         if (_currentSpawnedAmount < maxSpawnedAmount && !_enemyQueue.ColaVacia())
         {
-            print("spawneo enemigo");
+//            print("spawneo enemigo");
             Instantiate(_enemyQueue.Primero(), spawns[GenerateNumber(spawns.Length-1)].position, Quaternion.identity);
             _enemyQueue.Desacolar();
             _currentSpawnedAmount++;
@@ -58,7 +58,7 @@ public class EnemySpawnManager : MonoBehaviour
     }
     public void EnemyDied() 
     {
-        Debug.Log("Enemy died");
+    //    Debug.Log("Enemy died");
         _currentSpawnedAmount--;
 
         if (_currentSpawnedAmount<=0 && _enemyQueue.ColaVacia())
