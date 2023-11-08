@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 [RequireComponent(typeof(ObjectPool))]
 public class WeaponHolder : MonoBehaviour
@@ -20,7 +21,10 @@ public class WeaponHolder : MonoBehaviour
     [SerializeField] private Weapon defaultWeapon;
 
     [SerializeField] private WeaponsUI weaponsUI;
-    
+
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _pickupWeaponSFX;
+    [SerializeField] private AudioClip _throwWeaponSFX;
     //################ #################
     //----------UNITY EV FUNC-----------
     //################ #################
@@ -66,8 +70,10 @@ public class WeaponHolder : MonoBehaviour
         //PRIMERO FLETAR EL ARMA QUE YA NO SIRVE Y BORRAR SU POOL DE BALAS.
         bulletPool.EmptyPool();
         
-        Destroy(_equippedWeapon.GameObject);
-        
+        //TIRO EL ARMA            
+        _equippedWeapon.Throw();
+        _audioSource.PlayOneShot(_throwWeaponSFX);
+
         //Borro el arma de la UI
         weaponsUI.DeleteWeaponFromUI();
 
@@ -85,6 +91,7 @@ public class WeaponHolder : MonoBehaviour
     //SUSCRIPTO A WEAPON -> PICKUP
     private void PickupWeapon(IWeapon weaponToPickUp)
     {
+        _audioSource.PlayOneShot(_pickupWeaponSFX);
         _pickedWeapons.Add(weaponToPickUp);
 
         //Agrego el arma a la UI

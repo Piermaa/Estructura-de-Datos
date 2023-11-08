@@ -15,7 +15,7 @@ public class ShotGun : Weapon
         if (remainingBullets > 0)
         {
             remainingBullets--;
-
+            _audioSource.Play();
             for (int i = 0; i < weaponHolder.EquippedWeapon.WeaponStats.BulletsPerShot; i++)
             {
                 Vector3 spread = Random.insideUnitSphere * 1;
