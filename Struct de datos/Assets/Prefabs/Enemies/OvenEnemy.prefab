@@ -530,9 +530,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8966721827921708719}
   - component: {fileID: 8966721827921708718}
-  - component: {fileID: 8966721827921708705}
   - component: {fileID: 8966721827921708704}
   - component: {fileID: 1445477078333657601}
+  - component: {fileID: -8490602713637647216}
   m_Layer: 0
   m_Name: OvenEnemy
   m_TagString: Enemy
@@ -572,27 +572,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 2
---- !u!114 &8966721827921708705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8966721827921708707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e16297966d77d414d9337362a8ddb28e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxLife: 50
-  currentLife: 0
-  _stats: {fileID: 11400000, guid: 76729524d5b7068439cd837cec8297af, type: 2}
-  _playerTransform: {fileID: 0}
-  attackCooldown: 2
-  currentAttackCooldown: 0
-  hitteableLayer:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!195 &8966721827921708704
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -636,3 +615,36 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-8490602713637647216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8966721827921708707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e16297966d77d414d9337362a8ddb28e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 50
+  currentLife: 0
+  _stats: {fileID: 11400000, guid: a2d9628733ba88a4195cd98a3080c597, type: 2}
+  _canAttackAbbCheck:
+    info: 1
+    key: CanAttack
+    _playerCheckOrigin: {fileID: 5385978450162798890, guid: 5903bb5bc1aa9614fb674cac0c496c66, type: 3}
+    _whatIsPlayer:
+      serializedVersion: 2
+      m_Bits: 128
+    _radius: 1
+  _attackTask:
+    info: 2
+    key: CanAttack
+    _damage: 1
+    _currentAttackCooldown: 2
+    _hitteableLayer:
+      serializedVersion: 2
+      m_Bits: 128
+  _playerTransform: {fileID: 0}
+  attackCooldown: 2

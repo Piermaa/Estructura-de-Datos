@@ -174,12 +174,24 @@ MonoBehaviour:
   maxLife: 50
   currentLife: 0
   _stats: {fileID: 11400000, guid: a2d9628733ba88a4195cd98a3080c597, type: 2}
+  _canAttackAbbCheck:
+    info: 1
+    key: CanAttack
+    _playerCheckOrigin: {fileID: 5385978450162798890}
+    _whatIsPlayer:
+      serializedVersion: 2
+      m_Bits: 128
+    _radius: 1
+  _attackTask:
+    info: 2
+    key: CanAttack
+    _damage: 1
+    _currentAttackCooldown: 2
+    _hitteableLayer:
+      serializedVersion: 2
+      m_Bits: 128
   _playerTransform: {fileID: 0}
   attackCooldown: 2
-  currentAttackCooldown: 0
-  hitteableLayer:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!95 &6137860495421450174
 Animator:
   serializedVersion: 5

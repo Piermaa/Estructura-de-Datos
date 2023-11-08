@@ -15,12 +15,11 @@ public class Enemy: Actor, IElementoConPrioridad
     private int Damage => _stats.Damage;
     private int DifficultyLevel => _stats.DifficultyLevel;
     private float Speed => _stats.Speed;
-    
+
+    [SerializeField] private CanAttackABBCheck _canAttackAbbCheck;
+    [SerializeField] private AttackABBTask _attackTask;
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private float attackCooldown;
-    [SerializeField] private float currentAttackCooldown;
-    [SerializeField] private LayerMask hitteableLayer;
-    [SerializeField] private CanAttackABBCheck _canAttackAbbCheck;
     
     private Dictionary<string, bool> _blackBoard=new();
     private WeaponDropper _weaponDropper;
@@ -42,45 +41,36 @@ public class Enemy: Actor, IElementoConPrioridad
     protected override void Start()
     {
         base.Start();
-        currentAttackCooldown = attackCooldown;
+
+        _playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+
+        //currentAttackCooldown = attackCooldown;
         _weaponDropper = GetComponentInChildren<WeaponDropper>();
 
         _abb = new ABB(); //se instancia el arbol
         _abb.InicializarArbol(); // se inicializa
 
         _canAttackAbbCheck.SetBlackBoard(ref _blackBoard);
-        
-       // _abb._raiz = _canAttackAbbCheck;
-       _abb.AgregarElem(ref _abb.raiz, _canAttackAbbCheck);
-        
-         var chaseAbbTask = new ChaseABBTask(GameObject.FindGameObjectWithTag("Player")?.transform,
-            GetComponent<NavMeshAgent>(), Speed,ref _blackBoard);
 
-      //  _abb._raiz.hijoDer = chaseAbbTask;
-        _abb.AgregarElem(ref _abb.raiz,chaseAbbTask);
+        // _abb._raiz = _canAttackAbbCheck;
+        _abb.AgregarElem(ref _abb.raiz, _canAttackAbbCheck);
+
+        var chaseAbbTask = new ChaseABBTask(_playerTransform, GetComponent<NavMeshAgent>(), Speed, ref _blackBoard);
+
+        //  _abb._raiz.hijoDer = chaseAbbTask;
+        _abb.AgregarElem(ref _abb.raiz, chaseAbbTask);
     }
 
     private void Update()
     {
-        currentAttackCooldown -= Time.deltaTime;
-        if (currentAttackCooldown < -1)
-        {
-            currentAttackCooldown = -1;
-        }
+        //currentAttackCooldown -= Time.deltaTime;
+        //if (currentAttackCooldown < -1)
+        //{
+        //    currentAttackCooldown = -1;
+        //}
         
      //   print("soy la info de la raiz: " + _abb._raiz.hijoDer?.info);
         ABBOrders.preOrder(_abb.raiz);
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        if (currentAttackCooldown <= 0)
-        {
-            if (((1 << other.gameObject.layer) & hitteableLayer) != 0)
-            {
-                other.gameObject.GetComponent<Actor>()?.TakeDamage(Damage);
-            }
-        }
     }
     #endregion
 
@@ -107,7 +97,7 @@ public class CanAttackABBCheck : NodoABB
 
     public override void Process()
     {
-        Debug.Log("Mestan provceanso");
+        Debug.Log("Mestan procesando");
         
         var cols = Physics.OverlapSphere(_playerCheckOrigin.position, _radius,_whatIsPlayer);
         
@@ -155,4 +145,35 @@ public class ChaseABBTask : NodoABB
     }
 
     #endregion
+}
+
+[System.Serializable]
+public class AttackABBTask : NodoABB
+{
+    #region Class Properties
+    [SerializeField] private int _damage;
+    [SerializeField] private float _currentAttackCooldown;
+    [SerializeField] private LayerMask _hitteableLayer;
+    private GameObject _player;
+    #endregion
+
+    public AttackABBTask(int damage, float currentAttackCooldown, LayerMask hitteableLayer)
+    {
+        _damage = damage;
+        _currentAttackCooldown = currentAttackCooldown;
+        _hitteableLayer = hitteableLayer;
+    }
+    
+    public override void Process()
+    {
+        base.Process();
+
+        if (_currentAttackCooldown <= 0)
+        {
+            if (((1 << _player.layer) & _hitteableLayer) != 0)
+            {
+                _player.GetComponent<Actor>()?.TakeDamage(_damage);
+            }
+        }
+    }
 }
