@@ -181,15 +181,13 @@ MonoBehaviour:
     _whatIsPlayer:
       serializedVersion: 2
       m_Bits: 128
-    _radius: 1
+    _radius: 0.5
+    _cooldownToAttack: 1
   _attackTask:
     info: 2
     key: CanAttack
     _damage: 1
-    _currentAttackCooldown: 2
-    _hitteableLayer:
-      serializedVersion: 2
-      m_Bits: 128
+    _animator: {fileID: 0}
   _playerTransform: {fileID: 0}
   attackCooldown: 2
 --- !u!95 &6137860495421450174

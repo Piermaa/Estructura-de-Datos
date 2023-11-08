@@ -59,6 +59,10 @@ public class Enemy: Actor, IElementoConPrioridad
 
         //  _abb._raiz.hijoDer = chaseAbbTask;
         _abb.AgregarElem(ref _abb.raiz, chaseAbbTask);
+
+        _attackTask.SetParameters(_playerTransform.gameObject, GetComponent<Animator>(), ref _blackBoard);
+
+        _abb.AgregarElem(ref _abb.raiz, _attackTask);
     }
 
     private void Update()
@@ -88,6 +92,8 @@ public class CanAttackABBCheck : NodoABB
     [SerializeField] private LayerMask _whatIsPlayer;
     [SerializeField] private float _radius;
     private Dictionary<string, bool> _blackBoard;
+    private float _timerToAttack = 1;
+    [SerializeField] private float _cooldownToAttack = 1;
 
     public void SetBlackBoard(ref Dictionary<string, bool> blackBoard)
     {
@@ -97,19 +103,23 @@ public class CanAttackABBCheck : NodoABB
 
     public override void Process()
     {
-        Debug.Log("Mestan procesando");
-        
-        var cols = Physics.OverlapSphere(_playerCheckOrigin.position, _radius,_whatIsPlayer);
-        
-        foreach (var col in cols)
+        _timerToAttack -= Time.deltaTime;
+
+        if (_timerToAttack <= 0)
         {
-            if (col.CompareTag("Player"))
+            var cols = Physics.OverlapSphere(_playerCheckOrigin.position, _radius, _whatIsPlayer);
+
+            foreach (var col in cols)
             {
-                _blackBoard[key] = true;
-                return;
+                if (col.CompareTag("Player"))
+                {
+                    _blackBoard[key] = true;
+                    _timerToAttack = _cooldownToAttack;
+                    return;
+                }
             }
         }
-        
+
         _blackBoard[key] = false;
     }
 }
@@ -152,28 +162,24 @@ public class AttackABBTask : NodoABB
 {
     #region Class Properties
     [SerializeField] private int _damage;
-    [SerializeField] private float _currentAttackCooldown;
-    [SerializeField] private LayerMask _hitteableLayer;
-    private GameObject _player;
+    private IDamageable _player;
+    [SerializeField] private Animator _animator;
+    private Dictionary<string, bool> _blackBoard;
     #endregion
 
-    public AttackABBTask(int damage, float currentAttackCooldown, LayerMask hitteableLayer)
-    {
-        _damage = damage;
-        _currentAttackCooldown = currentAttackCooldown;
-        _hitteableLayer = hitteableLayer;
-    }
-    
     public override void Process()
     {
-        base.Process();
-
-        if (_currentAttackCooldown <= 0)
+        if (_blackBoard[key])
         {
-            if (((1 << _player.layer) & _hitteableLayer) != 0)
-            {
-                _player.GetComponent<Actor>()?.TakeDamage(_damage);
-            }
+            _player.TakeDamage(_damage);
+            _animator.SetTrigger("AttackTrigger");
         }
+    }
+
+    public void SetParameters(GameObject player, Animator animator, ref Dictionary<string, bool> blackboard)
+    {
+        _player = player.GetComponent<IDamageable>();
+        _animator = animator;
+        _blackBoard = blackboard;
     }
 }
