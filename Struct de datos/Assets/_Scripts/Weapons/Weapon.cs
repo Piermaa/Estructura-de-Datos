@@ -21,11 +21,19 @@ public class Weapon : MonoBehaviour, IWeapon
     //----PRIVATE VARS---------
     [SerializeField] private WeaponStats weaponStats;
 
+    private Vector3 _thrownAngle = new Vector3(0,45,90);
+    private Vector3 _pickedUpAngle = new Vector3(0,180,33);
+
+    private Quaternion _thrownRotation;
+    private Quaternion _pickedUpRotation;
     //################ #################
     //----------UNITY EV FUNC-----------
     //################ #################
     private void Start()
     {
+        _thrownRotation = Quaternion.Euler(_thrownAngle);
+        _pickedUpRotation = Quaternion.Euler(_pickedUpAngle);
+        
         _audioSource = GetComponent<AudioSource>();
         Reload();
     }
@@ -35,7 +43,7 @@ public class Weapon : MonoBehaviour, IWeapon
         if (_thrown)
         {
             Travel();
-            transform.GetChild(0).Rotate(Vector3.right, TravelSpeed/2);
+            transform.GetChild(0).Rotate(Vector3.right, weaponStats.RotateSpeed*Time.deltaTime);
         }
     }
 
@@ -44,12 +52,12 @@ public class Weapon : MonoBehaviour, IWeapon
         if (!_thrown && other.CompareTag("Player"))
         {
             Pickup(this);
-            transform.GetChild(0).localRotation = Quaternion.Euler(new Vector3(0,180,33));
+            transform.GetChild(0).localRotation = _pickedUpRotation;
         }
 
         if (_thrown && other.CompareTag("Enemy"))
         {
-            other.GetComponentInParent<Enemy>().TakeDamage(25);
+            other.GetComponentInParent<Enemy>().TakeDamage(weaponStats.ThrownDamage);
             gameObject.SetActive(false);
         }
     }
@@ -87,7 +95,7 @@ public class Weapon : MonoBehaviour, IWeapon
     {
         _thrown = true;
         transform.parent = null;
-        transform.GetChild(0).localRotation = Quaternion.Euler(new Vector3(0,45,90));
+        transform.GetChild(0).localRotation = _thrownRotation;
     }
 
     public void Travel()
