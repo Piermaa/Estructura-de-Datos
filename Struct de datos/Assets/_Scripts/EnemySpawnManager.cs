@@ -52,8 +52,8 @@ public class EnemySpawnManager : MonoBehaviour
         {
 //            print("spawneo enemigo");
             Instantiate(_enemyQueue.Primero(), spawns[GenerateNumber(spawns.Length-1)].position, Quaternion.identity);
-            _enemyQueue.Desacolar();
             _currentSpawnedAmount++;
+            _enemyQueue.Desacolar();
         }
     }
     public void EnemyDied() 
