@@ -291,7 +291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLife: 50
   currentLife: 0
-  _stats: {fileID: 11400000, guid: a2d9628733ba88a4195cd98a3080c597, type: 2}
+  _stats: {fileID: 11400000, guid: bf6199e342764624aa21f5b939d2f809, type: 2}
   _canAttackAbbCheck:
     info: 1
     key: CanAttack
