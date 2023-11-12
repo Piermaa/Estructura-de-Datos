@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6808212349131566349}
   - component: {fileID: 3108172498176769539}
   - component: {fileID: 7031395476164457344}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube.219
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 5385978450162798888}
   - component: {fileID: 5385978450162798889}
   - component: {fileID: 6137860495421450174}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FridgeEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 7101656189708074736}
   - component: {fileID: 3579180496508550712}
   - component: {fileID: 2598469922618287032}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube.220
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 7697083232827571287}
   - component: {fileID: 5563492701667428509}
   - component: {fileID: 2268164157768174009}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heladera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -449,6 +449,10 @@ PrefabInstance:
     - target: {fileID: 3692723704388377119, guid: 3aa5bc20d390cb342a6b5500aca7f662, type: 3}
       propertyPath: m_Name
       value: WeaponDropper
+      objectReference: {fileID: 0}
+    - target: {fileID: 3692723704388377119, guid: 3aa5bc20d390cb342a6b5500aca7f662, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3aa5bc20d390cb342a6b5500aca7f662, type: 3}
