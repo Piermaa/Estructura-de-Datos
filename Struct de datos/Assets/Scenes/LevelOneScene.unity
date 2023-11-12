@@ -5114,8 +5114,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 687aa6490ff770949b90a0d8cb974cd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _takingDamageMaterial: []
-  _takeDamageSource: {fileID: 0}
+  _takingDamageMaterial:
+  - {fileID: 2100000, guid: e7b383219c7b23948b538b4c14cfbac3, type: 2}
+  - {fileID: 2100000, guid: e7b383219c7b23948b538b4c14cfbac3, type: 2}
+  _takeDamageSource: {fileID: 1948749141}
   maxLife: 100
   currentLife: 100
   _moveSpeed: 200
