@@ -161,7 +161,7 @@ public class ChaseABBTask : NodoABB
 public class AttackABBTask : NodoABB
 {
     #region Class Properties
-    [SerializeField] private int _damage;
+    private int _damage;
     private IDamageable _player;
     [SerializeField] private Animator _animator;
     private Dictionary<string, bool> _blackBoard;
@@ -176,10 +176,11 @@ public class AttackABBTask : NodoABB
         }
     }
 
-    public void SetParameters(GameObject player, Animator animator, ref Dictionary<string, bool> blackboard)
+    public void SetParameters(GameObject player, Animator animator, ref Dictionary<string, bool> blackboard, int damage)
     {
         _player = player.GetComponent<IDamageable>();
         _animator = animator;
         _blackBoard = blackboard;
+        _damage = damage;
     }
 }
