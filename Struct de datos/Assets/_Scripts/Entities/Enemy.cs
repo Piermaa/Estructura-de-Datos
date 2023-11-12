@@ -67,13 +67,6 @@ public class Enemy: Actor, IElementoConPrioridad
 
     private void Update()
     {
-        //currentAttackCooldown -= Time.deltaTime;
-        //if (currentAttackCooldown < -1)
-        //{
-        //    currentAttackCooldown = -1;
-        //}
-        
-     //   print("soy la info de la raiz: " + _abb._raiz.hijoDer?.info);
         ABBOrders.preOrder(_abb.raiz);
     }
     #endregion
