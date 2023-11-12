@@ -60,7 +60,7 @@ public class Enemy: Actor, IElementoConPrioridad
         //  _abb._raiz.hijoDer = chaseAbbTask;
         _abb.AgregarElem(ref _abb.raiz, chaseAbbTask);
 
-        _attackTask.SetParameters(_playerTransform.gameObject, GetComponent<Animator>(), ref _blackBoard);
+        _attackTask.SetParameters(_playerTransform.gameObject, GetComponent<Animator>(), ref _blackBoard, _stats.Damage);
 
         _abb.AgregarElem(ref _abb.raiz, _attackTask);
     }
