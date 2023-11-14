@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.AI;
 using Object = System.Object;
@@ -55,7 +56,8 @@ public class Enemy: Actor, IElementoConPrioridad
         // _abb._raiz = _canAttackAbbCheck;
         _abb.AgregarElem(ref _abb.raiz, _canAttackAbbCheck);
 
-        var chaseAbbTask = new ChaseABBTask(_playerTransform, GetComponent<NavMeshAgent>(), Speed, ref _blackBoard);
+        var chaseAbbTask = new ChaseABBTask(_playerTransform, GetComponent<NavMeshAgent>(), GetComponent<PathfinderComponent>(),
+            Speed, ref _blackBoard);
 
         //  _abb._raiz.hijoDer = chaseAbbTask;
         _abb.AgregarElem(ref _abb.raiz, chaseAbbTask);
@@ -123,15 +125,18 @@ public class ChaseABBTask : NodoABB
 
     private Transform _playerTransform;
     private NavMeshAgent _navMeshAgent;
+    private PathfinderComponent _pathfinderComp;
     private Dictionary<string, bool> _blackBoard;
 
     #endregion
 
-    public ChaseABBTask(Transform playerTransform, NavMeshAgent nmAgent, float speed, ref Dictionary<string,bool> blackBoard)
+    public ChaseABBTask(Transform playerTransform, NavMeshAgent nmAgent, PathfinderComponent pathfComp, 
+        float speed, ref Dictionary<string,bool> blackBoard)
     {
         _playerTransform = playerTransform;
         _navMeshAgent = nmAgent;
         _navMeshAgent.speed = speed;
+        _pathfinderComp = pathfComp;
         _blackBoard = blackBoard;
 
         key = "CanAttack";
@@ -143,7 +148,13 @@ public class ChaseABBTask : NodoABB
     {
         if (!_blackBoard[key])
         {
+            GraphAM levelGraph = GameManager.Instance.LevelNodeMap.LevelMapGraph;
+            int sourceNode = 3; //---------->para probar tiro uno cualquiera 
+
             _navMeshAgent.SetDestination(_playerTransform.position);
+            _pathfinderComp.Dijkstra(levelGraph, sourceNode);
+            _pathfinderComp.MuestroResultadosAlg(sourceNode, _pathfinderComp.distance, levelGraph.cantNodos, levelGraph.Etiqs,
+                _pathfinderComp.nodos);
         }
     }
 

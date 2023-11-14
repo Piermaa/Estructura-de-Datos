@@ -5,9 +5,9 @@ using UnityEngine;
 public class GraphAM : IGrafoTDA
 {
     static int n = 100;
-    int[,] MAdy;
-    int[] Etiqs;
-    int cantNodos;
+    public int[,] MAdy;
+    public int[] Etiqs;
+    public int cantNodos;
 
     public void InicializarGrafo()
     {
@@ -46,7 +46,7 @@ public class GraphAM : IGrafoTDA
         cantNodos--;
     }
 
-    private int Vert2Indice(int v)
+    public int Vert2Indice(int v)
     {
         int i = cantNodos - 1;
         while (i >= 0 && Etiqs[i] != v)

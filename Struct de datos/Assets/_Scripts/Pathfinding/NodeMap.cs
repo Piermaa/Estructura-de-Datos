@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class NodeMap : MonoBehaviour
 {
+    public GraphAM LevelMapGraph => nodeGraph;
+
     //----PRIVATE VARS---------
     private List<Node> nodeMap = new List<Node>();
     private GraphAM nodeGraph;
@@ -52,8 +54,6 @@ public class NodeMap : MonoBehaviour
                 nodeGraph.AgregarArista(nodeConnection.origin, nodeConnection.destination, nodeConnection.cost);
             }
         }
-
-        print($"peso total para llegar de nodo 0 a nodo {totalNodes - 1} es de {nodeGraph.PesoCamino(nodeMap)}");
     }
 
     [ContextMenu("/RefreshAllNodeInfo")]
