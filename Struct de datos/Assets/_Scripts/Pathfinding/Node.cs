@@ -1,16 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-//Poner el numero del nodo en Node Number = Ej si es el nodo 4 ponerle 4. (Asi xq No se puede acceder a las propiedades del go :(
+//Asegurarse que el nombre del nodo sea un numero. En NodeMap -> Click Derecho sobre el script -> RefreshAllNodes
 //En Node Connections crear la cantidad de conexiones que tenga el nodo. Si el nodo 4 esta conectado al 3 y el 5, hacer 2 
 //entradas y tirar el objeto del nodo 3 y 5 en el campo de Destination Node. El resto de la info se llena sola a partir de eso.
 
 public class Node : MonoBehaviour, ISerializationCallbackReceiver
 {
     //----PUBLIC PROPERTIES--------
-    public int nodeNumber = 0;
+    public int NodeNumber => nodeNumber;
 
     [Serializable]
     public struct NodeConnection
@@ -23,29 +24,33 @@ public class Node : MonoBehaviour, ISerializationCallbackReceiver
 
     public List<NodeConnection> nodeConnectionData = new List<NodeConnection>();
 
+    //----PRIVATE VARS--------
+    [SerializeField] private int nodeNumber = 0;
+    private TextMeshPro nodeDebugScreenName;
+
     //################ #################
     //----------UNITY EV FUNC-----------
     //################ #################
 
     private void Awake()
     {
-        RetrieveNodeData();
+        RefreshNodeData();
     }
     public void OnBeforeSerialize()
     {
-        RetrieveNodeData();
+        UpdateNodeData();
     }
 
     public void OnAfterDeserialize()
     {
-        RetrieveNodeData();
+        UpdateNodeData();
     }
 
     //################ #################
     //----------CLASS METHODS-----------
     //################ #################
 
-    private void RetrieveNodeData()
+    private void UpdateNodeData()
     {
         connectedNodesList.Clear();
 
@@ -56,18 +61,34 @@ public class Node : MonoBehaviour, ISerializationCallbackReceiver
                 connectedNodesList.Add(nodeConnectionData[i].destinationNode);
 
                 NodeConnection connectionData = new NodeConnection();
-                connectionData.origin = nodeNumber;
+                connectionData.origin = NodeNumber;
                 connectionData.destinationNode = nodeConnectionData[i].destinationNode;
-                connectionData.destination = nodeConnectionData[i].destinationNode.nodeNumber;
+                connectionData.destination = nodeConnectionData[i].destinationNode.NodeNumber;
                 //No tiene sentido que sea otra cosa que 1 para laberinto
                 connectionData.cost = 1;
 
                 nodeConnectionData[i] = connectionData;
             }
-            else print("Destination Node field is empty wacho. Remember to fill in Node Number to this node's number too.");
         }
     }
+    private void ParseNameToNodeNumber()
+    {
+        if (int.TryParse(gameObject.name, out int number))
+        {
+            nodeNumber = number;
+        }
+        else Debug.LogWarning("Node name must be a number");
 
+        nodeDebugScreenName = GetComponentInChildren<TextMeshPro>(true);
+        nodeDebugScreenName.text = nodeNumber.ToString();
+    }
+
+    [ContextMenu("/RefreshNodeInfo")]
+    public void RefreshNodeData()
+    {
+        ParseNameToNodeNumber();
+        UpdateNodeData();
+    }
 
     //################ #################
     //------------DEBUGGING-----------
@@ -75,10 +96,6 @@ public class Node : MonoBehaviour, ISerializationCallbackReceiver
 
     private List<Node> connectedNodesList = new List<Node>();
 
-    private bool Contains(Node node)
-    {
-        return connectedNodesList.Contains(node);
-    }
     private void OnDrawGizmos()
     {
         if (connectedNodesList.Count > 0)
@@ -87,7 +104,7 @@ public class Node : MonoBehaviour, ISerializationCallbackReceiver
             Gizmos.DrawWireSphere(transform.position, 0.5f);
             foreach (var node in connectedNodesList)
             {
-                Gizmos.color = Color.blue; 
+                Gizmos.color = Color.red; 
                 if (node.Contains(this))
                 {
                     Gizmos.color = Color.green;
@@ -95,5 +112,9 @@ public class Node : MonoBehaviour, ISerializationCallbackReceiver
                 Gizmos.DrawLine(transform.position, node.transform.position);
             }
         }
+    }
+    private bool Contains(Node node)
+    {
+        return connectedNodesList.Contains(node);
     }
 }

@@ -9,16 +9,36 @@ public class NodeMap : MonoBehaviour
     private List<Node> nodeMap = new List<Node>();
     private GraphAM nodeGraph;
 
+    [SerializeField] private bool turnOffDebugToolsOnPlay = false;
+
     //################ #################
     //----------UNITY EV FUNC-----------
     //################ #################
     private void Start()
     {
+        LoadNodeMap();
+        UseNodeMapToInitNodeGraph(nodeMap.Count);
+
+        if (turnOffDebugToolsOnPlay == true)
+        {
+            TurnOffDebugTools();
+        }
+    }
+
+    //################ #################
+    //----------CLASS METHODS-----------
+    //################ #################
+    private void LoadNodeMap()
+    {
+        foreach (Node node in GetComponentsInChildren<Node>())
+        {
+            nodeMap.Add(node);
+        }
+    }
+    private void UseNodeMapToInitNodeGraph(int totalNodes)
+    {
         nodeGraph = new GraphAM();
         nodeGraph.InicializarGrafo();
-
-        LoadNodeMap();
-        int totalNodes = nodeMap.Count;
 
         for (int i = 0; i < totalNodes; i++)
         {
@@ -33,16 +53,24 @@ public class NodeMap : MonoBehaviour
             }
         }
 
-        print($"peso total para llegar de nodo 0 a nodo {totalNodes-1} es de {nodeGraph.PesoCamino(nodeMap)}");
+        print($"peso total para llegar de nodo 0 a nodo {totalNodes - 1} es de {nodeGraph.PesoCamino(nodeMap)}");
     }
-    //################ #################
-    //----------CLASS METHODS-----------
-    //################ #################
-    private void LoadNodeMap()
+
+    [ContextMenu("/RefreshAllNodeInfo")]
+    private void RefreshAllNodesInfo()
     {
-        foreach (Node node in GetComponentsInChildren<Node>())
+        LoadNodeMap();
+        foreach (Node node in nodeMap)
         {
-            nodeMap.Add(node);
+            node.RefreshNodeData();
+        }
+    }
+
+    private void TurnOffDebugTools()
+    {
+        foreach (Node node in nodeMap)
+        {
+            node.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 }

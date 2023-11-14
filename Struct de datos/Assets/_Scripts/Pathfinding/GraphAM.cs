@@ -102,13 +102,13 @@ public class GraphAM : IGrafoTDA
         int pesoTotal = 0;
         for (int i = 0; i < nodos.Count - 1; i++)
         {
-            if (ExisteArista(nodos[i].nodeNumber, nodos[i + 1].nodeNumber))
+            if (ExisteArista(nodos[i].NodeNumber, nodos[i + 1].NodeNumber))
             {
-                pesoTotal += PesoArista(nodos[i].nodeNumber, nodos[i + 1].nodeNumber);
+                pesoTotal += PesoArista(nodos[i].NodeNumber, nodos[i + 1].NodeNumber);
             }
             else
             {
-                Debug.LogWarning($"No existe arista entre: {nodos[i].nodeNumber} y {nodos[i + 1].nodeNumber}");
+                Debug.LogWarning($"No existe arista entre: {nodos[i].NodeNumber} y {nodos[i + 1].NodeNumber}");
                 return pesoTotal;
             }
         }
