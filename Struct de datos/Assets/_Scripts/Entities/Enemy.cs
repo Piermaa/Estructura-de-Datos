@@ -101,7 +101,7 @@ public class CanAttackABBCheck : NodoABB
         if (_timerToAttack <= 0)
         {
             var cols = Physics.OverlapSphere(_playerCheckOrigin.position, _radius, _whatIsPlayer);
-
+            //reemplazar por una consulta de distancia
             foreach (var col in cols)
             {
                 if (col.CompareTag("Player"))
@@ -143,6 +143,8 @@ public class ChaseABBTask : NodoABB
     {
         if (!_blackBoard[key])
         {
+            //pregunte si tiene que moverse hacia el nodo al que quiere estar, consultar la distancia (Math.Aprox)
+            //poner una ref al player
             _navMeshAgent.SetDestination(_playerTransform.position);
         }
     }
@@ -164,6 +166,7 @@ public class AttackABBTask : NodoABB
     {
         if (_blackBoard[key])
         {
+            //si agregamos uno de ataque de rango, que consulte con un raycast si le puede impactar
             _player.TakeDamage(_damage);
             _animator.SetTrigger("AttackTrigger");
         }
