@@ -2515,7 +2515,7 @@ GameObject:
   - component: {fileID: 552776735}
   m_Layer: 0
   m_Name: Node Map
-  m_TagString: Untagged
+  m_TagString: NodeMap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

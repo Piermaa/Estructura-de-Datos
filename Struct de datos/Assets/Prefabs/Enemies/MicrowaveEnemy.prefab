@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 7035911164127235410}
   - component: {fileID: 8434876746537000040}
   - component: {fileID: 692468989055599432}
+  - component: {fileID: 8077671812299767263}
   - component: {fileID: 8506627400432463222}
   m_Layer: 0
   m_Name: MicrowaveEnemy
@@ -312,6 +313,20 @@ MonoBehaviour:
     _animator: {fileID: 0}
   _playerTransform: {fileID: 0}
   attackCooldown: 2
+--- !u!114 &8077671812299767263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7035911164127235421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33d9bb2633eafc348a8066a9cb06d590, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 
+  nodos: []
 --- !u!82 &8506627400432463222
 AudioSource:
   m_ObjectHideFlags: 0
