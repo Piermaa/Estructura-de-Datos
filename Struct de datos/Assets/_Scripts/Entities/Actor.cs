@@ -54,14 +54,17 @@ public class Actor : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
-        currentLife -= damage;
-        if (CurrentLife <= 0)
+        if (currentLife>0)
         {
-            Die();
-        }
-        else
-        {
-            TakingDamageFX();
+            currentLife -= damage;
+            if (CurrentLife <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                TakingDamageFX();
+            }
         }
     }
     [ContextMenu("TD")]

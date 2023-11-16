@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 7060355245896082840}
   - component: {fileID: 6137860495421450174}
   - component: {fileID: 4271769832493947129}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: FridgeEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -422,9 +422,9 @@ GameObject:
   - component: {fileID: 7697083232827571287}
   - component: {fileID: 5563492701667428509}
   - component: {fileID: 2268164157768174009}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Heladera
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
