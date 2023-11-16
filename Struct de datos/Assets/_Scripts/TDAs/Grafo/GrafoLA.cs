@@ -18,7 +18,7 @@ using UnityEngine;
         public NodoArista sigArista;
     }
 
-    public class GrafoLA : IGrafoTDA
+    public class GrafoLA 
     {
         NodoGrafo origen;
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,25 +9,9 @@ public class PathfinderComponent : MonoBehaviour
     public int[] distance;
     public string[] nodos;
 
-    private int MinimumDistance(int[] distance, bool[] shortestPathTreeSet, int verticesCount)
-    {
-        int min = int.MaxValue;
-        int minIndex = 0;
-
-        for (int v = 0; v < verticesCount; ++v)
-        {
-            // obtengo siempre el nodo con la menor distancia calculada
-            // solo lo verifico en los nodos que no tienen seteado ya un camino (shortestPathTreeSet[v] == false)
-            if (shortestPathTreeSet[v] == false && distance[v] <= min)
-            {
-                min = distance[v];
-                minIndex = v;
-            }
-        }
-
-        // devuelvo el nodo calculado
-        return minIndex;
-    }
+    //################ #################
+    //----------CLASS METHODS-----------
+    //################ #################
 
     public void Dijkstra(GraphAM grafo, int source)
     {
@@ -90,6 +75,7 @@ public class PathfinderComponent : MonoBehaviour
         // construyo camino de nodos
         nodos = new string[verticesCount];
         int nodOrig = grafo.Etiqs[source];
+
         for (int i = 0; i < verticesCount; i++)
         {
             if (nodos1[i] != -1)
@@ -97,6 +83,7 @@ public class PathfinderComponent : MonoBehaviour
                 List<int> l1 = new List<int>();
                 l1.Add(nodos1[i]);
                 l1.Add(nodos2[i]);
+
                 while (l1[0] != nodOrig)
                 {
                     for (int j = 0; j < verticesCount; j++)
@@ -123,8 +110,10 @@ public class PathfinderComponent : MonoBehaviour
         }
     }
 
-    public void MuestroResultadosAlg(int sourceNode, int[] distance, int verticesCount, int[] Etiqs, string[] caminos)
+    public Node[] GetOptimalPathToTarget(GraphAM graph, int sourceNode, int targetNode, 
+        int[] distance, int verticesCount, int[] Etiqs, string[] path)
     {
+        Node[] optimalPath = new Node[1];
         string distancia = "";
 
         for (int i = 0; i < verticesCount; ++i)
@@ -138,8 +127,50 @@ public class PathfinderComponent : MonoBehaviour
                 distancia = distance[i].ToString();
             }
 
-            print($" Source Node is {sourceNode} Node To Reach: {Etiqs[i]} " +
-                $"Distance from Source Origin {distancia} Optimal Path {caminos[i]}");
+            //De todos los caminos posibles solo parsear el mas optimo al nodo que este setteado como final de camino.
+            if (i == targetNode)
+            {
+                optimalPath = ParsePathToNodes(graph, path[i]);
+                print($" Source Node is {sourceNode} Node To Reach: {Etiqs[i]} " +
+                    $"Distance from Source Origin {distancia} Optimal Path {path[i]}");
+            }
         }
+
+        return optimalPath;
+    }
+
+    private Node[] ParsePathToNodes(GraphAM activeGraph, string path)
+    {
+        List<int> validVertices = path.Split(',').Select(int.Parse).ToList();
+        int pathSize = validVertices.Count;
+
+        Node[] optimalPath = new Node[pathSize];
+
+        for (int i = 0; i < pathSize; i++)
+        {
+            optimalPath[i] = activeGraph.Nodes[validVertices[i]];
+        }
+
+        return optimalPath;
+    }
+
+    private int MinimumDistance(int[] distance, bool[] shortestPathTreeSet, int verticesCount)
+    {
+        int min = int.MaxValue;
+        int minIndex = 0;
+
+        for (int v = 0; v < verticesCount; ++v)
+        {
+            // obtengo siempre el nodo con la menor distancia calculada
+            // solo lo verifico en los nodos que no tienen seteado ya un camino (shortestPathTreeSet[v] == false)
+            if (shortestPathTreeSet[v] == false && distance[v] <= min)
+            {
+                min = distance[v];
+                minIndex = v;
+            }
+        }
+
+        // devuelvo el nodo calculado
+        return minIndex;
     }
 }

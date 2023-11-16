@@ -7,18 +7,22 @@ public class GraphAM : IGrafoTDA
     static int n = 100;
     public int[,] MAdy;
     public int[] Etiqs;
+    public Node[] Nodes;
     public int cantNodos;
 
     public void InicializarGrafo()
     {
         MAdy = new int[n, n];
         Etiqs = new int[n];
+        Nodes = new Node[n];
         cantNodos = 0;
     }
 
-    public void AgregarVertice(int v)
+    public void AgregarVertice(int v, Node node)
     {
         Etiqs[cantNodos] = v;
+        Nodes[cantNodos] = node;
+
         for (int i = 0; i <= cantNodos; i++)
         {
             MAdy[cantNodos, i] = 0;
@@ -43,6 +47,7 @@ public class GraphAM : IGrafoTDA
         }
 
         Etiqs[ind] = Etiqs[cantNodos - 1];
+        Nodes[ind] = Nodes[cantNodos - 1];
         cantNodos--;
     }
 

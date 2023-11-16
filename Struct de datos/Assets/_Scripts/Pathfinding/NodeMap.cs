@@ -44,7 +44,7 @@ public class NodeMap : MonoBehaviour
 
         for (int i = 0; i < totalNodes; i++)
         {
-            nodeGraph.AgregarVertice(i);
+            nodeGraph.AgregarVertice(i, nodeMap[i]);
         }
 
         foreach (Node node in nodeMap)

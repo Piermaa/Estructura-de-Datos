@@ -8,7 +8,7 @@ public class Nodo
     public Nodo sig;
 }
 
-public class GrafoMA : IGrafoTDA
+public class GrafoMA 
 {
     static int n = 100;
     int[,] MAdy;
