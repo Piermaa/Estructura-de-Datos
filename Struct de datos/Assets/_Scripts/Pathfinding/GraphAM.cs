@@ -1,30 +1,28 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Nodo
-{
-    public int info;
-    public Nodo sig;
-}
-
-public class GrafoMA 
+public class GraphAM : IGrafoTDA
 {
     static int n = 100;
-    int[,] MAdy;
-    int[] Etiqs;
-    int cantNodos;
+    public int[,] MAdy;
+    public int[] Etiqs;
+    public Node[] Nodes;
+    public int cantNodos;
 
     public void InicializarGrafo()
     {
         MAdy = new int[n, n];
         Etiqs = new int[n];
+        Nodes = new Node[n];
         cantNodos = 0;
     }
 
-    public void AgregarVertice(int v)
+    public void AgregarVertice(int v, Node node)
     {
         Etiqs[cantNodos] = v;
+        Nodes[cantNodos] = node;
+
         for (int i = 0; i <= cantNodos; i++)
         {
             MAdy[cantNodos, i] = 0;
@@ -49,10 +47,11 @@ public class GrafoMA
         }
 
         Etiqs[ind] = Etiqs[cantNodos - 1];
+        Nodes[ind] = Nodes[cantNodos - 1];
         cantNodos--;
     }
 
-    private int Vert2Indice(int v)
+    public int Vert2Indice(int v)
     {
         int i = cantNodos - 1;
         while (i >= 0 && Etiqs[i] != v)
@@ -103,18 +102,18 @@ public class GrafoMA
         return MAdy[o, d];
     }
 
-    public int PesoCamino(List<Nodo> nodos)
+    public int PesoCamino(List<Node> nodos)
     {
-        int pesoTotal=0;
-        for (int i = 0; i < nodos.Count-1; i++)
+        int pesoTotal = 0;
+        for (int i = 0; i < nodos.Count - 1; i++)
         {
-            if (ExisteArista(nodos[i].info,nodos[i+1].info))
+            if (ExisteArista(nodos[i].NodeNumber, nodos[i + 1].NodeNumber))
             {
-                pesoTotal += PesoArista(nodos[i].info, nodos[i+1].info);
+                pesoTotal += PesoArista(nodos[i].NodeNumber, nodos[i + 1].NodeNumber);
             }
             else
             {
-                Debug.LogWarning($"No existe arista entre: {nodos[i].info} y {nodos[i+1].info}");
+                Debug.LogWarning($"No existe arista entre: {nodos[i].NodeNumber} y {nodos[i + 1].NodeNumber}");
                 return pesoTotal;
             }
         }

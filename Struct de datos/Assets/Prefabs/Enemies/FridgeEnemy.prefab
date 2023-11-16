@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 5385978450162798891}
   - component: {fileID: 5385978450162798888}
   - component: {fileID: 5385978450162798889}
+  - component: {fileID: 7060355245896082840}
   - component: {fileID: 6137860495421450174}
   - component: {fileID: 4271769832493947129}
   m_Layer: 6
@@ -194,6 +195,20 @@ MonoBehaviour:
     _animator: {fileID: 0}
   _playerTransform: {fileID: 0}
   attackCooldown: 2
+--- !u!114 &7060355245896082840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5385978450162798895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33d9bb2633eafc348a8066a9cb06d590, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 
+  nodos: []
 --- !u!95 &6137860495421450174
 Animator:
   serializedVersion: 5

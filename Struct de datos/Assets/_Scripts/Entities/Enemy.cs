@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.AI;
 using Object = System.Object;
@@ -24,6 +25,7 @@ public class Enemy: Actor, IElementoConPrioridad
     private Dictionary<string, bool> _blackBoard=new();
     private WeaponDropper _weaponDropper;
     private NavMeshAgent _navMeshAgent;
+    private GraphAM _levelNodeGraph;
 
   //  private ChaseABBTask chaseAbbTask;
     
@@ -41,6 +43,7 @@ public class Enemy: Actor, IElementoConPrioridad
     protected override void Start()
     {
         base.Start();
+        _levelNodeGraph = GameObject.FindGameObjectWithTag("NodeMap")?.GetComponent<NodeMap>().LevelMapGraph;
 
         _playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
 
@@ -55,7 +58,8 @@ public class Enemy: Actor, IElementoConPrioridad
         // _abb._raiz = _canAttackAbbCheck;
         _abb.AgregarElem(ref _abb.raiz, _canAttackAbbCheck);
 
-        var chaseAbbTask = new ChaseABBTask(_playerTransform, GetComponent<NavMeshAgent>(), Speed, ref _blackBoard);
+        var chaseAbbTask = new ChaseABBTask(_levelNodeGraph, this.gameObject.transform, _playerTransform, 
+            GetComponent<NavMeshAgent>(), GetComponent<PathfinderComponent>(), Speed, ref _blackBoard);
 
         //  _abb._raiz.hijoDer = chaseAbbTask;
         _abb.AgregarElem(ref _abb.raiz, chaseAbbTask);
@@ -101,7 +105,7 @@ public class CanAttackABBCheck : NodoABB
         if (_timerToAttack <= 0)
         {
             var cols = Physics.OverlapSphere(_playerCheckOrigin.position, _radius, _whatIsPlayer);
-            //reemplazar por una consulta de distancia
+
             foreach (var col in cols)
             {
                 if (col.CompareTag("Player"))
@@ -121,17 +125,28 @@ public class ChaseABBTask : NodoABB
 {
     #region Class Properties
 
+    private GraphAM _levelNodeGraph;
+    private Transform _selfTransform;
     private Transform _playerTransform;
     private NavMeshAgent _navMeshAgent;
+    private PathfinderComponent _pathfinderComp;
     private Dictionary<string, bool> _blackBoard;
+    private const int AGGRESSION_RADIUS = 6;
+
+    private float decisionTimer = 0;
+    private const float DECISION_TIME = 1;
 
     #endregion
 
-    public ChaseABBTask(Transform playerTransform, NavMeshAgent nmAgent, float speed, ref Dictionary<string,bool> blackBoard)
+    public ChaseABBTask(GraphAM levelNodeGraph, Transform selfTransform, Transform playerTransform, NavMeshAgent nmAgent, 
+        PathfinderComponent pathfComp, float speed, ref Dictionary<string,bool> blackBoard)
     {
+        _levelNodeGraph = levelNodeGraph;
+        _selfTransform = selfTransform;
         _playerTransform = playerTransform;
         _navMeshAgent = nmAgent;
         _navMeshAgent.speed = speed;
+        _pathfinderComp = pathfComp;
         _blackBoard = blackBoard;
 
         key = "CanAttack";
@@ -143,10 +158,69 @@ public class ChaseABBTask : NodoABB
     {
         if (!_blackBoard[key])
         {
-            //pregunte si tiene que moverse hacia el nodo al que quiere estar, consultar la distancia (Math.Aprox)
-            //poner una ref al player
-            _navMeshAgent.SetDestination(_playerTransform.position);
+            //Cada 1 segundo revalua el camino, no lo hagan updatear todos los frames no sean cabezoides.
+            decisionTimer += Time.deltaTime;
+            if (decisionTimer > DECISION_TIME)
+            {
+                //De entre todos los nodos del mapa, se fija el nodo mas cercano a self para saber de donde sale
+                int sourceNode = GetNodeClosestToTarget(_selfTransform, "Source");
+                //Se fija el nodo mas cercano al objeto que quieras ir (jugador en este caso) para saber a cual nodo tiene que ir
+                int targetNode = GetNodeClosestToTarget(_playerTransform, "Final");
+
+                //Usa Dijkstra para encontrar el conjunto de Nodos que llevan mas rapido a ese nodo
+                _pathfinderComp.Dijkstra(_levelNodeGraph, sourceNode);
+                Node[] optimalPathToTarget = _pathfinderComp.GetOptimalPathToTarget(_levelNodeGraph, sourceNode, targetNode,
+                    _pathfinderComp.distance, _levelNodeGraph.cantNodos, _levelNodeGraph.Etiqs, _pathfinderComp.nodos);
+
+                //Self se va moviendo al proximo nodo de ese camino
+                int nextNodeToMoveTo = 0;
+                if (optimalPathToTarget.Length > 0)
+                    nextNodeToMoveTo = optimalPathToTarget[1].NodeNumber;
+
+                Transform targetPosition = _levelNodeGraph.Nodes[nextNodeToMoveTo].gameObject.transform;
+
+                //Navmesh se encarga del resto por que saludos
+                if (Vector3.Distance(_selfTransform.position, _playerTransform.position) <= AGGRESSION_RADIUS)
+                {
+                    _navMeshAgent.SetDestination(_playerTransform.position);
+                }
+                else _navMeshAgent.SetDestination(targetPosition.position);
+
+                decisionTimer = 0;
+            }
         }
+    }
+
+
+    private int GetNodeClosestToTarget(Transform targetObjectNearNode, string debugMode)
+    {
+        Node[] nodes = _levelNodeGraph.Nodes;
+        int totalNodes = _levelNodeGraph.cantNodos;
+
+        int targetNode = 0;
+        float nearestDistance = float.MaxValue;
+
+        for (int i = 0; i < totalNodes; i++)
+        {
+            float distance = (targetObjectNearNode.position - nodes[i].transform.position).sqrMagnitude;
+
+            if (distance < nearestDistance)
+            {
+                targetNode = i;
+                nearestDistance = distance;
+            }
+        }
+
+        switch (debugMode)
+        {
+            case "Source":
+                Debug.Log("Source node closest to self is " + targetNode + ". Using as origin.");
+                break;
+            case "Final":
+                Debug.Log("Target Node closest to Player is " + targetNode + ". Using as destination.");
+                break;
+        }
+        return targetNode;
     }
 
     #endregion
@@ -166,7 +240,6 @@ public class AttackABBTask : NodoABB
     {
         if (_blackBoard[key])
         {
-            //si agregamos uno de ataque de rango, que consulte con un raycast si le puede impactar
             _player.TakeDamage(_damage);
             _animator.SetTrigger("AttackTrigger");
         }

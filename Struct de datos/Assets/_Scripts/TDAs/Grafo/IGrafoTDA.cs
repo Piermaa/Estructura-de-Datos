@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IGrafoTDA
 {
     void InicializarGrafo();
-    void AgregarVertice(int v);
+    void AgregarVertice(int v, Node node);
     void EliminarVertice(int v);
     IConjuntoTDA Vertices();
     void AgregarArista(int v1, int v2, int peso);

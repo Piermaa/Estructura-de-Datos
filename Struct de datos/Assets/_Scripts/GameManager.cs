@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private string _winScene;
     [SerializeField] private string _gameOverScene;
-    
+
     private void Awake()
     {
         if (Instance==null)
