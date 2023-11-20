@@ -4,6 +4,7 @@ using System.Diagnostics.Tracing;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 using Object = System.Object;
 
 public class Enemy: Actor, IElementoConPrioridad
@@ -53,7 +54,7 @@ public class Enemy: Actor, IElementoConPrioridad
         _abb = new ABB(); //se instancia el arbol
         _abb.InicializarArbol(); // se inicializa
 
-        _canAttackAbbCheck.SetBlackBoard(ref _blackBoard);
+        _canAttackAbbCheck.Initialize(ref _blackBoard, _playerTransform);
 
         // _abb._raiz = _canAttackAbbCheck;
         _abb.AgregarElem(ref _abb.raiz, _canAttackAbbCheck);
@@ -69,7 +70,7 @@ public class Enemy: Actor, IElementoConPrioridad
         _abb.AgregarElem(ref _abb.raiz, _attackTask);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         ABBOrders.preOrder(_abb.raiz);
     }
@@ -85,6 +86,8 @@ public class Enemy: Actor, IElementoConPrioridad
 [System.Serializable]
 public class CanAttackABBCheck : NodoABB
 {
+    [FormerlySerializedAs("player")] [SerializeField] private Transform _player;
+    [SerializeField] private float _distanceToAttackPlayer;
     [SerializeField] private Transform _playerCheckOrigin;
     [SerializeField] private LayerMask _whatIsPlayer;
     [SerializeField] private float _radius;
@@ -92,10 +95,11 @@ public class CanAttackABBCheck : NodoABB
     private float _timerToAttack = 1;
     [SerializeField] private float _cooldownToAttack = 1;
 
-    public void SetBlackBoard(ref Dictionary<string, bool> blackBoard)
+    public void Initialize(ref Dictionary<string, bool> blackBoard, Transform player)
     {
         _blackBoard = blackBoard;
         _blackBoard.Add(key, false);
+        _player = player;
     }
 
     public override void Process()
@@ -104,17 +108,24 @@ public class CanAttackABBCheck : NodoABB
 
         if (_timerToAttack <= 0)
         {
-            var cols = Physics.OverlapSphere(_playerCheckOrigin.position, _radius, _whatIsPlayer);
-
-            foreach (var col in cols)
+            if (Vector3.Distance(_player.position,_playerCheckOrigin.position) < _distanceToAttackPlayer)
             {
-                if (col.CompareTag("Player"))
-                {
-                    _blackBoard[key] = true;
-                    _timerToAttack = _cooldownToAttack;
-                    return;
-                }
+                _blackBoard[key] = true;
+                _timerToAttack = _cooldownToAttack;
+                return;
             }
+
+            // var cols = Physics.OverlapSphere(_playerCheckOrigin.position, _radius, _whatIsPlayer);
+            //
+            // foreach (var col in cols)
+            // {
+            //     if (col.CompareTag("Player"))
+            //     {
+            //         _blackBoard[key] = true;
+            //         _timerToAttack = _cooldownToAttack;
+            //         return;
+            //     }
+            // }
         }
 
         _blackBoard[key] = false;

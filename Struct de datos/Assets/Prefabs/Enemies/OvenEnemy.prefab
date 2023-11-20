@@ -640,6 +640,8 @@ MonoBehaviour:
   _canAttackAbbCheck:
     info: 1
     key: CanAttack
+    _player: {fileID: 0}
+    _distanceToAttackPlayer: 1
     _playerCheckOrigin: {fileID: 8966721827921708719}
     _whatIsPlayer:
       serializedVersion: 2
