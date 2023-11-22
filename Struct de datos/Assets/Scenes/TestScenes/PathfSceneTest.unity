@@ -4808,7 +4808,7 @@ GameObject:
   - component: {fileID: 807695195}
   m_Layer: 7
   m_Name: FrontIndicatorCube
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10829,6 +10829,8 @@ MonoBehaviour:
   _canAttackAbbCheck:
     info: 1
     key: CanAttack
+    _player: {fileID: 0}
+    _distanceToAttackPlayer: 0
     _playerCheckOrigin: {fileID: 214555670844513549}
     _whatIsPlayer:
       serializedVersion: 2

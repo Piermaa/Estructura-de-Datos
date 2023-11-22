@@ -225,10 +225,10 @@ public class ChaseABBTask : NodoABB
         switch (debugMode)
         {
             case "Source":
-                Debug.Log("Source node closest to self is " + targetNode + ". Using as origin.");
+                //Debug.Log("Source node closest to self is " + targetNode + ". Using as origin.");
                 break;
             case "Final":
-                Debug.Log("Target Node closest to Player is " + targetNode + ". Using as destination.");
+                //Debug.Log("Target Node closest to Player is " + targetNode + ". Using as destination.");
                 break;
         }
         return targetNode;
@@ -255,6 +255,7 @@ public class AttackABBTask : NodoABB
             _animator.SetTrigger("AttackTrigger");
         }
     }
+
 
     public void SetParameters(GameObject player, Animator animator, ref Dictionary<string, bool> blackboard, int damage)
     {

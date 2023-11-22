@@ -131,8 +131,8 @@ public class PathfinderComponent : MonoBehaviour
             if (i == targetNode)
             {
                 optimalPath = ParsePathToNodes(graph, path[i]);
-                print($" Source Node is {sourceNode} Node To Reach: {Etiqs[i]} " +
-                    $"Distance from Source Origin {distancia} Optimal Path {path[i]}");
+                //print($" Source Node is {sourceNode} Node To Reach: {Etiqs[i]} " +
+                  //  $"Distance from Source Origin {distancia} Optimal Path {path[i]}");
             }
         }
 
