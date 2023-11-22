@@ -142,10 +142,10 @@ public class ChaseABBTask : NodoABB
     private NavMeshAgent _navMeshAgent;
     private PathfinderComponent _pathfinderComp;
     private Dictionary<string, bool> _blackBoard;
-    private const int AGGRESSION_RADIUS = 6;
+    private const float AGGRESSION_RADIUS = 6.5f;
 
     private float decisionTimer = 0;
-    private const float DECISION_TIME = 1;
+    private const float DECISION_TIME = 0.85f;
 
     #endregion
 
